@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class SignupSecondScreen extends StatelessWidget {
-  static const routeName = "signup_second";
+class SignupJoinScreen extends StatelessWidget {
+  static const routeName = "signup_join";
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +62,7 @@ class SignupSecondScreen extends StatelessWidget {
                       ),
                     ),
                     child: const Text(
-                      '혼자 사용하기',
+                      '연결하기',
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
@@ -77,7 +77,7 @@ class SignupSecondScreen extends StatelessWidget {
                       ),
                     ),
                     child: const Text(
-                      '연결하기',
+                      '혼자 사용하기',
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
