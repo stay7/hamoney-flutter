@@ -8,7 +8,7 @@ import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import './screen/login_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import 'bloc/login_bloc.dart';
+import 'bloc/login/login_bloc.dart';
 
 Future main() async {
   await dotenv.load(fileName: "config/.env");

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hamoney/bloc/login_bloc.dart';
+import 'package:hamoney/bloc/login/login_bloc.dart';
 import 'package:hamoney/screen/home_screen.dart';
 import 'package:hamoney/screen/signup_first_screen.dart';
-import '../bloc/signup_bloc.dart';
+import '../bloc/signup/signup_bloc.dart';
 import '../resource/resource.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

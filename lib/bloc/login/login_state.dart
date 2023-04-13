@@ -15,6 +15,12 @@ class LoginSuccess extends LoginState {
   final String email;
 }
 
+class LoginExisted extends LoginState {
+  LoginExisted(this.email);
+
+  final String email;
+}
+
 class LoginError extends LoginState {
   LoginError();
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hamoney/screen/signup_second_screen.dart';
 
-import '../bloc/signup_bloc.dart';
+import '../bloc/signup/signup_bloc.dart';
 
 class SignupScreen extends StatelessWidget {
   SignupScreen(this.email);

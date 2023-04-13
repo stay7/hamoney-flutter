@@ -1,10 +1,10 @@
-import 'package:dio/dio.dart';
 import 'package:hamoney/client/auth_client.dart';
 import 'package:hamoney/secure_storage.dart';
 
-import '../base_response.dart';
-import '../domain/oauth_token.dart';
-import '../domain/user.dart';
+import '../model/oauth_request.dart';
+import '../model/oauth_token.dart';
+import '../model/signup_request.dart';
+import '../model/user.dart';
 
 class AuthRepository {
   AuthRepository({required this.authClient});
@@ -14,7 +14,7 @@ class AuthRepository {
   OAuthToken? _oauthTokens;
 
   Future<User> signup(String email, String nickname) async {
-    final response = await authClient.signup(SignupRequest(nickname, email, _signupToken!));
+    final response = await authClient.signup(SignupRequest(nickname: nickname, email: email, token: _signupToken!));
     _oauthTokens = OAuthToken(
       accessToken: response.data.data.accessToken,
       refreshToken: response.data.data.refreshToken,
@@ -28,7 +28,7 @@ class AuthRepository {
   }
 
   Future<OAuthToken> issueToken(String email) async {
-    final response = await authClient.issueToken(OAuthRequest(email, _signupToken!));
+    final response = await authClient.issueToken(OAuthRequest(email: email, token: _signupToken!));
     _oauthTokens = response.data.data;
     _saveOAuthTokens(_oauthTokens!.accessToken, _oauthTokens!.refreshToken);
     return _oauthTokens!;
