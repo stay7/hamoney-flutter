@@ -1,11 +1,14 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hamoney/client/auth_client.dart';
 import 'package:hamoney/hamoney_route.dart';
+import 'package:hamoney/repository/signup_repository.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import './screen/login_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-import 'login/bloc/login_bloc.dart';
+import 'bloc/login_bloc.dart';
 
 Future main() async {
   await dotenv.load(fileName: "config/.env");
@@ -18,22 +21,27 @@ class HamoneyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'HAMONEY',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      builder: (context, child) => MediaQuery(
-        data: MediaQueryData.fromWindow(
-          WidgetsBinding.instance.window,
-        ).copyWith(
-          boldText: false,
-          textScaleFactor: 1.0,
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<AuthRepository>(create: (context) => AuthRepository(authClient: AuthClient(Dio()))),
+      ],
+      child: MaterialApp(
+        title: 'HAMONEY',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
         ),
-        child: child!,
+        builder: (context, child) => MediaQuery(
+          data: MediaQueryData.fromWindow(
+            WidgetsBinding.instance.window,
+          ).copyWith(
+            boldText: false,
+            textScaleFactor: 1.0,
+          ),
+          child: child!,
+        ),
+        initialRoute: LoginScreen.routeName,
+        onGenerateRoute: (settings) => HamoneyRoute.onGenerateRoute(settings),
       ),
-      initialRoute: LoginScreen.routeName,
-      onGenerateRoute: (settings) => HamoneyRoute.onGenerateRoute(settings),
     );
   }
 }

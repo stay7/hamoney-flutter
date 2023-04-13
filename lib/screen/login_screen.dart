@@ -1,9 +1,9 @@
-import 'package:fk_user_agent/fk_user_agent.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:hamoney/login/bloc/login_bloc.dart';
+import 'package:hamoney/bloc/login_bloc.dart';
+import 'package:hamoney/screen/home_screen.dart';
 import 'package:hamoney/screen/signup_first_screen.dart';
+import '../bloc/signup_bloc.dart';
 import '../resource/resource.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,6 +22,12 @@ class LoginScreen extends StatelessWidget {
           navigator.pushReplacementNamed(
             SignupScreen.routeName,
             arguments: SignupScreenArgument(state.email),
+          );
+        } else if (state is LoginExisted) {
+          context.read<SignupBloc>().add(OAuthTokenRequested(email: state.email));
+          navigator.pushReplacementNamed(
+            HomeScreen.routeName,
+            arguments: HomeScreen(),
           );
         }
       },

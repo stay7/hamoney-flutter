@@ -12,19 +12,28 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_svg: ^2.0.4
   flutter_dotenv: ^5.0.2
-  kakao_flutter_sdk_user: ^1.4.1 # 카카오 로그인
+  kakao_flutter_sdk_user: '>=1.4.1 <2.0.0' # 카카오 로그인
   flutter_bloc: ^8.1.2
-  url_launcher: ^6.1.10
+  url_launcher: '>=6.1.10 <7.0.0'
   dio: ^4.0.6 # kakao_flutter_sdk이 이 버전을 의존하고 있다
   flutter_inappwebview: ^5.7.2+3
   fk_user_agent: ^2.1.0
   flutter_web_auth_2: ^2.1.2
   sign_in_with_apple: ^4.3.0
+  freezed_annotation: ^2.2.0
+  json_annotation: ^4.8.0
+  retrofit: '>=3.0.0 <4.0.0'
+  flutter_secure_storage: ^8.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+  build_runner: '>=2.3.0 <4.0.0'
+  freezed: ^2.3.2
+  json_serializable: ^6.6.1
+  retrofit_generator: '>=4.0.0 <5.0.0'
+
 
 flutter:
   uses-material-design: true

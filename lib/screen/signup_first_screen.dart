@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hamoney/screen/signup_second_screen.dart';
 
+import '../bloc/signup_bloc.dart';
+
 class SignupScreen extends StatelessWidget {
   SignupScreen(this.email);
 
   final String email;
+  final _nicknameController = TextEditingController();
 
   static const routeName = "signup";
 
@@ -42,13 +45,14 @@ class SignupScreen extends StatelessWidget {
                       ),
                     ),
                     TextFormField(
-                      decoration: InputDecoration(labelText: "이메일"),
+                      decoration: const InputDecoration(labelText: "이메일"),
                       initialValue: email,
                       readOnly: true,
                       enabled: false,
                     ),
                     TextFormField(
-                      decoration: InputDecoration(labelText: "닉네임", hintText: "닉네임을 입력해주세요"),
+                      decoration: const InputDecoration(labelText: "닉네임", hintText: "닉네임을 입력해주세요"),
+                      controller: _nicknameController,
                     )
                   ],
                 ),
@@ -61,13 +65,14 @@ class SignupScreen extends StatelessWidget {
           child: Container(
             width: double.infinity,
             height: 50,
-            margin: EdgeInsets.only(bottom: 17),
+            margin: const EdgeInsets.only(bottom: 17),
             child: ElevatedButton(
               onPressed: () {
+                context.read<SignupBloc>().add(SignupRequested(email: email, nickname: _nicknameController.text));
                 navigator.pushNamed(SignupJoinScreen.routeName);
               },
               style: ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll<Color>(Colors.black),
+                backgroundColor: const MaterialStatePropertyAll<Color>(Colors.black),
                 shape: MaterialStateProperty.all(
                   RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                 ),
