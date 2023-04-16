@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hamoney/bloc/login/login_bloc.dart';
 import 'package:hamoney/repository/auth_repository.dart';
+import 'package:hamoney/repository/user_repository.dart';
 import 'package:hamoney/screen/home_screen.dart';
 import 'package:hamoney/screen/login_screen.dart';
 import 'package:hamoney/screen/signup_first_screen.dart';
@@ -21,7 +22,10 @@ abstract class HamoneyRoute {
               create: (context) => LoginBloc(authRepository: context.read<AuthRepository>()),
             ),
             BlocProvider<SignupBloc>(
-              create: (context) => SignupBloc(authRepository: context.read<AuthRepository>()),
+              create: (context) => SignupBloc(
+                authRepository: context.read<AuthRepository>(),
+                userRepository: context.read<UserRepository>(),
+              ),
             ),
           ],
           child: const LoginScreen(),
@@ -30,7 +34,10 @@ abstract class HamoneyRoute {
       case SignupScreen.routeName:
         final argument = settings.arguments as SignupScreenArgument;
         screen = BlocProvider(
-          create: (context) => SignupBloc(authRepository: context.read<AuthRepository>()),
+          create: (context) => SignupBloc(
+            authRepository: context.read<AuthRepository>(),
+            userRepository: context.read<UserRepository>(),
+          ),
           child: SignupScreen(argument.email),
         );
         break;

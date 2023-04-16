@@ -34,9 +34,10 @@ class AuthRepository {
   }
 
   Future<OAuthToken> issueToken(String email) async {
-    logger.info('issueToken $email');
+    logger.info('issueToken $email, $_signupToken');
 
     final response = await authClient.issueToken(OAuthRequest(email: email, token: _signupToken!));
+    logger.info(response);
     _oauthTokens = response.data;
     _saveOAuthTokens(_oauthTokens!.accessToken, _oauthTokens!.refreshToken);
     return _oauthTokens!;

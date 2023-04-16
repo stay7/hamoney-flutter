@@ -2,8 +2,11 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hamoney/client/auth_client.dart';
+import 'package:hamoney/dio/dioUtil.dart';
 import 'package:hamoney/hamoney_route.dart';
 import 'package:hamoney/repository/auth_repository.dart';
+import 'package:hamoney/repository/user_repository.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:logging/logging.dart';
 import './screen/login_screen.dart';
@@ -16,6 +19,7 @@ Future main() async {
   Logger.root.onRecord.listen((record) {
     print('${record.level.name}: ${record.time}: ${record.message}');
   });
+  await initializeDateFormatting();
   runApp(const HamoneyApp());
 }
 
@@ -26,7 +30,14 @@ class HamoneyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
       providers: [
-        RepositoryProvider<AuthRepository>(create: (context) => AuthRepository(authClient: AuthClient(Dio()))),
+        RepositoryProvider<AuthRepository>(
+          create: (context) => AuthRepository(
+            authClient: AuthClient(
+              DioUtil().pureDio,
+            ),
+          ),
+        ),
+        RepositoryProvider<UserRepository>(create: (context) => UserRepository()),
       ],
       child: MaterialApp(
         title: 'HAMONEY',
