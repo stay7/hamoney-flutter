@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_web_auth_2/flutter_web_auth_2.dart';
-import 'package:hamoney/repository/signup_repository.dart';
+import 'package:hamoney/repository/auth_repository.dart';
 import 'package:hamoney/secure_storage.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:meta/meta.dart';

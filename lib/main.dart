@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hamoney/client/auth_client.dart';
 import 'package:hamoney/hamoney_route.dart';
-import 'package:hamoney/repository/signup_repository.dart';
+import 'package:hamoney/repository/auth_repository.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:logging/logging.dart';
 import './screen/login_screen.dart';

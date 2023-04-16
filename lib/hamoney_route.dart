@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hamoney/bloc/login/login_bloc.dart';
-import 'package:hamoney/repository/signup_repository.dart';
+import 'package:hamoney/repository/auth_repository.dart';
 import 'package:hamoney/screen/home_screen.dart';
 import 'package:hamoney/screen/login_screen.dart';
 import 'package:hamoney/screen/signup_first_screen.dart';

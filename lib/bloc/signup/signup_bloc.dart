@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:hamoney/repository/signup_repository.dart';
+import 'package:hamoney/repository/auth_repository.dart';
 import 'package:meta/meta.dart';
 
 part 'signup_event.dart';
