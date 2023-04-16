@@ -6,8 +6,10 @@ import 'package:flutter_web_auth_2/flutter_web_auth_2.dart';
 import 'package:hamoney/repository/signup_repository.dart';
 import 'package:hamoney/secure_storage.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+import 'package:meta/meta.dart';
 
 part 'login_event.dart';
+
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
@@ -22,14 +24,19 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   FutureOr<void> _onKakaoTokenRequested(LoginEvent event, Emitter<LoginState> emit) async {
     emit(LoginLoading());
 
-    final result = await FlutterWebAuth2.authenticate(url: dotenv.env['KAKAO_AUTH_URL']!, callbackUrlScheme: "hamoney");
+    final result = await FlutterWebAuth2.authenticate(url: dotenv.env['KAKAO_AUTH_URL']!, callbackUrlScheme: "hamoney")
+        .then((value) => value.split("://")[1]);
 
     final storage = SecureStorage().storage;
-    final email = parseEmailFromAppScheme(result);
+    final methodAndParams = result.split("?");
+    print(methodAndParams);
+    final email = methodAndParams[1].split("=")[1];
+    final signupToken = methodAndParams[2].split("=")[1];
+    authRepository.setSignupToken = signupToken;
     storage.write(key: SecureStorageKey.email, value: email);
-    storage.write(key: SecureStorageKey.token, value: parseTokensFromAppScheme(result));
+    storage.write(key: SecureStorageKey.token, value: signupToken);
 
-    switch (parseResultFromAppScheme(result)) {
+    switch (methodAndParams[0]) {
       case "success":
         emit(LoginSuccess(email));
         break;

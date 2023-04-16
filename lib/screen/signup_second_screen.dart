@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hamoney/screen/home_screen.dart';
 
 class SignupJoinScreen extends StatelessWidget {
   static const routeName = "signup_join";
@@ -69,7 +70,9 @@ class SignupJoinScreen extends StatelessWidget {
                 ),
                 Expanded(
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushNamedAndRemoveUntil(HomeScreen.routeName, (route) => false);
+                    },
                     style: ButtonStyle(
                       backgroundColor: MaterialStatePropertyAll<Color>(Colors.black),
                       shape: MaterialStateProperty.all(

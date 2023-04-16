@@ -1,5 +1,6 @@
 import 'package:hamoney/client/auth_client.dart';
 import 'package:hamoney/secure_storage.dart';
+import 'package:logging/logging.dart';
 
 import '../model/oauth_request.dart';
 import '../model/oauth_token.dart';
@@ -12,24 +13,31 @@ class AuthRepository {
   final AuthClient authClient;
   String? _signupToken;
   OAuthToken? _oauthTokens;
+  Logger logger = Logger('AuthRepository');
 
   Future<User> signup(String email, String nickname) async {
-    final response = await authClient.signup(SignupRequest(nickname: nickname, email: email, token: _signupToken!));
+    logger.info('signup $email, $nickname');
+
+    final request = SignupRequest(nickname: nickname, email: email, token: _signupToken!);
+    final response = await authClient.signup(request);
+
     _oauthTokens = OAuthToken(
-      accessToken: response.data.data.accessToken,
-      refreshToken: response.data.data.refreshToken,
+      accessToken: response.data.accessToken,
+      refreshToken: response.data.refreshToken,
     );
 
     return User(
-      id: response.data.data.id,
-      email: response.data.data.email,
-      nickname: response.data.data.nickname,
+      id: response.data.id,
+      email: response.data.email,
+      nickname: response.data.nickname,
     );
   }
 
   Future<OAuthToken> issueToken(String email) async {
+    logger.info('issueToken $email');
+
     final response = await authClient.issueToken(OAuthRequest(email: email, token: _signupToken!));
-    _oauthTokens = response.data.data;
+    _oauthTokens = response.data;
     _saveOAuthTokens(_oauthTokens!.accessToken, _oauthTokens!.refreshToken);
     return _oauthTokens!;
   }

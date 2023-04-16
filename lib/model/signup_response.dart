@@ -1,11 +1,15 @@
+import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'signup_response.g.dart';
 part 'signup_response.freezed.dart';
+
+part 'signup_response.g.dart';
 
 @freezed
 class SignupResponse with _$SignupResponse {
-  factory SignupResponse({
+  const factory SignupResponse({
+    String? message,
+    required int status,
     required String id,
     required String email,
     required String nickname,
@@ -13,5 +17,5 @@ class SignupResponse with _$SignupResponse {
     required String refreshToken,
   }) = _SignupResponse;
 
-  factory SignupResponse.fromJson(Map<String, Object?> json) => _$SignupResponseFromJson(json);
+  factory SignupResponse.fromJson(Map<String, dynamic> json) => _$SignupResponseFromJson(json);
 }

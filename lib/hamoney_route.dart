@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hamoney/bloc/login/login_bloc.dart';
 import 'package:hamoney/repository/signup_repository.dart';
+import 'package:hamoney/screen/home_screen.dart';
 import 'package:hamoney/screen/login_screen.dart';
 import 'package:hamoney/screen/signup_first_screen.dart';
 import 'package:hamoney/screen/signup_second_screen.dart';
@@ -14,8 +15,15 @@ abstract class HamoneyRoute {
 
     switch (settings.name) {
       case LoginScreen.routeName:
-        screen = BlocProvider(
-          create: (context) => LoginBloc(authRepository: context.read<AuthRepository>()),
+        screen = MultiBlocProvider(
+          providers: [
+            BlocProvider<LoginBloc>(
+              create: (context) => LoginBloc(authRepository: context.read<AuthRepository>()),
+            ),
+            BlocProvider<SignupBloc>(
+              create: (context) => SignupBloc(authRepository: context.read<AuthRepository>()),
+            ),
+          ],
           child: const LoginScreen(),
         );
         break;
@@ -28,6 +36,9 @@ abstract class HamoneyRoute {
         break;
       case SignupJoinScreen.routeName:
         screen = SignupJoinScreen();
+        break;
+      case HomeScreen.routeName:
+        screen = HomeScreen();
         break;
     }
     return MaterialPageRoute(settings: settings, builder: (context) => screen);

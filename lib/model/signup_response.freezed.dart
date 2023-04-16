@@ -20,6 +20,8 @@ SignupResponse _$SignupResponseFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$SignupResponse {
+  String? get message => throw _privateConstructorUsedError;
+  int get status => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get nickname => throw _privateConstructorUsedError;
@@ -39,7 +41,9 @@ abstract class $SignupResponseCopyWith<$Res> {
       _$SignupResponseCopyWithImpl<$Res, SignupResponse>;
   @useResult
   $Res call(
-      {String id,
+      {String? message,
+      int status,
+      String id,
       String email,
       String nickname,
       String accessToken,
@@ -59,6 +63,8 @@ class _$SignupResponseCopyWithImpl<$Res, $Val extends SignupResponse>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? message = freezed,
+    Object? status = null,
     Object? id = null,
     Object? email = null,
     Object? nickname = null,
@@ -66,6 +72,14 @@ class _$SignupResponseCopyWithImpl<$Res, $Val extends SignupResponse>
     Object? refreshToken = null,
   }) {
     return _then(_value.copyWith(
+      message: freezed == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as int,
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -99,7 +113,9 @@ abstract class _$$_SignupResponseCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String id,
+      {String? message,
+      int status,
+      String id,
       String email,
       String nickname,
       String accessToken,
@@ -117,6 +133,8 @@ class __$$_SignupResponseCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? message = freezed,
+    Object? status = null,
     Object? id = null,
     Object? email = null,
     Object? nickname = null,
@@ -124,6 +142,14 @@ class __$$_SignupResponseCopyWithImpl<$Res>
     Object? refreshToken = null,
   }) {
     return _then(_$_SignupResponse(
+      message: freezed == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String?,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as int,
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -150,9 +176,13 @@ class __$$_SignupResponseCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_SignupResponse implements _SignupResponse {
-  _$_SignupResponse(
-      {required this.id,
+class _$_SignupResponse
+    with DiagnosticableTreeMixin
+    implements _SignupResponse {
+  const _$_SignupResponse(
+      {this.message,
+      required this.status,
+      required this.id,
       required this.email,
       required this.nickname,
       required this.accessToken,
@@ -161,6 +191,10 @@ class _$_SignupResponse implements _SignupResponse {
   factory _$_SignupResponse.fromJson(Map<String, dynamic> json) =>
       _$$_SignupResponseFromJson(json);
 
+  @override
+  final String? message;
+  @override
+  final int status;
   @override
   final String id;
   @override
@@ -173,8 +207,22 @@ class _$_SignupResponse implements _SignupResponse {
   final String refreshToken;
 
   @override
-  String toString() {
-    return 'SignupResponse(id: $id, email: $email, nickname: $nickname, accessToken: $accessToken, refreshToken: $refreshToken)';
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'SignupResponse(message: $message, status: $status, id: $id, email: $email, nickname: $nickname, accessToken: $accessToken, refreshToken: $refreshToken)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'SignupResponse'))
+      ..add(DiagnosticsProperty('message', message))
+      ..add(DiagnosticsProperty('status', status))
+      ..add(DiagnosticsProperty('id', id))
+      ..add(DiagnosticsProperty('email', email))
+      ..add(DiagnosticsProperty('nickname', nickname))
+      ..add(DiagnosticsProperty('accessToken', accessToken))
+      ..add(DiagnosticsProperty('refreshToken', refreshToken));
   }
 
   @override
@@ -182,6 +230,8 @@ class _$_SignupResponse implements _SignupResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SignupResponse &&
+            (identical(other.message, message) || other.message == message) &&
+            (identical(other.status, status) || other.status == status) &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.nickname, nickname) ||
@@ -194,8 +244,8 @@ class _$_SignupResponse implements _SignupResponse {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, email, nickname, accessToken, refreshToken);
+  int get hashCode => Object.hash(runtimeType, message, status, id, email,
+      nickname, accessToken, refreshToken);
 
   @JsonKey(ignore: true)
   @override
@@ -212,8 +262,10 @@ class _$_SignupResponse implements _SignupResponse {
 }
 
 abstract class _SignupResponse implements SignupResponse {
-  factory _SignupResponse(
-      {required final String id,
+  const factory _SignupResponse(
+      {final String? message,
+      required final int status,
+      required final String id,
       required final String email,
       required final String nickname,
       required final String accessToken,
@@ -222,6 +274,10 @@ abstract class _SignupResponse implements SignupResponse {
   factory _SignupResponse.fromJson(Map<String, dynamic> json) =
       _$_SignupResponse.fromJson;
 
+  @override
+  String? get message;
+  @override
+  int get status;
   @override
   String get id;
   @override

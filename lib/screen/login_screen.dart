@@ -25,10 +25,7 @@ class LoginScreen extends StatelessWidget {
           );
         } else if (state is LoginExisted) {
           context.read<SignupBloc>().add(OAuthTokenRequested(email: state.email));
-          navigator.pushReplacementNamed(
-            HomeScreen.routeName,
-            arguments: HomeScreen(),
-          );
+          navigator.pushReplacementNamed(HomeScreen.routeName);
         }
       },
       child: Scaffold(

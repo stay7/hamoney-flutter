@@ -5,6 +5,7 @@ import 'package:hamoney/repository/signup_repository.dart';
 import 'package:meta/meta.dart';
 
 part 'signup_event.dart';
+
 part 'signup_state.dart';
 
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
@@ -21,6 +22,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   }
 
   FutureOr<void> _onOAuthTokenRequested(OAuthTokenRequested event, Emitter<SignupState> emit) async {
+    print('request issueToken ${event.email}');
     await authRepository.issueToken(event.email);
   }
 }

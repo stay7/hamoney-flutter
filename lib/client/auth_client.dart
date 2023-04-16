@@ -3,7 +3,6 @@ import 'package:hamoney/hamoney_config.dart';
 import 'package:hamoney/model/oauth_token.dart';
 import 'package:retrofit/retrofit.dart';
 
-import '../base_response.dart';
 import '../model/oauth_request.dart';
 import '../model/signup_request.dart';
 import '../model/signup_response.dart';
@@ -15,8 +14,8 @@ abstract class AuthClient {
   factory AuthClient(Dio dio, {String? baseUrl}) = _AuthClient;
 
   @POST('/signup')
-  Future<HttpResponse<BaseResponse<SignupResponse>>> signup(@Body() SignupRequest signupRequest);
+  Future<HttpResponse<SignupResponse>> signup(@Body() SignupRequest signupRequest);
 
   @POST('/oauth/issue')
-  Future<HttpResponse<BaseResponse<OAuthToken>>> issueToken(@Body() OAuthRequest oAuthRequest);
+  Future<HttpResponse<OAuthToken>> issueToken(@Body() OAuthRequest oAuthRequest);
 }

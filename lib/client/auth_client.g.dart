@@ -21,15 +21,14 @@ class _AuthClient implements AuthClient {
   String? baseUrl;
 
   @override
-  Future<HttpResponse<BaseResponse<SignupResponse>>> signup(
-      signupRequest) async {
+  Future<HttpResponse<SignupResponse>> signup(signupRequest) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(signupRequest.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<BaseResponse<SignupResponse>>>(Options(
+        _setStreamType<HttpResponse<SignupResponse>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -41,24 +40,20 @@ class _AuthClient implements AuthClient {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = BaseResponse<SignupResponse>.fromJson(
-      _result.data!,
-      (json) => SignupResponse.fromJson(json as Map<String, dynamic>),
-    );
+    final value = SignupResponse.fromJson(_result.data!);
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }
 
   @override
-  Future<HttpResponse<BaseResponse<OAuthToken>>> issueToken(
-      oAuthRequest) async {
+  Future<HttpResponse<OAuthToken>> issueToken(oAuthRequest) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(oAuthRequest.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<BaseResponse<OAuthToken>>>(Options(
+        _setStreamType<HttpResponse<OAuthToken>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -70,10 +65,7 @@ class _AuthClient implements AuthClient {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = BaseResponse<OAuthToken>.fromJson(
-      _result.data!,
-      (json) => OAuthToken.fromJson(json as Map<String, dynamic>),
-    );
+    final value = OAuthToken.fromJson(_result.data!);
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }
