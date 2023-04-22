@@ -8,6 +8,7 @@ import 'package:hamoney/screen/login_screen.dart';
 import 'package:hamoney/screen/signup_first_screen.dart';
 import 'package:hamoney/screen/signup_second_screen.dart';
 
+import 'bloc/home/home_bloc.dart';
 import 'bloc/signup/signup_bloc.dart';
 
 abstract class HamoneyRoute {
@@ -45,7 +46,10 @@ abstract class HamoneyRoute {
         screen = SignupJoinScreen();
         break;
       case HomeScreen.routeName:
-        screen = HomeScreen();
+        screen = BlocProvider(
+          create: (context) => HomeBloc(),
+          child: HomeScreen(),
+        );
         break;
     }
     return MaterialPageRoute(settings: settings, builder: (context) => screen);

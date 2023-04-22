@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hamoney/client/auth_client.dart';
@@ -12,6 +11,8 @@ import 'package:logging/logging.dart';
 import './screen/login_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import 'bloc/bloc_observer.dart';
+
 Future main() async {
   await dotenv.load(fileName: "config/.env");
   KakaoSdk.init(nativeAppKey: dotenv.env['KAKAO_NATIVE_APP_KEY']);
@@ -20,6 +21,7 @@ Future main() async {
     print('${record.level.name}: ${record.time}: ${record.message}');
   });
   await initializeDateFormatting();
+  Bloc.observer = Observer();
   runApp(const HamoneyApp());
 }
 
@@ -42,7 +44,10 @@ class HamoneyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'HAMONEY',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.grey,
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          hoverColor: Colors.transparent,
         ),
         builder: (context, child) => MediaQuery(
           data: MediaQueryData.fromWindow(
