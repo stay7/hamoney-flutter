@@ -3,9 +3,9 @@ import 'package:hamoney/hamoney_config.dart';
 import 'package:hamoney/model/oauth_token.dart';
 import 'package:retrofit/retrofit.dart';
 
-import '../model/oauth_request.dart';
-import '../model/signup_request.dart';
-import '../model/signup_response.dart';
+import '../../model/oauth_request.dart';
+import '../../model/signup_request.dart';
+import '../../model/signup_response.dart';
 
 part 'auth_client.g.dart';
 
@@ -18,4 +18,7 @@ abstract class AuthClient {
 
   @POST('/oauth/issue')
   Future<HttpResponse<OAuthToken>> issueToken(@Body() OAuthRequest oAuthRequest);
+
+  @GET('/oauth/refresh')
+  Future<HttpResponse<OAuthToken>> refresh(@Query('refresh_token') String refreshToken);
 }

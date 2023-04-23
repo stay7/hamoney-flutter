@@ -11,7 +11,6 @@ part 'signup_state.dart';
 
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
   SignupBloc({required this.authRepository, required this.userRepository}) : super(SignupInitial()) {
-    print('SignupBloc created');
     on<SignupRequested>(_onSignupRequested);
     on<OAuthTokenRequested>(_onOAuthTokenRequested);
   }

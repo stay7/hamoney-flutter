@@ -1,4 +1,5 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:hamoney/model/oauth_token.dart';
 
 class SecureStorage {
   SecureStorage._internal() {
@@ -12,6 +13,11 @@ class SecureStorage {
   }
 
   late final FlutterSecureStorage storage;
+
+  Future<void> saveOAuthToken(OAuthToken oAuthToken) async {
+    storage.write(key: SecureStorageKey.accessToken, value: oAuthToken.accessToken);
+    storage.write(key: SecureStorageKey.refreshToken, value: oAuthToken.refreshToken);
+  }
 }
 
 class SecureStorageKey {

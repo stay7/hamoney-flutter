@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hamoney/bloc/login/login_bloc.dart';
+import 'package:hamoney/bloc/signup/signup_join_bloc.dart';
+import 'package:hamoney/repository/account_book_repository.dart';
 import 'package:hamoney/repository/auth_repository.dart';
 import 'package:hamoney/repository/user_repository.dart';
 import 'package:hamoney/screen/home_screen.dart';
@@ -43,7 +45,12 @@ abstract class HamoneyRoute {
         );
         break;
       case SignupJoinScreen.routeName:
-        screen = SignupJoinScreen();
+        screen = BlocProvider(
+          create: (context) => SignupJoinBloc(
+            accountBookRepository: context.read<AccountBookRepository>(),
+          ),
+          child: SignupJoinScreen(),
+        );
         break;
       case HomeScreen.routeName:
         screen = BlocProvider(

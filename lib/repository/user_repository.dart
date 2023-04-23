@@ -1,4 +1,4 @@
-import 'package:logging/logging.dart';
+import 'package:logger/logger.dart';
 
 import '../model/user.dart';
 
@@ -6,7 +6,7 @@ class UserRepository {
   UserRepository();
 
   late User _user;
-  Logger logger = Logger('UserRepository');
+  Logger logger = Logger();
 
   set setUser(User value) => _user = value;
 

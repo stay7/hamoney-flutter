@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hamoney/client/auth_client.dart';
+import 'package:hamoney/repository/account_book_repository.dart';
+import 'package:hamoney/repository/client/account_book_client.dart';
+import 'package:hamoney/repository/client/auth_client.dart';
 import 'package:hamoney/dio/dioUtil.dart';
 import 'package:hamoney/hamoney_route.dart';
 import 'package:hamoney/repository/auth_repository.dart';
 import 'package:hamoney/repository/user_repository.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
-import 'package:logging/logging.dart';
+import 'package:logger/logger.dart';
 import './screen/login_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -16,10 +18,7 @@ import 'bloc/bloc_observer.dart';
 Future main() async {
   await dotenv.load(fileName: "config/.env");
   KakaoSdk.init(nativeAppKey: dotenv.env['KAKAO_NATIVE_APP_KEY']);
-  Logger.root.level = Level.INFO;
-  Logger.root.onRecord.listen((record) {
-    print('${record.level.name}: ${record.time}: ${record.message}');
-  });
+  Logger.level = Level.info;
   await initializeDateFormatting();
   Bloc.observer = Observer();
   runApp(const HamoneyApp());
@@ -40,6 +39,13 @@ class HamoneyApp extends StatelessWidget {
           ),
         ),
         RepositoryProvider<UserRepository>(create: (context) => UserRepository()),
+        RepositoryProvider<AccountBookRepository>(
+          create: (context) => AccountBookRepository(
+            accountBookClient: AccountBookClient(
+                DioUtil().authorizedDio
+            ),
+          ),
+        )
       ],
       child: MaterialApp(
         title: 'HAMONEY',

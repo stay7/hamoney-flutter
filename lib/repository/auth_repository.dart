@@ -1,6 +1,7 @@
-import 'package:hamoney/client/auth_client.dart';
+import 'package:hamoney/dio/dioUtil.dart';
+import 'package:hamoney/repository/client/auth_client.dart';
 import 'package:hamoney/secure_storage.dart';
-import 'package:logging/logging.dart';
+import 'package:logger/logger.dart';
 
 import '../model/oauth_request.dart';
 import '../model/oauth_token.dart';
@@ -13,10 +14,10 @@ class AuthRepository {
   final AuthClient authClient;
   String? _signupToken;
   OAuthToken? _oauthTokens;
-  Logger logger = Logger('AuthRepository');
+  Logger logger = Logger();
 
   Future<User> signup(String email, String nickname) async {
-    logger.info('signup $email, $nickname');
+    logger.i('signup $email, $nickname');
 
     final request = SignupRequest(nickname: nickname, email: email, token: _signupToken!);
     final response = await authClient.signup(request);
@@ -25,6 +26,8 @@ class AuthRepository {
       accessToken: response.data.accessToken,
       refreshToken: response.data.refreshToken,
     );
+    SecureStorage().saveOAuthToken(_oauthTokens!);
+    DioUtil().initAuthorizedDio();
 
     return User(
       id: response.data.id,
@@ -34,18 +37,14 @@ class AuthRepository {
   }
 
   Future<OAuthToken> issueToken(String email) async {
-    logger.info('issueToken $email, $_signupToken');
+    logger.i('issueToken $email, $_signupToken');
 
     final response = await authClient.issueToken(OAuthRequest(email: email, token: _signupToken!));
-    logger.info(response);
+    logger.i(response);
     _oauthTokens = response.data;
-    _saveOAuthTokens(_oauthTokens!.accessToken, _oauthTokens!.refreshToken);
+    SecureStorage().saveOAuthToken(_oauthTokens!);
+    DioUtil().initAuthorizedDio();
     return _oauthTokens!;
-  }
-
-  void _saveOAuthTokens(String accessToken, String refreshToken) {
-    SecureStorage().storage.write(key: SecureStorageKey.accessToken, value: accessToken);
-    SecureStorage().storage.write(key: SecureStorageKey.refreshToken, value: refreshToken);
   }
 
   String? get signupToken => _signupToken;
