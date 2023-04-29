@@ -7,7 +7,7 @@ part 'home_event.dart';
 part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  HomeBloc() : super(MainInitial()) {
+  HomeBloc() : super(HomeInitial()) {
     on<DateSelected>(_onDateSelected);
     on<AppBarDateClicked>(_onAppBarDateClicked);
     on<TodayButtonClicked>(_onTodayButtonClicked);

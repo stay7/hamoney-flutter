@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hamoney/bloc/signup/signup_join_bloc.dart';
-import 'package:hamoney/screen/home_screen.dart';
+
+import 'main_screen.dart';
 
 class SignupJoinScreen extends StatelessWidget {
   static const routeName = "signup_join";
@@ -11,7 +12,7 @@ class SignupJoinScreen extends StatelessWidget {
     return BlocListener<SignupJoinBloc, SignupJoinState>(
       listener: (context, state) {
         if (state is AccountBookSynced) {
-          Navigator.of(context).pushNamedAndRemoveUntil(HomeScreen.routeName, (route) => false);
+          Navigator.of(context).pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false);
         }
       },
       child: Scaffold(

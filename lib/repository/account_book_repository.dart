@@ -10,7 +10,6 @@ class AccountBookRepository {
   final Logger logger = Logger();
 
   Future<void> useAlone() async {
-    logger.i('useAlone');
     final response = await _accountBookClient.useAlone();
     logger.i(response);
     accountBook = response.data;

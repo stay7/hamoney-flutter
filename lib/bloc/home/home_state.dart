@@ -3,8 +3,8 @@ part of 'home_bloc.dart';
 @immutable
 abstract class HomeState {}
 
-class MainInitial extends HomeState {
-  MainInitial();
+class HomeInitial extends HomeState {
+  HomeInitial();
 
   final CalendarFormat format = CalendarFormat.week;
   final DateTime current = DateTime.now();

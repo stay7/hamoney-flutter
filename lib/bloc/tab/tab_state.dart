@@ -1,0 +1,10 @@
+part of 'tab_bloc.dart';
+
+@immutable
+abstract class TabState {}
+
+class TabSelected extends TabState {
+  final int index;
+
+  TabSelected({required this.index});
+}

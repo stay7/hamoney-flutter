@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hamoney/bloc/login/login_bloc.dart';
-import 'package:hamoney/screen/home_screen.dart';
+import 'package:hamoney/screen/main_screen.dart';
 import 'package:hamoney/screen/signup_first_screen.dart';
 import '../bloc/signup/signup_bloc.dart';
 import '../resource/resource.dart';
@@ -25,7 +25,7 @@ class LoginScreen extends StatelessWidget {
           );
         } else if (state is LoginExisted) {
           context.read<SignupBloc>().add(OAuthTokenRequested(email: state.email));
-          navigator.pushReplacementNamed(HomeScreen.routeName);
+          navigator.pushReplacementNamed(MainScreen.routeName);
         }
       },
       child: Scaffold(

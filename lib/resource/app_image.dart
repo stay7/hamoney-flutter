@@ -5,14 +5,14 @@ class AppImage {
   static const loginApple = "assets/login_apple.svg";
   static const loginKakao = "assets/login_kakao.svg";
 
-  static const tabIconCalendarOff = "assets/tab_icon_calendar_off.svg";
-  static const tabIconCalendarOn = "assets/tab_icon_calendar_on.svg";
-  static const tabIconPlusOff = "assets/tab_icon_plus_off.svg";
-  static const tabIconPlusOn = "assets/tab_icon_plus_on.svg";
-  static const tabIconSavingOff = "assets/tab_icon_saving_off.svg";
-  static const tabIconSavingOn = "assets/tab_icon_saving_on.svg";
-  static const tabIconSettingOff = "assets/tab_icon_setting_off.svg";
-  static const tabIconSettingOn = "assets/tab_icon_setting_on.svg";
-  static const tabIconPlanOff = "assets/tab_icon_plan_off.svg";
-  static const tabIconPlanOn = "assets/tab_icon_plan_on.svg";
+  static const tabIconCalendarOff = "assets/tab_icon_calendar_off.png";
+  static const tabIconCalendarOn = "assets/tab_icon_calendar_on.png";
+  static const tabIconPlusOff = "assets/tab_icon_plus_off.png";
+  static const tabIconPlusOn = "assets/tab_icon_plus_on.png";
+  static const tabIconSavingOff = "assets/tab_icon_saving_off.png";
+  static const tabIconSavingOn = "assets/tab_icon_saving_on.png";
+  static const tabIconSettingOff = "assets/tab_icon_setting_off.png";
+  static const tabIconSettingOn = "assets/tab_icon_setting_on.png";
+  static const tabIconPlanOff = "assets/tab_icon_plan_off.png";
+  static const tabIconPlanOn = "assets/tab_icon_plan_on.png";
 }

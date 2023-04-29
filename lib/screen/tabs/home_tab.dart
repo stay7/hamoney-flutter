@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hamoney/widgets/hamoney_navigation_bar.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import '../bloc/home/home_bloc.dart';
+import '../../bloc/home/home_bloc.dart';
 
 class Event {
   final String title;
@@ -11,8 +12,7 @@ class Event {
   Event(this.title);
 }
 
-class HomeScreen extends StatelessWidget {
-  static const routeName = "home";
+class HomeTab extends StatelessWidget {
 
   Map<DateTime, List<Event>> events = {
     DateTime.now(): [Event('title'), Event('title2')],
@@ -146,6 +146,7 @@ class HomeScreen extends StatelessWidget {
               ),
             ],
           ),
+          bottomNavigationBar: const HamoneyNavigationBar(),
           floatingActionButton: isToday
               ? null
               : FloatingActionButton.extended(
