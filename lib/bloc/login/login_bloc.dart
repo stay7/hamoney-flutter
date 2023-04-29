@@ -29,7 +29,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
     final storage = SecureStorage().storage;
     final methodAndParams = result.split("?");
-    print(methodAndParams);
     final email = methodAndParams[1].split("=")[1];
     final signupToken = methodAndParams[2].split("=")[1];
     authRepository.setSignupToken = signupToken;
@@ -63,7 +62,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         AppleIDAuthorizationScopes.fullName,
       ],
     );
-    print(credential);
   }
 
   String parseResultFromAppScheme(String appScheme) {

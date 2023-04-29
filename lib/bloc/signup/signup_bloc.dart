@@ -24,7 +24,6 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   }
 
   FutureOr<void> _onOAuthTokenRequested(OAuthTokenRequested event, Emitter<SignupState> emit) async {
-    print('request issueToken ${event.email}');
     await authRepository.issueToken(event.email);
   }
 }
