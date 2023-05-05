@@ -23,6 +23,7 @@ mixin _$Category {
   int get id => throw _privateConstructorUsedError;
   String get iconId => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
+  List<SubCategory> get subCategories => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +36,8 @@ abstract class $CategoryCopyWith<$Res> {
   factory $CategoryCopyWith(Category value, $Res Function(Category) then) =
       _$CategoryCopyWithImpl<$Res, Category>;
   @useResult
-  $Res call({int id, String iconId, String name});
+  $Res call(
+      {int id, String iconId, String name, List<SubCategory> subCategories});
 }
 
 /// @nodoc
@@ -54,6 +56,7 @@ class _$CategoryCopyWithImpl<$Res, $Val extends Category>
     Object? id = null,
     Object? iconId = null,
     Object? name = null,
+    Object? subCategories = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -68,6 +71,10 @@ class _$CategoryCopyWithImpl<$Res, $Val extends Category>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      subCategories: null == subCategories
+          ? _value.subCategories
+          : subCategories // ignore: cast_nullable_to_non_nullable
+              as List<SubCategory>,
     ) as $Val);
   }
 }
@@ -79,7 +86,8 @@ abstract class _$$_CategoryCopyWith<$Res> implements $CategoryCopyWith<$Res> {
       __$$_CategoryCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String iconId, String name});
+  $Res call(
+      {int id, String iconId, String name, List<SubCategory> subCategories});
 }
 
 /// @nodoc
@@ -96,6 +104,7 @@ class __$$_CategoryCopyWithImpl<$Res>
     Object? id = null,
     Object? iconId = null,
     Object? name = null,
+    Object? subCategories = null,
   }) {
     return _then(_$_Category(
       id: null == id
@@ -110,6 +119,10 @@ class __$$_CategoryCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      subCategories: null == subCategories
+          ? _value._subCategories
+          : subCategories // ignore: cast_nullable_to_non_nullable
+              as List<SubCategory>,
     ));
   }
 }
@@ -118,7 +131,11 @@ class __$$_CategoryCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Category with DiagnosticableTreeMixin implements _Category {
   const _$_Category(
-      {required this.id, required this.iconId, required this.name});
+      {required this.id,
+      required this.iconId,
+      required this.name,
+      required final List<SubCategory> subCategories})
+      : _subCategories = subCategories;
 
   factory _$_Category.fromJson(Map<String, dynamic> json) =>
       _$$_CategoryFromJson(json);
@@ -129,10 +146,17 @@ class _$_Category with DiagnosticableTreeMixin implements _Category {
   final String iconId;
   @override
   final String name;
+  final List<SubCategory> _subCategories;
+  @override
+  List<SubCategory> get subCategories {
+    if (_subCategories is EqualUnmodifiableListView) return _subCategories;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_subCategories);
+  }
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Category(id: $id, iconId: $iconId, name: $name)';
+    return 'Category(id: $id, iconId: $iconId, name: $name, subCategories: $subCategories)';
   }
 
   @override
@@ -142,7 +166,8 @@ class _$_Category with DiagnosticableTreeMixin implements _Category {
       ..add(DiagnosticsProperty('type', 'Category'))
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('iconId', iconId))
-      ..add(DiagnosticsProperty('name', name));
+      ..add(DiagnosticsProperty('name', name))
+      ..add(DiagnosticsProperty('subCategories', subCategories));
   }
 
   @override
@@ -152,12 +177,15 @@ class _$_Category with DiagnosticableTreeMixin implements _Category {
             other is _$_Category &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.iconId, iconId) || other.iconId == iconId) &&
-            (identical(other.name, name) || other.name == name));
+            (identical(other.name, name) || other.name == name) &&
+            const DeepCollectionEquality()
+                .equals(other._subCategories, _subCategories));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, iconId, name);
+  int get hashCode => Object.hash(runtimeType, id, iconId, name,
+      const DeepCollectionEquality().hash(_subCategories));
 
   @JsonKey(ignore: true)
   @override
@@ -177,7 +205,8 @@ abstract class _Category implements Category {
   const factory _Category(
       {required final int id,
       required final String iconId,
-      required final String name}) = _$_Category;
+      required final String name,
+      required final List<SubCategory> subCategories}) = _$_Category;
 
   factory _Category.fromJson(Map<String, dynamic> json) = _$_Category.fromJson;
 
@@ -187,6 +216,8 @@ abstract class _Category implements Category {
   String get iconId;
   @override
   String get name;
+  @override
+  List<SubCategory> get subCategories;
   @override
   @JsonKey(ignore: true)
   _$$_CategoryCopyWith<_$_Category> get copyWith =>

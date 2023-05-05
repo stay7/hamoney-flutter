@@ -13,6 +13,9 @@ _$_AccountBook _$$_AccountBookFromJson(Map<String, dynamic> json) =>
       categories: (json['categories'] as List<dynamic>)
           .map((e) => Category.fromJson(e as Map<String, dynamic>))
           .toList(),
+      payments: (json['payments'] as List<dynamic>)
+          .map((e) => AccountBook.fromJson(e as Map<String, dynamic>))
+          .toList(),
       createdAt: json['createdAt'] as int,
     );
 
@@ -21,5 +24,6 @@ Map<String, dynamic> _$$_AccountBookToJson(_$_AccountBook instance) =>
       'id': instance.id,
       'name': instance.name,
       'categories': instance.categories,
+      'payments': instance.payments,
       'createdAt': instance.createdAt,
     };

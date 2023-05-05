@@ -23,6 +23,7 @@ mixin _$AccountBook {
   int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   List<Category> get categories => throw _privateConstructorUsedError;
+  List<AccountBook> get payments => throw _privateConstructorUsedError;
   int get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -37,7 +38,12 @@ abstract class $AccountBookCopyWith<$Res> {
           AccountBook value, $Res Function(AccountBook) then) =
       _$AccountBookCopyWithImpl<$Res, AccountBook>;
   @useResult
-  $Res call({int id, String name, List<Category> categories, int createdAt});
+  $Res call(
+      {int id,
+      String name,
+      List<Category> categories,
+      List<AccountBook> payments,
+      int createdAt});
 }
 
 /// @nodoc
@@ -56,6 +62,7 @@ class _$AccountBookCopyWithImpl<$Res, $Val extends AccountBook>
     Object? id = null,
     Object? name = null,
     Object? categories = null,
+    Object? payments = null,
     Object? createdAt = null,
   }) {
     return _then(_value.copyWith(
@@ -71,6 +78,10 @@ class _$AccountBookCopyWithImpl<$Res, $Val extends AccountBook>
           ? _value.categories
           : categories // ignore: cast_nullable_to_non_nullable
               as List<Category>,
+      payments: null == payments
+          ? _value.payments
+          : payments // ignore: cast_nullable_to_non_nullable
+              as List<AccountBook>,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -87,7 +98,12 @@ abstract class _$$_AccountBookCopyWith<$Res>
       __$$_AccountBookCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String name, List<Category> categories, int createdAt});
+  $Res call(
+      {int id,
+      String name,
+      List<Category> categories,
+      List<AccountBook> payments,
+      int createdAt});
 }
 
 /// @nodoc
@@ -104,6 +120,7 @@ class __$$_AccountBookCopyWithImpl<$Res>
     Object? id = null,
     Object? name = null,
     Object? categories = null,
+    Object? payments = null,
     Object? createdAt = null,
   }) {
     return _then(_$_AccountBook(
@@ -119,6 +136,10 @@ class __$$_AccountBookCopyWithImpl<$Res>
           ? _value._categories
           : categories // ignore: cast_nullable_to_non_nullable
               as List<Category>,
+      payments: null == payments
+          ? _value._payments
+          : payments // ignore: cast_nullable_to_non_nullable
+              as List<AccountBook>,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -134,8 +155,10 @@ class _$_AccountBook implements _AccountBook {
       {required this.id,
       required this.name,
       required final List<Category> categories,
+      required final List<AccountBook> payments,
       required this.createdAt})
-      : _categories = categories;
+      : _categories = categories,
+        _payments = payments;
 
   factory _$_AccountBook.fromJson(Map<String, dynamic> json) =>
       _$$_AccountBookFromJson(json);
@@ -152,12 +175,20 @@ class _$_AccountBook implements _AccountBook {
     return EqualUnmodifiableListView(_categories);
   }
 
+  final List<AccountBook> _payments;
+  @override
+  List<AccountBook> get payments {
+    if (_payments is EqualUnmodifiableListView) return _payments;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_payments);
+  }
+
   @override
   final int createdAt;
 
   @override
   String toString() {
-    return 'AccountBook(id: $id, name: $name, categories: $categories, createdAt: $createdAt)';
+    return 'AccountBook(id: $id, name: $name, categories: $categories, payments: $payments, createdAt: $createdAt)';
   }
 
   @override
@@ -169,14 +200,20 @@ class _$_AccountBook implements _AccountBook {
             (identical(other.name, name) || other.name == name) &&
             const DeepCollectionEquality()
                 .equals(other._categories, _categories) &&
+            const DeepCollectionEquality().equals(other._payments, _payments) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name,
-      const DeepCollectionEquality().hash(_categories), createdAt);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      name,
+      const DeepCollectionEquality().hash(_categories),
+      const DeepCollectionEquality().hash(_payments),
+      createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -197,6 +234,7 @@ abstract class _AccountBook implements AccountBook {
       {required final int id,
       required final String name,
       required final List<Category> categories,
+      required final List<AccountBook> payments,
       required final int createdAt}) = _$_AccountBook;
 
   factory _AccountBook.fromJson(Map<String, dynamic> json) =
@@ -208,6 +246,8 @@ abstract class _AccountBook implements AccountBook {
   String get name;
   @override
   List<Category> get categories;
+  @override
+  List<AccountBook> get payments;
   @override
   int get createdAt;
   @override

@@ -12,6 +12,7 @@ class AccountBook with _$AccountBook {
     required int id,
     required String name,
     required List<Category> categories,
+    required List<AccountBook> payments,
     required int createdAt,
   }) = _AccountBook;
 
