@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'category.dart';
+part of 'account_book_pay.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,34 +14,35 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-Category _$CategoryFromJson(Map<String, dynamic> json) {
-  return _Category.fromJson(json);
+AccountBookPay _$AccountBookPayFromJson(Map<String, dynamic> json) {
+  return _AccountBookPay.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Category {
+mixin _$AccountBookPay {
   int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  List<SubCategory> get subCategories => throw _privateConstructorUsedError;
+  int get iconId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $CategoryCopyWith<Category> get copyWith =>
+  $AccountBookPayCopyWith<AccountBookPay> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $CategoryCopyWith<$Res> {
-  factory $CategoryCopyWith(Category value, $Res Function(Category) then) =
-      _$CategoryCopyWithImpl<$Res, Category>;
+abstract class $AccountBookPayCopyWith<$Res> {
+  factory $AccountBookPayCopyWith(
+          AccountBookPay value, $Res Function(AccountBookPay) then) =
+      _$AccountBookPayCopyWithImpl<$Res, AccountBookPay>;
   @useResult
-  $Res call({int id, String name, List<SubCategory> subCategories});
+  $Res call({int id, String name, int iconId});
 }
 
 /// @nodoc
-class _$CategoryCopyWithImpl<$Res, $Val extends Category>
-    implements $CategoryCopyWith<$Res> {
-  _$CategoryCopyWithImpl(this._value, this._then);
+class _$AccountBookPayCopyWithImpl<$Res, $Val extends AccountBookPay>
+    implements $AccountBookPayCopyWith<$Res> {
+  _$AccountBookPayCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -53,7 +54,7 @@ class _$CategoryCopyWithImpl<$Res, $Val extends Category>
   $Res call({
     Object? id = null,
     Object? name = null,
-    Object? subCategories = null,
+    Object? iconId = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -64,30 +65,31 @@ class _$CategoryCopyWithImpl<$Res, $Val extends Category>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      subCategories: null == subCategories
-          ? _value.subCategories
-          : subCategories // ignore: cast_nullable_to_non_nullable
-              as List<SubCategory>,
+      iconId: null == iconId
+          ? _value.iconId
+          : iconId // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$_CategoryCopyWith<$Res> implements $CategoryCopyWith<$Res> {
-  factory _$$_CategoryCopyWith(
-          _$_Category value, $Res Function(_$_Category) then) =
-      __$$_CategoryCopyWithImpl<$Res>;
+abstract class _$$_AccountBookPayCopyWith<$Res>
+    implements $AccountBookPayCopyWith<$Res> {
+  factory _$$_AccountBookPayCopyWith(
+          _$_AccountBookPay value, $Res Function(_$_AccountBookPay) then) =
+      __$$_AccountBookPayCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String name, List<SubCategory> subCategories});
+  $Res call({int id, String name, int iconId});
 }
 
 /// @nodoc
-class __$$_CategoryCopyWithImpl<$Res>
-    extends _$CategoryCopyWithImpl<$Res, _$_Category>
-    implements _$$_CategoryCopyWith<$Res> {
-  __$$_CategoryCopyWithImpl(
-      _$_Category _value, $Res Function(_$_Category) _then)
+class __$$_AccountBookPayCopyWithImpl<$Res>
+    extends _$AccountBookPayCopyWithImpl<$Res, _$_AccountBookPay>
+    implements _$$_AccountBookPayCopyWith<$Res> {
+  __$$_AccountBookPayCopyWithImpl(
+      _$_AccountBookPay _value, $Res Function(_$_AccountBookPay) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -95,9 +97,9 @@ class __$$_CategoryCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = null,
-    Object? subCategories = null,
+    Object? iconId = null,
   }) {
-    return _then(_$_Category(
+    return _then(_$_AccountBookPay(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -106,100 +108,92 @@ class __$$_CategoryCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      subCategories: null == subCategories
-          ? _value._subCategories
-          : subCategories // ignore: cast_nullable_to_non_nullable
-              as List<SubCategory>,
+      iconId: null == iconId
+          ? _value.iconId
+          : iconId // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
 
 /// @nodoc
+@JsonSerializable()
+class _$_AccountBookPay
+    with DiagnosticableTreeMixin
+    implements _AccountBookPay {
+  const _$_AccountBookPay(
+      {required this.id, required this.name, required this.iconId});
 
-@JsonSerializable(explicitToJson: true)
-class _$_Category with DiagnosticableTreeMixin implements _Category {
-  const _$_Category(
-      {required this.id,
-      required this.name,
-      required final List<SubCategory> subCategories})
-      : _subCategories = subCategories;
-
-  factory _$_Category.fromJson(Map<String, dynamic> json) =>
-      _$$_CategoryFromJson(json);
+  factory _$_AccountBookPay.fromJson(Map<String, dynamic> json) =>
+      _$$_AccountBookPayFromJson(json);
 
   @override
   final int id;
   @override
   final String name;
-  final List<SubCategory> _subCategories;
   @override
-  List<SubCategory> get subCategories {
-    if (_subCategories is EqualUnmodifiableListView) return _subCategories;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_subCategories);
-  }
+  final int iconId;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Category(id: $id, name: $name, subCategories: $subCategories)';
+    return 'AccountBookPay(id: $id, name: $name, iconId: $iconId)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'Category'))
+      ..add(DiagnosticsProperty('type', 'AccountBookPay'))
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('name', name))
-      ..add(DiagnosticsProperty('subCategories', subCategories));
+      ..add(DiagnosticsProperty('iconId', iconId));
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Category &&
+            other is _$_AccountBookPay &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
-            const DeepCollectionEquality()
-                .equals(other._subCategories, _subCategories));
+            (identical(other.iconId, iconId) || other.iconId == iconId));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, name,
-      const DeepCollectionEquality().hash(_subCategories));
+  int get hashCode => Object.hash(runtimeType, id, name, iconId);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_CategoryCopyWith<_$_Category> get copyWith =>
-      __$$_CategoryCopyWithImpl<_$_Category>(this, _$identity);
+  _$$_AccountBookPayCopyWith<_$_AccountBookPay> get copyWith =>
+      __$$_AccountBookPayCopyWithImpl<_$_AccountBookPay>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_CategoryToJson(
+    return _$$_AccountBookPayToJson(
       this,
     );
   }
 }
 
-abstract class _Category implements Category {
-  const factory _Category(
+abstract class _AccountBookPay implements AccountBookPay {
+  const factory _AccountBookPay(
       {required final int id,
       required final String name,
-      required final List<SubCategory> subCategories}) = _$_Category;
+      required final int iconId}) = _$_AccountBookPay;
 
-  factory _Category.fromJson(Map<String, dynamic> json) = _$_Category.fromJson;
+  factory _AccountBookPay.fromJson(Map<String, dynamic> json) =
+      _$_AccountBookPay.fromJson;
 
   @override
   int get id;
   @override
   String get name;
   @override
-  List<SubCategory> get subCategories;
+  int get iconId;
   @override
   @JsonKey(ignore: true)
-  _$$_CategoryCopyWith<_$_Category> get copyWith =>
+  _$$_AccountBookPayCopyWith<_$_AccountBookPay> get copyWith =>
       throw _privateConstructorUsedError;
 }

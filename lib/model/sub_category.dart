@@ -7,7 +7,7 @@ part 'sub_category.g.dart';
 
 @freezed
 class SubCategory with _$SubCategory {
-  const factory SubCategory({required int id, required String iconId, required String name}) = _SubCategory;
+  const factory SubCategory({required int id, required int iconId, required String name}) = _SubCategory;
 
   factory SubCategory.fromJson(Map<String, dynamic> json) => _$SubCategoryFromJson(json);
 }

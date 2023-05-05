@@ -12,6 +12,7 @@ import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:logger/logger.dart';
 import './screen/login_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:build_config/build_config.dart'; // 없으면 build.yaml 적용 안됨
 
 import 'bloc/bloc_observer.dart';
 
@@ -41,9 +42,7 @@ class HamoneyApp extends StatelessWidget {
         RepositoryProvider<UserRepository>(create: (context) => UserRepository()),
         RepositoryProvider<AccountBookRepository>(
           create: (context) => AccountBookRepository(
-            accountBookClient: AccountBookClient(
-                DioUtil().authorizedDio
-            ),
+            accountBookClient: AccountBookClient(DioUtil().authorizedDio),
           ),
         )
       ],

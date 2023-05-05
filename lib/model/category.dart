@@ -8,9 +8,10 @@ part 'category.g.dart';
 
 @freezed
 class Category with _$Category {
+
+  @JsonSerializable(explicitToJson: true)
   const factory Category({
     required int id,
-    required String iconId,
     required String name,
     required List<SubCategory> subCategories,
   }) = _Category;

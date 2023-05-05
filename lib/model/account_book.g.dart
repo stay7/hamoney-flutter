@@ -23,7 +23,7 @@ Map<String, dynamic> _$$_AccountBookToJson(_$_AccountBook instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'categories': instance.categories,
-      'payments': instance.payments,
+      'categories': instance.categories.map((e) => e.toJson()).toList(),
+      'payments': instance.payments.map((e) => e.toJson()).toList(),
       'createdAt': instance.createdAt,
     };

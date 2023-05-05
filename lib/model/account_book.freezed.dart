@@ -149,7 +149,8 @@ class __$$_AccountBookCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$_AccountBook implements _AccountBook {
   const _$_AccountBook(
       {required this.id,

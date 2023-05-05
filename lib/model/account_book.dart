@@ -8,6 +8,8 @@ part 'account_book.g.dart';
 
 @freezed
 class AccountBook with _$AccountBook {
+
+  @JsonSerializable(explicitToJson: true)
   const factory AccountBook({
     required int id,
     required String name,
