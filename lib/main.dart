@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hamoney/bloc/date/date_bloc.dart';
 import 'package:hamoney/repository/account_book_repository.dart';
 import 'package:hamoney/repository/client/account_book_client.dart';
 import 'package:hamoney/repository/client/auth_client.dart';
@@ -12,7 +13,6 @@ import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:logger/logger.dart';
 import './screen/login_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:build_config/build_config.dart'; // 없으면 build.yaml 적용 안됨
 
 import 'bloc/bloc_observer.dart';
 
@@ -46,25 +46,30 @@ class HamoneyApp extends StatelessWidget {
           ),
         )
       ],
-      child: MaterialApp(
-        title: 'HAMONEY',
-        theme: ThemeData(
-          primarySwatch: Colors.grey,
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-          hoverColor: Colors.transparent,
-        ),
-        builder: (context, child) => MediaQuery(
-          data: MediaQueryData.fromWindow(
-            WidgetsBinding.instance.window,
-          ).copyWith(
-            boldText: false,
-            textScaleFactor: 1.0,
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<DateBloc>(create: (context) => DateBloc())
+        ],
+        child: MaterialApp(
+          title: 'HAMONEY',
+          theme: ThemeData(
+            primarySwatch: Colors.grey,
+            splashColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            hoverColor: Colors.transparent,
           ),
-          child: child!,
+          builder: (context, child) => MediaQuery(
+            data: MediaQueryData.fromWindow(
+              WidgetsBinding.instance.window,
+            ).copyWith(
+              boldText: false,
+              textScaleFactor: 1.0,
+            ),
+            child: child!,
+          ),
+          initialRoute: LoginScreen.routeName,
+          onGenerateRoute: (settings) => HamoneyRoute.onGenerateRoute(settings),
         ),
-        initialRoute: LoginScreen.routeName,
-        onGenerateRoute: (settings) => HamoneyRoute.onGenerateRoute(settings),
       ),
     );
   }

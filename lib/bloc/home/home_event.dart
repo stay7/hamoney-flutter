@@ -8,13 +8,3 @@ class AppBarDateClicked extends HomeEvent {
 
   final CalendarFormat currentFormat;
 }
-
-class DateSelected extends HomeEvent {
-  DateSelected({required this.selected});
-
-  final DateTime selected;
-}
-
-class TodayButtonClicked extends HomeEvent {
-  TodayButtonClicked();
-}

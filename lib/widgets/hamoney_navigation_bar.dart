@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hamoney/bloc/tab/tab_bloc.dart';
-import 'package:hamoney/screen/tabs/spending_screen.dart';
+import 'package:hamoney/screen/add_spending_amount_screen.dart';
 
 import '../resource/resource.dart';
 
@@ -81,7 +81,7 @@ class _BottomButtonState extends State<_BottomButton> {
           setState(() {
             selected = true;
           });
-          Navigator.of(context).pushNamed(SpendingScreen.routeName).then((value) {
+          Navigator.of(context).pushNamed(AddSpendingAmountScreen.routeName).then((value) {
             setState(() {
               selected = false;
             });
