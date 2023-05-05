@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hamoney/widgets/calendar_today.dart';
 import 'package:hamoney/widgets/hamoney_navigation_bar.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../bloc/home/home_bloc.dart';
+import '../../widgets/calendar_selected_day.dart';
 
 class Event {
   final String title;
@@ -13,7 +15,6 @@ class Event {
 }
 
 class HomeTab extends StatelessWidget {
-
   Map<DateTime, List<Event>> events = {
     DateTime.now(): [Event('title'), Event('title2')],
     DateTime(2023, 4, 22): [Event('title3')],
@@ -100,37 +101,15 @@ class HomeTab extends StatelessWidget {
                     return Center(
                       child: Text(
                         DateFormat.E('ko_KR').format(day),
-                        style: TextStyle(color: Color(0xFF0D0D0D), fontSize: 12),
+                        style: const TextStyle(color: Color(0xFF0D0D0D), fontSize: 12),
                       ),
                     );
                   },
                   selectedBuilder: (context, date, _) {
-                    return Container(
-                      margin: const EdgeInsets.all(10.0),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Text(
-                        DateFormat('d').format(date),
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    );
+                    return isToday ? CalendarToday(date: date) : CalendarSelectedDay(date: date);
                   },
                   todayBuilder: (context, date, _) {
-                    return Container(
-                      margin: const EdgeInsets.all(10.0),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: Color(0x0F000000),
-                        shape: BoxShape.circle,
-                      ),
-                      child: Text(
-                        DateFormat('d').format(date),
-                        style: TextStyle(color: Color(0xFF6A6A6A)),
-                      ),
-                    );
+                    return CalendarToday(date: date);
                   },
                 ),
               ),
