@@ -3,8 +3,10 @@ part of 'home_bloc.dart';
 @immutable
 abstract class HomeState {}
 
-class HomeCalendarFormat extends HomeState {
-  HomeCalendarFormat({required this.format});
+class HomeInitial extends HomeState {
+  HomeInitial({required this.format, required this.selectedDate, required this.isToday});
 
   final CalendarFormat format;
+  final DateTime selectedDate;
+  final bool isToday;
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hamoney/bloc/date/date_bloc.dart';
 import 'package:hamoney/widgets/calendar_today.dart';
 import 'package:hamoney/widgets/hamoney_navigation_bar.dart';
 import 'package:intl/intl.dart';
@@ -28,114 +27,109 @@ class HomeTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DateBloc, DateState>(
-      builder: (context, dateState) {
-        if (dateState is SelectedDate) {
-          return BlocBuilder<HomeBloc, HomeState>(builder: (context, homeState) {
-            if (homeState is HomeCalendarFormat) {
-              return Scaffold(
-                appBar: AppBar(
-                  title: InkWell(
-                    onTap: () {
-                      context.read<HomeBloc>().add(AppBarDateClicked(currentFormat: homeState.format));
-                    },
-                    child: Row(
-                      children: [
-                        Text(
-                          DateFormat('yyyy.MM.dd').format(dateState.date),
-                          style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                        Icon(
-                          homeState.format == CalendarFormat.week ? Icons.arrow_drop_down : Icons.arrow_drop_up,
-                          color: Colors.black,
-                        ),
-                      ],
-                    ),
-                  ),
-                  titleTextStyle: TextStyle(color: Colors.black),
-                  backgroundColor: Colors.white,
-                  elevation: 0,
-                ),
-                body: Column(
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        if (state is HomeInitial) {
+          return Scaffold(
+            appBar: AppBar(
+              title: InkWell(
+                onTap: () {
+                  context.read<HomeBloc>().add(AppBarDateClicked(currentFormat: state.format));
+                },
+                child: Row(
                   children: [
-                    TableCalendar(
-                      firstDay: DateTime.utc(2010, 10, 16),
-                      lastDay: DateTime.utc(2030, 3, 14),
-                      focusedDay: dateState.date,
-                      startingDayOfWeek: StartingDayOfWeek.monday,
-                      calendarFormat: homeState.format,
-                      headerVisible: false,
-                      locale: 'ko_KR',
-                      eventLoader: (day) {
-                        return _getEventsForDay(day);
-                      },
-                      selectedDayPredicate: (day) {
-                        return isSameDay(dateState.date, day);
-                      },
-                      onDaySelected: (selectedDay, focusedDay) {
-                        context.read<DateBloc>().add(DateClicked(toBe: selectedDay));
-                      },
-                      calendarStyle: CalendarStyle(
-                        markerSize: 10,
-                        markerDecoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
-                      ),
-                      calendarBuilders: CalendarBuilders(
-                        defaultBuilder: (context, day, focusedDay) {
-                          return Center(
-                            child: Text(
-                              DateFormat('d').format(day),
-                              style: TextStyle(color: Color(0xFF6A6A6A)),
-                            ),
-                          );
-                        },
-                        dowBuilder: (context, day) {
-                          return Center(
-                            child: Text(
-                              DateFormat.E('ko_KR').format(day),
-                              style: const TextStyle(color: Color(0xFF0D0D0D), fontSize: 12),
-                            ),
-                          );
-                        },
-                        selectedBuilder: (context, date, _) {
-                          return dateState.isToday ? CalendarToday(date: date) : CalendarSelectedDay(date: date);
-                        },
-                        todayBuilder: (context, date, _) {
-                          return CalendarToday(date: date);
-                        },
-                      ),
+                    Text(
+                      DateFormat('yyyy.MM.dd').format(state.selectedDate),
+                      style: TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
                     ),
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: _getEventsForDay(dateState.date).length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            title: Text(_getEventsForDay(dateState.date)[index].title),
-                          );
-                        },
-                      ),
+                    Icon(
+                      state.format == CalendarFormat.week ? Icons.arrow_drop_down : Icons.arrow_drop_up,
+                      color: Colors.black,
                     ),
                   ],
                 ),
-                bottomNavigationBar: const HamoneyNavigationBar(),
-                floatingActionButton: dateState.isToday
-                    ? null
-                    : FloatingActionButton.extended(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
+              ),
+              titleTextStyle: TextStyle(color: Colors.black),
+              backgroundColor: Colors.white,
+              elevation: 0,
+            ),
+            body: Column(
+              children: [
+                TableCalendar(
+                  firstDay: DateTime.utc(2010, 10, 16),
+                  lastDay: DateTime.utc(2030, 3, 14),
+                  focusedDay: state.selectedDate,
+                  startingDayOfWeek: StartingDayOfWeek.monday,
+                  calendarFormat: state.format,
+                  headerVisible: false,
+                  locale: 'ko_KR',
+                  eventLoader: (day) {
+                    return _getEventsForDay(day);
+                  },
+                  selectedDayPredicate: (day) {
+                    return isSameDay(state.selectedDate, day);
+                  },
+                  onDaySelected: (selectedDay, focusedDay) {
+                    context.read<HomeBloc>().add(DateClicked(date: selectedDay));
+                  },
+                  calendarStyle: const CalendarStyle(
+                    markerSize: 10,
+                    markerDecoration: BoxDecoration(color: Colors.red, shape: BoxShape.circle),
+                  ),
+                  calendarBuilders: CalendarBuilders(
+                    defaultBuilder: (context, day, focusedDay) {
+                      return Center(
+                        child: Text(
+                          DateFormat('d').format(day),
+                          style: TextStyle(color: Color(0xFF6A6A6A)),
                         ),
-                        backgroundColor: Colors.black,
-                        onPressed: () {
-                          context.read<DateBloc>().add(DateClicked(toBe: DateTime.now()));
-                        },
-                        label: Text('오늘 >', style: TextStyle(color: Colors.white)),
-                      ),
-                floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-              );
-            }
-            return const SizedBox.shrink();
-          });
+                      );
+                    },
+                    dowBuilder: (context, day) {
+                      return Center(
+                        child: Text(
+                          DateFormat.E('ko_KR').format(day),
+                          style: const TextStyle(color: Color(0xFF0D0D0D), fontSize: 12),
+                        ),
+                      );
+                    },
+                    selectedBuilder: (context, date, _) {
+                      return state.isToday ? CalendarToday(date: date) : CalendarSelectedDay(date: date);
+                    },
+                    todayBuilder: (context, date, _) {
+                      return CalendarToday(date: date);
+                    },
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: _getEventsForDay(state.selectedDate).length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(_getEventsForDay(state.selectedDate)[index].title),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+            bottomNavigationBar: const HamoneyNavigationBar(),
+            floatingActionButton: state.isToday
+                ? null
+                : FloatingActionButton.extended(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    backgroundColor: Colors.black,
+                    onPressed: () {
+                      context.read<HomeBloc>().add(DateClicked(date: DateTime.now()));
+                    },
+                    label: Text('오늘 >', style: TextStyle(color: Colors.white)),
+                  ),
+            floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+          );
         }
-        return const SizedBox.shrink();
+        return SizedBox.shrink();
       },
     );
   }

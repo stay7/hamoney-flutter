@@ -4,22 +4,25 @@ import 'package:hamoney/bloc/login/login_bloc.dart';
 import 'package:hamoney/bloc/signup/signup_join_bloc.dart';
 import 'package:hamoney/repository/account_book_repository.dart';
 import 'package:hamoney/repository/auth_repository.dart';
+import 'package:hamoney/repository/ui_repository.dart';
+import 'package:hamoney/repository/spending_repository.dart';
 import 'package:hamoney/repository/user_repository.dart';
-import 'package:hamoney/screen/add_spending_category_screen.dart';
-import 'package:hamoney/screen/add_spending_payment_screen.dart';
+import 'package:hamoney/screen/spending/bloc/add_spending_amount_bloc.dart';
+import 'package:hamoney/screen/spending/add_spending_amount_screen.dart';
+import 'package:hamoney/screen/spending/add_spending_category_screen.dart';
+import 'package:hamoney/screen/spending/add_spending_payment_screen.dart';
 import 'package:hamoney/screen/login_screen.dart';
 import 'package:hamoney/screen/main_screen.dart';
 import 'package:hamoney/screen/signup_first_screen.dart';
 import 'package:hamoney/screen/signup_second_screen.dart';
-import 'package:hamoney/screen/add_spending_amount_screen.dart';
+import 'package:hamoney/screen/spending/bloc/add_spending_category_bloc.dart';
+import 'package:hamoney/screen/spending/bloc/add_spending_payment_bloc.dart';
 
 import 'bloc/signup/signup_bloc.dart';
-import 'bloc/spending/spending_bloc.dart';
 import 'bloc/tab/tab_bloc.dart';
 
 abstract class HamoneyRoute {
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
-    SpendingBloc spendingBloc = SpendingBloc();
     late Widget screen;
 
     switch (settings.name) {
@@ -64,20 +67,28 @@ abstract class HamoneyRoute {
         );
         break;
       case AddSpendingAmountScreen.routeName:
-        screen = BlocProvider<SpendingBloc>.value(
-          value: spendingBloc,
+        screen = BlocProvider<AddSpendingAmountBloc>(
+          create: (context) => AddSpendingAmountBloc(
+            dateRepository: context.read<UIRepository>(),
+            spendingRepository: context.read<SpendingRepository>(),
+          ),
           child: AddSpendingAmountScreen(),
         );
         break;
       case AddSpendingCategoryScreen.routeName:
-        screen = BlocProvider<SpendingBloc>.value(
-          value: spendingBloc,
+        screen = BlocProvider<AddSpendingCategoryBloc>(
+          create: (context) => AddSpendingCategoryBloc(
+            accountBookRepository: context.read<AccountBookRepository>(),
+            spendingRepository: context.read<SpendingRepository>(),
+          ),
           child: AddSpendingCategoryScreen(),
         );
         break;
       case AddSpendingPaymentScreen.routeName:
-        screen = BlocProvider<SpendingBloc>.value(
-          value: spendingBloc,
+        screen = BlocProvider<AddSpendingPaymentBloc>(
+          create: (context) => AddSpendingPaymentBloc(
+            spendingRepository: context.read<SpendingRepository>(),
+          ),
           child: AddSpendingPaymentScreen(),
         );
         break;

@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'account_book_pay.dart';
 import 'category.dart';
 
 part 'account_book.freezed.dart';
@@ -14,7 +15,7 @@ class AccountBook with _$AccountBook {
     required int id,
     required String name,
     required List<Category> categories,
-    required List<AccountBook> payments,
+    required List<AccountBookPay> payments,
     required int createdAt,
   }) = _AccountBook;
 

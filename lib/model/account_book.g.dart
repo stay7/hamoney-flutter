@@ -14,7 +14,7 @@ _$_AccountBook _$$_AccountBookFromJson(Map<String, dynamic> json) =>
           .map((e) => Category.fromJson(e as Map<String, dynamic>))
           .toList(),
       payments: (json['payments'] as List<dynamic>)
-          .map((e) => AccountBook.fromJson(e as Map<String, dynamic>))
+          .map((e) => AccountBookPay.fromJson(e as Map<String, dynamic>))
           .toList(),
       createdAt: json['createdAt'] as int,
     );

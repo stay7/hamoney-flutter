@@ -23,7 +23,7 @@ mixin _$AccountBook {
   int get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   List<Category> get categories => throw _privateConstructorUsedError;
-  List<AccountBook> get payments => throw _privateConstructorUsedError;
+  List<AccountBookPay> get payments => throw _privateConstructorUsedError;
   int get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -42,7 +42,7 @@ abstract class $AccountBookCopyWith<$Res> {
       {int id,
       String name,
       List<Category> categories,
-      List<AccountBook> payments,
+      List<AccountBookPay> payments,
       int createdAt});
 }
 
@@ -81,7 +81,7 @@ class _$AccountBookCopyWithImpl<$Res, $Val extends AccountBook>
       payments: null == payments
           ? _value.payments
           : payments // ignore: cast_nullable_to_non_nullable
-              as List<AccountBook>,
+              as List<AccountBookPay>,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -102,7 +102,7 @@ abstract class _$$_AccountBookCopyWith<$Res>
       {int id,
       String name,
       List<Category> categories,
-      List<AccountBook> payments,
+      List<AccountBookPay> payments,
       int createdAt});
 }
 
@@ -139,7 +139,7 @@ class __$$_AccountBookCopyWithImpl<$Res>
       payments: null == payments
           ? _value._payments
           : payments // ignore: cast_nullable_to_non_nullable
-              as List<AccountBook>,
+              as List<AccountBookPay>,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -156,7 +156,7 @@ class _$_AccountBook implements _AccountBook {
       {required this.id,
       required this.name,
       required final List<Category> categories,
-      required final List<AccountBook> payments,
+      required final List<AccountBookPay> payments,
       required this.createdAt})
       : _categories = categories,
         _payments = payments;
@@ -176,9 +176,9 @@ class _$_AccountBook implements _AccountBook {
     return EqualUnmodifiableListView(_categories);
   }
 
-  final List<AccountBook> _payments;
+  final List<AccountBookPay> _payments;
   @override
-  List<AccountBook> get payments {
+  List<AccountBookPay> get payments {
     if (_payments is EqualUnmodifiableListView) return _payments;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_payments);
@@ -235,7 +235,7 @@ abstract class _AccountBook implements AccountBook {
       {required final int id,
       required final String name,
       required final List<Category> categories,
-      required final List<AccountBook> payments,
+      required final List<AccountBookPay> payments,
       required final int createdAt}) = _$_AccountBook;
 
   factory _AccountBook.fromJson(Map<String, dynamic> json) =
@@ -248,7 +248,7 @@ abstract class _AccountBook implements AccountBook {
   @override
   List<Category> get categories;
   @override
-  List<AccountBook> get payments;
+  List<AccountBookPay> get payments;
   @override
   int get createdAt;
   @override

@@ -8,3 +8,9 @@ class AppBarDateClicked extends HomeEvent {
 
   final CalendarFormat currentFormat;
 }
+
+class DateClicked extends HomeEvent {
+  DateClicked({required this.date});
+
+  final DateTime date;
+}

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hamoney/bloc/date/date_bloc.dart';
 import 'package:hamoney/repository/account_book_repository.dart';
 import 'package:hamoney/repository/client/account_book_client.dart';
 import 'package:hamoney/repository/client/auth_client.dart';
 import 'package:hamoney/dio/dioUtil.dart';
 import 'package:hamoney/hamoney_route.dart';
 import 'package:hamoney/repository/auth_repository.dart';
+import 'package:hamoney/repository/ui_repository.dart';
+import 'package:hamoney/repository/spending_repository.dart';
 import 'package:hamoney/repository/user_repository.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
@@ -39,37 +40,34 @@ class HamoneyApp extends StatelessWidget {
             ),
           ),
         ),
-        RepositoryProvider<UserRepository>(create: (context) => UserRepository()),
         RepositoryProvider<AccountBookRepository>(
           create: (context) => AccountBookRepository(
             accountBookClient: AccountBookClient(DioUtil().authorizedDio),
           ),
-        )
-      ],
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider<DateBloc>(create: (context) => DateBloc())
-        ],
-        child: MaterialApp(
-          title: 'HAMONEY',
-          theme: ThemeData(
-            primarySwatch: Colors.grey,
-            splashColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-            hoverColor: Colors.transparent,
-          ),
-          builder: (context, child) => MediaQuery(
-            data: MediaQueryData.fromWindow(
-              WidgetsBinding.instance.window,
-            ).copyWith(
-              boldText: false,
-              textScaleFactor: 1.0,
-            ),
-            child: child!,
-          ),
-          initialRoute: LoginScreen.routeName,
-          onGenerateRoute: (settings) => HamoneyRoute.onGenerateRoute(settings),
         ),
+        RepositoryProvider<UserRepository>(create: (context) => UserRepository()),
+        RepositoryProvider<UIRepository>(create: (context) => UIRepository()),
+        RepositoryProvider<SpendingRepository>(create: (context) => SpendingRepository()),
+      ],
+      child: MaterialApp(
+        title: 'HAMONEY',
+        theme: ThemeData(
+          primarySwatch: Colors.grey,
+          splashColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          hoverColor: Colors.transparent,
+        ),
+        builder: (context, child) => MediaQuery(
+          data: MediaQueryData.fromWindow(
+            WidgetsBinding.instance.window,
+          ).copyWith(
+            boldText: false,
+            textScaleFactor: 1.0,
+          ),
+          child: child!,
+        ),
+        initialRoute: LoginScreen.routeName,
+        onGenerateRoute: (settings) => HamoneyRoute.onGenerateRoute(settings),
       ),
     );
   }

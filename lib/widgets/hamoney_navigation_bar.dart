@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hamoney/bloc/tab/tab_bloc.dart';
-import 'package:hamoney/screen/add_spending_amount_screen.dart';
 
 import '../resource/resource.dart';
+import '../screen/spending/add_spending_amount_screen.dart';
 
 class HamoneyNavigationBar extends StatelessWidget {
   const HamoneyNavigationBar({Key? key}) : super(key: key);

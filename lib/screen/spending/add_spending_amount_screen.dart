@@ -2,7 +2,8 @@ import 'package:currency_text_input_formatter/currency_text_input_formatter.dart
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hamoney/bloc/date/date_bloc.dart';
+import 'package:hamoney/screen/spending/bloc/add_spending_amount_bloc.dart';
+import 'package:hamoney/screen/spending/add_spending_category_screen.dart';
 import 'package:intl/intl.dart';
 
 class AddSpendingAmountScreen extends StatefulWidget {
@@ -32,10 +33,15 @@ class _AddSpendingAmountScreenState extends State<AddSpendingAmountScreen> {
   Widget build(BuildContext context) {
     DateTime date = DateTime.now();
 
-    return BlocBuilder<DateBloc, DateState>(
+    return BlocConsumer<AddSpendingAmountBloc, AddSpendingAmountState>(
+      listener: (context, state) {
+        if (state is SpendingAmountEntered) {
+          Navigator.of(context).pushNamed(AddSpendingCategoryScreen.routeName);
+        }
+      },
       builder: (context, state) {
-        if (state is SelectedDate) {
-          date = state.date;
+        if (state is AddSpendingAmountInitial) {
+          date = state.selectedDate;
         }
 
         return Scaffold(
@@ -47,7 +53,7 @@ class _AddSpendingAmountScreenState extends State<AddSpendingAmountScreen> {
                     DateFormat('yyyy.MM.dd').format(date),
                     style: const TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  Icon(
+                  const Icon(
                     Icons.arrow_drop_down,
                     color: Colors.black,
                   ),
@@ -88,18 +94,21 @@ class _AddSpendingAmountScreenState extends State<AddSpendingAmountScreen> {
             ),
           ),
           bottomSheet: SafeArea(
-            child: Container(
-              width: double.infinity,
-              color: Colors.black,
-              child: ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(vertical: 14),
-                ),
-                child: Text('확인'),
+              child: Container(
+            width: double.infinity,
+            color: Colors.black,
+            child: ElevatedButton(
+              onPressed: () {
+                context
+                    .read<AddSpendingAmountBloc>()
+                    .add(AmountEntered(int.parse(_amountController.text.replaceAll(',', ''))));
+              },
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 14),
               ),
-            )
-          ),
+              child: const Text('다음'),
+            ),
+          )),
         );
       },
     );
