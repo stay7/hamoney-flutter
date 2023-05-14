@@ -15,4 +15,6 @@ class AppImage {
   static const tabIconSettingOn = "assets/tab_icon_setting_on.png";
   static const tabIconPlanOff = "assets/tab_icon_plan_off.png";
   static const tabIconPlanOn = "assets/tab_icon_plan_on.png";
+
+  static const emoji = "assets/emoji.svg";
 }
