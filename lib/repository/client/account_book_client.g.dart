@@ -13,7 +13,7 @@ class _AccountBookClient implements AccountBookClient {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://dev.hamoney.life:8080';
+    baseUrl ??= 'http://10.0.2.2:8080';
   }
 
   final Dio _dio;
@@ -21,9 +21,33 @@ class _AccountBookClient implements AccountBookClient {
   String? baseUrl;
 
   @override
-  Future<HttpResponse<AccountBook>> useAlone() async {
+  Future<HttpResponse<AccountBookIdResponse>> useAlone() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<HttpResponse<AccountBookIdResponse>>(Options(
+      method: 'GET',
+      headers: _headers,
+      extra: _extra,
+    )
+            .compose(
+              _dio.options,
+              '/use/account_book/alone',
+              queryParameters: queryParameters,
+              data: _data,
+            )
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = AccountBookIdResponse.fromJson(_result.data!);
+    final httpResponse = HttpResponse(value, _result);
+    return httpResponse;
+  }
+
+  @override
+  Future<HttpResponse<AccountBook>> getAccountBook(id) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{r'accountBookId': id};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
@@ -34,7 +58,7 @@ class _AccountBookClient implements AccountBookClient {
     )
             .compose(
               _dio.options,
-              '/use/account_book/alone',
+              '/account_book',
               queryParameters: queryParameters,
               data: _data,
             )
