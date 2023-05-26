@@ -18,11 +18,16 @@ class SecureStorage {
     storage.write(key: SecureStorageKey.accessToken, value: oAuthToken.accessToken);
     storage.write(key: SecureStorageKey.refreshToken, value: oAuthToken.refreshToken);
   }
+
+  Future<void> saveLastUsedAccountBookId(int accountBookId) async {
+    storage.write(key: SecureStorageKey.lastUsedAccountBookId, value: accountBookId.toString());
+  }
 }
 
-class SecureStorageKey {
+abstract class SecureStorageKey {
   static const String email = "email";
   static const String token = "token";
   static const String accessToken = "accessToken";
   static const String refreshToken = "refreshToken";
+  static const String lastUsedAccountBookId = "lastUsedAccountBookId";
 }

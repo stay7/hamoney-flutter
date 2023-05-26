@@ -9,3 +9,9 @@ class AddSpendingCategoryInitial extends AddSpendingCategoryState {
   final int amount;
   final List<Category> categories;
 }
+
+class SelectingCategory extends AddSpendingCategoryState {
+  SelectingCategory(this.selectedCategory);
+
+  SubCategory selectedCategory;
+}

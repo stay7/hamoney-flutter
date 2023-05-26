@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:hamoney/model/sub_category.dart';
 import 'package:hamoney/repository/account_book_repository.dart';
 import 'package:hamoney/repository/spending_repository.dart';
 import 'package:meta/meta.dart';
@@ -17,9 +18,14 @@ class AddSpendingCategoryBloc extends Bloc<AddSpendingCategoryEvent, AddSpending
           categories: accountBookRepository.accountBook.categories,
           amount: spendingRepository.amount,
         )) {
-    on<AddSpendingCategoryEvent>((event, emit) {});
+    on<CategorySelect>(_onCategorySelect);
   }
 
   final SpendingRepository spendingRepository;
   final AccountBookRepository accountBookRepository;
+
+  void _onCategorySelect(CategorySelect event, Emitter<AddSpendingCategoryState> emit) {
+    spendingRepository.subCategory = event.category;
+    emit(SelectingCategory(spendingRepository.subCategory));
+  }
 }

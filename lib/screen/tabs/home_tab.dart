@@ -15,7 +15,14 @@ class Event {
   Event(this.title);
 }
 
-class HomeTab extends StatelessWidget {
+class HomeTab extends StatefulWidget {
+  const HomeTab({Key? key}) : super(key: key);
+
+  @override
+  State<HomeTab> createState() => _HomeTabState();
+}
+
+class _HomeTabState extends State<HomeTab> {
   Map<DateTime, List<Event>> events = {
     DateTime.now(): [Event('title'), Event('title2')],
     DateTime(2023, 5, 6): [Event('title3')],
@@ -24,6 +31,18 @@ class HomeTab extends StatelessWidget {
   List<Event> _getEventsForDay(DateTime day) {
     // Implementation example
     return events[day] ?? [];
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<HomeBloc>().startSyncAccountBook();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    context.read<HomeBloc>().endSyncAccountBook();
   }
 
   @override

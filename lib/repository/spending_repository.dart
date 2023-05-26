@@ -1,11 +1,11 @@
+import 'package:hamoney/model/sub_category.dart';
+
+import '../model/category.dart';
+
 class SpendingRepository {
   SpendingRepository();
 
-  int _amount = 0;
+  int amount = 0;
 
-  int get amount => _amount;
-
-  set amount(int value) {
-    _amount = value;
-  }
+  late SubCategory subCategory;
 }

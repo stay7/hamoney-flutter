@@ -5,6 +5,7 @@ import 'package:hamoney/bloc/home/home_bloc.dart';
 import 'package:hamoney/bloc/saving/saving_bloc.dart';
 import 'package:hamoney/bloc/setting/setting_bloc.dart';
 import 'package:hamoney/bloc/tab/tab_bloc.dart';
+import 'package:hamoney/repository/account_book_repository.dart';
 import 'package:hamoney/repository/ui_repository.dart';
 import 'package:hamoney/screen/tabs/budget_tab.dart';
 import 'package:hamoney/screen/tabs/home_tab.dart';
@@ -22,6 +23,7 @@ class MainScreen extends StatelessWidget {
       BlocProvider<HomeBloc>(
         create: (context) => HomeBloc(
           uiRepository: context.read<UIRepository>(),
+          accountBookRepository: context.read<AccountBookRepository>(),
         ),
         child: HomeTab(),
       ),

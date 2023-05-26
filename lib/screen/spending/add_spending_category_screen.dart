@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hamoney/model/sub_category.dart';
 import 'package:hamoney/resource/resource.dart';
 import 'package:hamoney/screen/main_screen.dart';
 import 'package:hamoney/screen/spending/bloc/add_spending_category_bloc.dart';
@@ -84,9 +85,7 @@ class _AddSpendingCategoryScreenState extends State<AddSpendingCategoryScreen> {
                       children: state.categories
                           .map((category) => Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: category.subCategories
-                                    .map((e) => _SubCategoryView(icon: AppImage.emoji, name: e.name))
-                                    .toList(),
+                                children: category.subCategories.map((e) => _SubCategoryView(subCategory: e)).toList(),
                               ))
                           .toList(),
                     ),
@@ -116,26 +115,45 @@ class _AddSpendingCategoryScreenState extends State<AddSpendingCategoryScreen> {
 }
 
 class _SubCategoryView extends StatelessWidget {
-  const _SubCategoryView({Key? key, required this.icon, required this.name}) : super(key: key);
+  const _SubCategoryView({Key? key, required this.subCategory}) : super(key: key);
 
-  final String icon;
-  final String name;
+  final SubCategory subCategory;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 75,
-      height: 80,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SvgPicture.asset(icon),
-          Container(
-            margin: const EdgeInsets.only(top: 10),
-            child: Text(name),
+    bool selected = false;
+
+    return BlocListener<AddSpendingCategoryBloc, AddSpendingCategoryState>(
+      listener: (context, state) {
+        if (state is SelectingCategory) {
+          print('hi');
+          selected = state.selectedCategory.id == state.selectedCategory.id;
+          if (selected) {
+            print(state.selectedCategory);
+          }
+        }
+      },
+      child: GestureDetector(
+        onTap: () {
+          print(subCategory.id);
+          context.read<AddSpendingCategoryBloc>().add(CategorySelect(subCategory));
+        },
+        child: Container(
+          width: 75,
+          height: 80,
+          decoration: BoxDecoration(color: selected ? Colors.black : Colors.transparent),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SvgPicture.asset(AppImage.emoji),
+              Container(
+                margin: const EdgeInsets.only(top: 10),
+                child: Text(subCategory.name),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
