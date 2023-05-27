@@ -25,7 +25,7 @@ class AddSpendingCategoryBloc extends Bloc<AddSpendingCategoryEvent, AddSpending
   final AccountBookRepository accountBookRepository;
 
   void _onCategorySelect(CategorySelect event, Emitter<AddSpendingCategoryState> emit) {
-    spendingRepository.subCategory = event.category;
-    emit(SelectingCategory(spendingRepository.subCategory));
+    spendingRepository.selectedSubCategory = event.category;
+    emit(SelectingCategory(spendingRepository.selectedSubCategory));
   }
 }

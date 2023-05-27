@@ -33,8 +33,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   void startSyncAccountBook() {
     logger.i('startSyncAccountBook');
     accountBookRepository.getAccountBook();
+    accountBookRepository.getMembers();
     _timer = Timer.periodic(const Duration(minutes: 5), (_) {
       accountBookRepository.getAccountBook();
+      accountBookRepository.getMembers();
     });
   }
 

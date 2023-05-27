@@ -7,5 +7,5 @@ class SpendingRepository {
 
   int amount = 0;
 
-  late SubCategory subCategory;
+  late SubCategory selectedSubCategory;
 }

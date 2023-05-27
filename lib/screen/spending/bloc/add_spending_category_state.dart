@@ -6,8 +6,8 @@ abstract class AddSpendingCategoryState {}
 class AddSpendingCategoryInitial extends AddSpendingCategoryState {
   AddSpendingCategoryInitial({required this.categories, required this.amount});
 
-  final int amount;
-  final List<Category> categories;
+  List<Category> categories;
+  int amount;
 }
 
 class SelectingCategory extends AddSpendingCategoryState {
