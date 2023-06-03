@@ -2,10 +2,11 @@ import 'package:hamoney/model/account_book.dart';
 import 'package:hamoney/model/member.dart';
 import 'package:hamoney/model/member_pay.dart';
 import 'package:hamoney/repository/client/account_book_client.dart';
-import 'package:hamoney/repository/response/member_response.dart';
+import 'package:hamoney/repository/client/request/use_together_request.dart';
 import 'package:logger/logger.dart';
 
 import '../secure_storage.dart';
+import 'client/response/member_response.dart';
 
 class AccountBookRepository {
   AccountBookRepository({required AccountBookClient accountBookClient}) : _accountBookClient = accountBookClient;
@@ -17,6 +18,11 @@ class AccountBookRepository {
 
   Future<void> useAlone() async {
     final response = await _accountBookClient.useAlone();
+    await SecureStorage().saveLastUsedAccountBookId(response.data.accountBookId);
+  }
+
+  Future<void> useTogether(int invitationCode) async {
+    final response = await _accountBookClient.useTogether(UseTogetherRequest(invitationCode: invitationCode));
     await SecureStorage().saveLastUsedAccountBookId(response.data.accountBookId);
   }
 

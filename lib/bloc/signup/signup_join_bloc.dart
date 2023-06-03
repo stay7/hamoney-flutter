@@ -10,22 +10,20 @@ part 'signup_join_state.dart';
 
 class SignupJoinBloc extends Bloc<SignupJoinEvent, SignupJoinState> {
   SignupJoinBloc({required this.accountBookRepository}) : super(SignupJoinInitial()) {
-    on<SignupJoinEvent>((event, emit) {
-      // TODO: implement event handler
-    });
+    on<SignupJoinEvent>((event, emit) {});
     on<UseAloneClicked>(_onUseAloneClicked);
     on<UseTogetherClicked>(_onUseTogetherClicked);
   }
 
   final AccountBookRepository accountBookRepository;
 
-  FutureOr<void> _onUseAloneClicked(UseAloneClicked event, Emitter<SignupJoinState> emitter) async {
-    await this.accountBookRepository.useAlone();
+  FutureOr<void> _onUseAloneClicked(UseAloneClicked event, Emitter<SignupJoinState> emit) async {
+    await accountBookRepository.useAlone();
     emit(AccountBookCreated());
   }
 
-  FutureOr<void> _onUseTogetherClicked(UseTogetherClicked event, Emitter<SignupJoinState> emitter) async {
-    // TODO: accountBook link
+  FutureOr<void> _onUseTogetherClicked(UseTogetherClicked event, Emitter<SignupJoinState> emit) async {
+    await accountBookRepository.useTogether(event.invitationCode);
     emit(AccountBookLinked());
   }
 }

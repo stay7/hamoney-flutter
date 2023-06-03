@@ -5,4 +5,9 @@ abstract class SignupJoinEvent {}
 
 class UseAloneClicked extends SignupJoinEvent {}
 
-class UseTogetherClicked extends SignupJoinEvent {}
+class UseTogetherClicked extends SignupJoinEvent {
+
+  UseTogetherClicked({required this.invitationCode});
+
+  final int invitationCode;
+}

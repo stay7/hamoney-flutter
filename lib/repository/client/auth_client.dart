@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:hamoney/hamoney_config.dart';
 import 'package:hamoney/model/oauth_token.dart';
+import 'package:hamoney/repository/client/request/oauth_request.dart';
 import 'package:retrofit/retrofit.dart';
 
-import '../../model/oauth_request.dart';
-import '../../model/signup_request.dart';
-import '../../model/signup_response.dart';
+import 'request/signup_request.dart';
+import 'response/signup_response.dart';
 
 part 'auth_client.g.dart';
 

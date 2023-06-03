@@ -3,9 +3,9 @@ import 'package:hamoney/repository/client/auth_client.dart';
 import 'package:hamoney/secure_storage.dart';
 import 'package:logger/logger.dart';
 
-import '../model/oauth_request.dart';
 import '../model/oauth_token.dart';
-import '../model/signup_request.dart';
+import 'client/request/oauth_request.dart';
+import 'client/request/signup_request.dart';
 import '../model/user.dart';
 
 class AuthRepository {

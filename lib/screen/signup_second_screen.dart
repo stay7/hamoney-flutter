@@ -7,15 +7,24 @@ import 'package:hamoney/widgets/hamoney_text_button.dart';
 import '../widgets/hamoney_color_button.dart';
 import 'main_screen.dart';
 
-class SignupJoinScreen extends StatelessWidget {
+class SignupJoinScreen extends StatefulWidget {
+  const SignupJoinScreen({Key? key}) : super(key: key);
+
   static const routeName = "signup_join";
 
-  const SignupJoinScreen({super.key});
+  @override
+  State<SignupJoinScreen> createState() => _SignupJoinScreenState();
+}
+
+class _SignupJoinScreenState extends State<SignupJoinScreen> {
+  final TextEditingController _invitationCodeController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<SignupJoinBloc, SignupJoinState>(
       listener: (context, state) {
+        print('here ${state}');
+
         if (state is AccountBookLinked) {
           Navigator.of(context).pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false);
         }
@@ -40,7 +49,7 @@ class SignupJoinScreen extends StatelessWidget {
             children: [
               Container(
                 child: Column(
-                  children: const [
+                  children: [
                     SizedBox(
                       width: double.infinity,
                       child: Text(
@@ -59,6 +68,7 @@ class SignupJoinScreen extends StatelessWidget {
                       ),
                     ),
                     TextField(
+                      controller: _invitationCodeController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: '코드입력',
@@ -80,7 +90,9 @@ class SignupJoinScreen extends StatelessWidget {
               children: [
                 HamoneyColorButton(
                   onPressed: () {
-                    context.read<SignupJoinBloc>().add(UseAloneClicked());
+                    context.read<SignupJoinBloc>().add(UseTogetherClicked(
+                          invitationCode: int.parse(_invitationCodeController.text),
+                        ));
                   },
                   text: "가계부 연결",
                 ),

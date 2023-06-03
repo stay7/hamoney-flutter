@@ -1,8 +1,36 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 
 class Observer extends BlocObserver {
   @override
-  void onChange(BlocBase<dynamic> bloc, Change<dynamic> change) {
+  void onCreate(BlocBase bloc) {
+    super.onCreate(bloc);
+    log('onCreate: ${bloc.runtimeType}');
+  }
+
+  @override
+  void onEvent(Bloc bloc, Object? event) {
+    super.onEvent(bloc, event);
+    log('onEvent: ${event.runtimeType}');
+  }
+
+  @override
+  void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);
+    log('onChange: ${bloc.runtimeType} ${change.currentState.runtimeType} --> ${change.nextState.runtimeType}');
+  }
+
+  @override
+  void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
+    log('onError: ${bloc.runtimeType}');
+    log('onError: $error');
+    super.onError(bloc, error, stackTrace);
+  }
+
+  @override
+  void onClose(BlocBase bloc) {
+    super.onClose(bloc);
+    log('onClose: ${bloc.runtimeType}');
   }
 }
