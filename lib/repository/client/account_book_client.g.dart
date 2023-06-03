@@ -21,13 +21,13 @@ class _AccountBookClient implements AccountBookClient {
   String? baseUrl;
 
   @override
-  Future<HttpResponse<AccountBookIdResponse>> useAlone() async {
+  Future<HttpResponse<UseAloneResponse>> useAlone() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<AccountBookIdResponse>>(Options(
+        _setStreamType<HttpResponse<UseAloneResponse>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -39,7 +39,7 @@ class _AccountBookClient implements AccountBookClient {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = AccountBookIdResponse.fromJson(_result.data!);
+    final value = UseAloneResponse.fromJson(_result.data!);
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }

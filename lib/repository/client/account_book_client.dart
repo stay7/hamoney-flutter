@@ -13,7 +13,7 @@ abstract class AccountBookClient {
   factory AccountBookClient(Dio dio, {String? baseUrl}) = _AccountBookClient;
 
   @GET('/use/account_book/alone')
-  Future<HttpResponse<AccountBookIdResponse>> useAlone();
+  Future<HttpResponse<UseAloneResponse>> useAlone();
 
   @GET('/account_book')
   Future<HttpResponse<AccountBook>> getAccountBook(@Query('accountBookId') int id);

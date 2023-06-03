@@ -39,13 +39,17 @@ class SignupScreen extends StatelessWidget {
                     const SizedBox(
                       width: double.infinity,
                       child: Text(
-                        '가입 정보를 입력해주세요',
+                        '환영해요!\n가입 정보를 확인해주세요',
                         textAlign: TextAlign.start,
                         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                       ),
                     ),
                     TextFormField(
-                      decoration: const InputDecoration(labelText: "이메일"),
+                      decoration: const InputDecoration(
+                        labelText: "이메일",
+                        filled: true,
+                        fillColor: Color(0xffEFF1F5),
+                      ),
                       initialValue: email,
                       readOnly: true,
                       enabled: false,

@@ -7,6 +7,7 @@ import 'package:hamoney/repository/auth_repository.dart';
 import 'package:hamoney/repository/ui_repository.dart';
 import 'package:hamoney/repository/spending_repository.dart';
 import 'package:hamoney/repository/user_repository.dart';
+import 'package:hamoney/screen/signup_done_screen.dart';
 import 'package:hamoney/screen/spending/bloc/add_spending_amount_bloc.dart';
 import 'package:hamoney/screen/spending/add_spending_amount_screen.dart';
 import 'package:hamoney/screen/spending/add_spending_category_screen.dart';
@@ -19,6 +20,7 @@ import 'package:hamoney/screen/spending/bloc/add_spending_category_bloc.dart';
 import 'package:hamoney/screen/spending/bloc/add_spending_payment_bloc.dart';
 
 import 'bloc/signup/signup_bloc.dart';
+import 'bloc/signup/signup_done_bloc.dart';
 import 'bloc/tab/tab_bloc.dart';
 
 abstract class HamoneyRoute {
@@ -58,6 +60,12 @@ abstract class HamoneyRoute {
             accountBookRepository: context.read<AccountBookRepository>(),
           ),
           child: SignupJoinScreen(),
+        );
+        break;
+      case SignupDoneScreen.routeName:
+        screen = BlocProvider(
+          create: (context) => SignupDoneBloc(),
+          child: SignupDoneScreen(),
         );
         break;
       case MainScreen.routeName:

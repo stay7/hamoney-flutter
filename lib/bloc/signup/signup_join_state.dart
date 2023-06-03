@@ -5,4 +5,6 @@ abstract class SignupJoinState {}
 
 class SignupJoinInitial extends SignupJoinState {}
 
-class AccountBookSynced extends SignupJoinState {}
+class AccountBookCreated extends SignupJoinState {}
+
+class AccountBookLinked extends SignupJoinState {}
