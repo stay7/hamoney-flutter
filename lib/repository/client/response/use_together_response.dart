@@ -8,7 +8,7 @@ part 'use_together_response.g.dart';
 @freezed
 class UseTogetherResponse with _$UseTogetherResponse {
   const factory UseTogetherResponse({
-    required String code,
+    required int accountBookId,
   }) = _UseTogetherResponse;
 
   factory UseTogetherResponse.fromJson(Map<String, dynamic> json) => _$UseTogetherResponseFromJson(json);

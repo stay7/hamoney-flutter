@@ -11,6 +11,7 @@ class SignupDoneScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final arguments = ModalRoute.of(context)!.settings.arguments as SignupDoneScreenArgument;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -41,7 +42,7 @@ class SignupDoneScreen extends StatelessWidget {
             ),
             HamoneyDisabledTextField(
               title: '내코드',
-              content: 'GROUP-123456',
+              content: arguments.code.toString(),
               contentStyle: TextStyle(
                 color: Color(0xff191919),
                 fontSize: 14,
@@ -66,4 +67,10 @@ class SignupDoneScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+class SignupDoneScreenArgument {
+  SignupDoneScreenArgument(this.code);
+
+  final int code;
 }

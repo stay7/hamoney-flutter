@@ -16,9 +16,10 @@ class AccountBookRepository {
   final Logger logger = Logger();
   late List<Member> members;
 
-  Future<void> useAlone() async {
+  Future<int> useAlone() async {
     final response = await _accountBookClient.useAlone();
     await SecureStorage().saveLastUsedAccountBookId(response.data.accountBookId);
+    return response.data.invitationCode;
   }
 
   Future<void> useTogether(int invitationCode) async {

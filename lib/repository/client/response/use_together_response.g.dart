@@ -9,11 +9,11 @@ part of 'use_together_response.dart';
 _$_UseTogetherResponse _$$_UseTogetherResponseFromJson(
         Map<String, dynamic> json) =>
     _$_UseTogetherResponse(
-      code: json['code'] as String,
+      accountBookId: json['accountBookId'] as int,
     );
 
 Map<String, dynamic> _$$_UseTogetherResponseToJson(
         _$_UseTogetherResponse instance) =>
     <String, dynamic>{
-      'code': instance.code,
+      'accountBookId': instance.accountBookId,
     };

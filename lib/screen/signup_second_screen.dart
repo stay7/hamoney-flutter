@@ -23,13 +23,15 @@ class _SignupJoinScreenState extends State<SignupJoinScreen> {
   Widget build(BuildContext context) {
     return BlocListener<SignupJoinBloc, SignupJoinState>(
       listener: (context, state) {
-        print('here ${state}');
-
         if (state is AccountBookLinked) {
           Navigator.of(context).pushNamedAndRemoveUntil(MainScreen.routeName, (route) => false);
         }
         if (state is AccountBookCreated) {
-          Navigator.of(context).pushNamedAndRemoveUntil(SignupDoneScreen.routeName, (route) => false);
+          Navigator.of(context).pushNamedAndRemoveUntil(
+            SignupDoneScreen.routeName,
+            (route) => false,
+            arguments: SignupDoneScreenArgument(state.code),
+          );
         }
       },
       child: Scaffold(

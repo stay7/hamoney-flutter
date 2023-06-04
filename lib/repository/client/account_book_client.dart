@@ -4,6 +4,7 @@ import 'package:hamoney/model/account_book.dart';
 import 'package:hamoney/repository/client/request/use_together_request.dart';
 import 'package:hamoney/repository/client/response/account_book_members_response.dart';
 import 'package:hamoney/repository/client/response/use_alone_response.dart';
+import 'package:hamoney/repository/client/response/use_together_response.dart';
 import 'package:retrofit/dio.dart';
 import 'package:retrofit/http.dart';
 
@@ -17,7 +18,7 @@ abstract class AccountBookClient {
   Future<HttpResponse<UseAloneResponse>> useAlone();
 
   @POST('/use/account_book/together')
-  Future<HttpResponse<UseAloneResponse>> useTogether(@Body() UseTogetherRequest useTogetherRequest);
+  Future<HttpResponse<UseTogetherResponse>> useTogether(@Body() UseTogetherRequest useTogetherRequest);
 
   @GET('/account_book')
   Future<HttpResponse<AccountBook>> getAccountBook(@Query('accountBookId') int id);

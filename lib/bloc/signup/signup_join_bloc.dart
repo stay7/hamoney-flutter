@@ -18,8 +18,8 @@ class SignupJoinBloc extends Bloc<SignupJoinEvent, SignupJoinState> {
   final AccountBookRepository accountBookRepository;
 
   FutureOr<void> _onUseAloneClicked(UseAloneClicked event, Emitter<SignupJoinState> emit) async {
-    await accountBookRepository.useAlone();
-    emit(AccountBookCreated());
+    final invitationCode = await accountBookRepository.useAlone();
+    emit(AccountBookCreated(code: invitationCode));
   }
 
   FutureOr<void> _onUseTogetherClicked(UseTogetherClicked event, Emitter<SignupJoinState> emit) async {

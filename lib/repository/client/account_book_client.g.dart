@@ -13,7 +13,7 @@ class _AccountBookClient implements AccountBookClient {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://10.0.2.2:8080';
+    baseUrl ??= 'http://dev.hamoney.life:8080';
   }
 
   final Dio _dio;
@@ -45,14 +45,15 @@ class _AccountBookClient implements AccountBookClient {
   }
 
   @override
-  Future<HttpResponse<UseAloneResponse>> useTogether(useTogetherRequest) async {
+  Future<HttpResponse<UseTogetherResponse>> useTogether(
+      useTogetherRequest) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(useTogetherRequest.toJson());
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<UseAloneResponse>>(Options(
+        _setStreamType<HttpResponse<UseTogetherResponse>>(Options(
       method: 'POST',
       headers: _headers,
       extra: _extra,
@@ -64,7 +65,7 @@ class _AccountBookClient implements AccountBookClient {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = UseAloneResponse.fromJson(_result.data!);
+    final value = UseTogetherResponse.fromJson(_result.data!);
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }

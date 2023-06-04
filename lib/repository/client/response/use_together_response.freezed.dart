@@ -20,7 +20,7 @@ UseTogetherResponse _$UseTogetherResponseFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$UseTogetherResponse {
-  String get code => throw _privateConstructorUsedError;
+  int get accountBookId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +34,7 @@ abstract class $UseTogetherResponseCopyWith<$Res> {
           UseTogetherResponse value, $Res Function(UseTogetherResponse) then) =
       _$UseTogetherResponseCopyWithImpl<$Res, UseTogetherResponse>;
   @useResult
-  $Res call({String code});
+  $Res call({int accountBookId});
 }
 
 /// @nodoc
@@ -50,13 +50,13 @@ class _$UseTogetherResponseCopyWithImpl<$Res, $Val extends UseTogetherResponse>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? code = null,
+    Object? accountBookId = null,
   }) {
     return _then(_value.copyWith(
-      code: null == code
-          ? _value.code
-          : code // ignore: cast_nullable_to_non_nullable
-              as String,
+      accountBookId: null == accountBookId
+          ? _value.accountBookId
+          : accountBookId // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -69,7 +69,7 @@ abstract class _$$_UseTogetherResponseCopyWith<$Res>
       __$$_UseTogetherResponseCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String code});
+  $Res call({int accountBookId});
 }
 
 /// @nodoc
@@ -83,13 +83,13 @@ class __$$_UseTogetherResponseCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? code = null,
+    Object? accountBookId = null,
   }) {
     return _then(_$_UseTogetherResponse(
-      code: null == code
-          ? _value.code
-          : code // ignore: cast_nullable_to_non_nullable
-              as String,
+      accountBookId: null == accountBookId
+          ? _value.accountBookId
+          : accountBookId // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -99,17 +99,17 @@ class __$$_UseTogetherResponseCopyWithImpl<$Res>
 class _$_UseTogetherResponse
     with DiagnosticableTreeMixin
     implements _UseTogetherResponse {
-  const _$_UseTogetherResponse({required this.code});
+  const _$_UseTogetherResponse({required this.accountBookId});
 
   factory _$_UseTogetherResponse.fromJson(Map<String, dynamic> json) =>
       _$$_UseTogetherResponseFromJson(json);
 
   @override
-  final String code;
+  final int accountBookId;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'UseTogetherResponse(code: $code)';
+    return 'UseTogetherResponse(accountBookId: $accountBookId)';
   }
 
   @override
@@ -117,7 +117,7 @@ class _$_UseTogetherResponse
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'UseTogetherResponse'))
-      ..add(DiagnosticsProperty('code', code));
+      ..add(DiagnosticsProperty('accountBookId', accountBookId));
   }
 
   @override
@@ -125,12 +125,13 @@ class _$_UseTogetherResponse
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_UseTogetherResponse &&
-            (identical(other.code, code) || other.code == code));
+            (identical(other.accountBookId, accountBookId) ||
+                other.accountBookId == accountBookId));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, code);
+  int get hashCode => Object.hash(runtimeType, accountBookId);
 
   @JsonKey(ignore: true)
   @override
@@ -148,14 +149,14 @@ class _$_UseTogetherResponse
 }
 
 abstract class _UseTogetherResponse implements UseTogetherResponse {
-  const factory _UseTogetherResponse({required final String code}) =
+  const factory _UseTogetherResponse({required final int accountBookId}) =
       _$_UseTogetherResponse;
 
   factory _UseTogetherResponse.fromJson(Map<String, dynamic> json) =
       _$_UseTogetherResponse.fromJson;
 
   @override
-  String get code;
+  int get accountBookId;
   @override
   @JsonKey(ignore: true)
   _$$_UseTogetherResponseCopyWith<_$_UseTogetherResponse> get copyWith =>

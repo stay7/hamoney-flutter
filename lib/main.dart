@@ -18,8 +18,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'bloc/bloc_observer.dart';
 
 Future main() async {
-  await dotenv.load(fileName: "config/.env.local");
-  // await dotenv.load(fileName: "config/.env.dev");
+  // await dotenv.load(fileName: "config/.env.local");
+  await dotenv.load(fileName: "config/.env.dev");
   KakaoSdk.init(nativeAppKey: dotenv.env['KAKAO_NATIVE_APP_KEY']);
   Logger.level = Level.info;
   await initializeDateFormatting();
