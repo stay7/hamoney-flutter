@@ -8,7 +8,7 @@ part of 'account_book_pay.dart';
 
 class AccountBookPayAdapter extends TypeAdapter<_$_AccountBookPay> {
   @override
-  final int typeId = 5;
+  final int typeId = 6;
 
   @override
   _$_AccountBookPay read(BinaryReader reader) {

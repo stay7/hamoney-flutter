@@ -20,8 +20,11 @@ MemberPay _$MemberPayFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$MemberPay {
+  @HiveField(0)
   int get id => throw _privateConstructorUsedError;
+  @HiveField(1)
   String get name => throw _privateConstructorUsedError;
+  @HiveField(2)
   int get iconId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -35,7 +38,10 @@ abstract class $MemberPayCopyWith<$Res> {
   factory $MemberPayCopyWith(MemberPay value, $Res Function(MemberPay) then) =
       _$MemberPayCopyWithImpl<$Res, MemberPay>;
   @useResult
-  $Res call({int id, String name, int iconId});
+  $Res call(
+      {@HiveField(0) int id,
+      @HiveField(1) String name,
+      @HiveField(2) int iconId});
 }
 
 /// @nodoc
@@ -79,7 +85,10 @@ abstract class _$$_MemberPayCopyWith<$Res> implements $MemberPayCopyWith<$Res> {
       __$$_MemberPayCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String name, int iconId});
+  $Res call(
+      {@HiveField(0) int id,
+      @HiveField(1) String name,
+      @HiveField(2) int iconId});
 }
 
 /// @nodoc
@@ -118,16 +127,21 @@ class __$$_MemberPayCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_MemberPay with DiagnosticableTreeMixin implements _MemberPay {
   const _$_MemberPay(
-      {required this.id, required this.name, required this.iconId});
+      {@HiveField(0) required this.id,
+      @HiveField(1) required this.name,
+      @HiveField(2) required this.iconId});
 
   factory _$_MemberPay.fromJson(Map<String, dynamic> json) =>
       _$$_MemberPayFromJson(json);
 
   @override
+  @HiveField(0)
   final int id;
   @override
+  @HiveField(1)
   final String name;
   @override
+  @HiveField(2)
   final int iconId;
 
   @override
@@ -175,18 +189,21 @@ class _$_MemberPay with DiagnosticableTreeMixin implements _MemberPay {
 
 abstract class _MemberPay implements MemberPay {
   const factory _MemberPay(
-      {required final int id,
-      required final String name,
-      required final int iconId}) = _$_MemberPay;
+      {@HiveField(0) required final int id,
+      @HiveField(1) required final String name,
+      @HiveField(2) required final int iconId}) = _$_MemberPay;
 
   factory _MemberPay.fromJson(Map<String, dynamic> json) =
       _$_MemberPay.fromJson;
 
   @override
+  @HiveField(0)
   int get id;
   @override
+  @HiveField(1)
   String get name;
   @override
+  @HiveField(2)
   int get iconId;
   @override
   @JsonKey(ignore: true)

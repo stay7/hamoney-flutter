@@ -9,8 +9,11 @@ part 'member_response.g.dart';
 
 @freezed
 class MemberResponse with _$MemberResponse {
-  const factory MemberResponse({required String userId, required String nickname, required List<MemberPay> payments}) =
-      _MemberResponse;
+  const factory MemberResponse({
+    required String userId,
+    required String nickname,
+    required List<MemberPay> payments,
+  }) = _MemberResponse;
 
   factory MemberResponse.fromJson(Map<String, dynamic> json) => _$MemberResponseFromJson(json);
 }

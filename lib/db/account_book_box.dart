@@ -7,26 +7,47 @@ import 'package:hive/hive.dart';
 
 import '../model/account_book.dart';
 
-class AccountBookBox {
+class AccountBookHive {
   static const String accountBookKey = "account_book";
+  static const String accountBookRevisionKey = "account_book_revision";
 
-  AccountBookBox();
+  AccountBookHive();
 
-  late Box<AccountBook> box;
+  late Box<AccountBook> _accountBookBox;
+  late Box<int> _revisionBox;
+  late Box<List<int>> _membersBox;
 
   Future<void> initialize() async {
-    box = await Hive.openBox<AccountBook>(accountBookKey);
-    Hive.registerAdapter(AccountBookAdapter());
-    Hive.registerAdapter(CategoryAdapter());
-    Hive.registerAdapter(SubCategoryAdapter());
-    Hive.registerAdapter(AccountBookPayAdapter());
+    Hive.registerAdapter<AccountBook>(AccountBookAdapter());
+    Hive.registerAdapter<Category>(CategoryAdapter());
+    Hive.registerAdapter<SubCategory>(SubCategoryAdapter());
+    Hive.registerAdapter<AccountBookPay>(AccountBookPayAdapter());
+
+    _accountBookBox = await Hive.openBox<AccountBook>(accountBookKey);
+    _revisionBox = await Hive.openBox<int>(accountBookRevisionKey);
   }
 
-  FutureOr<void> save(int accountBookId, AccountBook accountBook) {
-    box.put(accountBookId, accountBook);
+  void save(int accountBookId, AccountBook accountBook) {
+    _accountBookBox.put(accountBookId, accountBook);
   }
 
-  FutureOr<AccountBook?> load(int accountBookId) async {
-    return box.get(accountBookId);
+  AccountBook? find(int accountBookId) {
+    return _accountBookBox.get(accountBookId);
+  }
+
+  int? findRevision(int accountBookId) {
+    return _revisionBox.get(accountBookId);
+  }
+
+  void saveRevision(int accountBookId, int revision) {
+    _revisionBox.put(accountBookId, revision);
+  }
+
+  void saveMembers(int accountBookId, List<int> members) {
+    _membersBox.put(accountBookId, members);
+  }
+
+  List<int> findMembers(int accountBookId) {
+    return _membersBox.get(accountBookId) ?? List.empty();
   }
 }

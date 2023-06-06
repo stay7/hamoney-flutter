@@ -1,12 +1,15 @@
 import 'package:get_it/get_it.dart';
 import 'package:hamoney/db/account_book_box.dart';
+import 'package:hamoney/db/member_box.dart';
 import 'package:hamoney/repository/account_book_repository.dart';
 import 'package:hamoney/repository/auth_repository.dart';
 import 'package:hamoney/repository/client/account_book_client.dart';
 import 'package:hamoney/repository/client/auth_client.dart';
+import 'package:hamoney/repository/client/status_client.dart';
 import 'package:hamoney/repository/spending_repository.dart';
 import 'package:hamoney/repository/ui_repository.dart';
 import 'package:hamoney/repository/user_repository.dart';
+import 'package:hamoney/workflow/update_status.dart';
 
 import 'dio/dioUtil.dart';
 
@@ -15,26 +18,38 @@ class DI {
 
   final GetIt getIt;
 
-  void initialize() {
-    final authClient = AuthClient(DioUtil().pureDio);
-    final accountBookClient = AccountBookClient(DioUtil().authorizedDio);
-    final accountBookBox = AccountBookBox();
+  Future<void> initialize() async {
+    final accountBookHive = AccountBookHive();
+    await accountBookHive.initialize();
+    final memberHive = MemberHive();
+    await memberHive.initialize();
 
-    getIt.registerSingleton<AuthClient>(authClient);
-    getIt.registerSingleton<AccountBookClient>(accountBookClient);
-    getIt.registerSingleton<AccountBookBox>(accountBookBox);
+    getIt.registerSingleton<AuthClient>(AuthClient(DioUtil().pureDio));
+    getIt.registerSingleton<AccountBookClient>(AccountBookClient(DioUtil().authorizedDio));
+    getIt.registerSingleton<StatusClient>(StatusClient(DioUtil().authorizedDio));
+
+    getIt.registerSingleton<AccountBookHive>(accountBookHive);
+    getIt.registerSingleton<MemberHive>(memberHive);
 
     // repository
-    getIt.registerSingletonWithDependencies<AccountBookRepository>(
-      () => AccountBookRepository(accountBookClient: accountBookClient, accountBookBox: accountBookBox),
-      dependsOn: [AccountBookClient, AccountBookBox],
-    );
-    getIt.registerSingletonWithDependencies<AuthRepository>(
-      () => AuthRepository(authClient: authClient),
-      dependsOn: [AuthClient],
-    );
+    getIt.registerSingleton<AccountBookRepository>(AccountBookRepository(
+      accountBookClient: getIt.get(),
+      accountBookHive: getIt.get(),
+      memberHive: getIt.get(),
+    ));
+    getIt.registerSingleton<AuthRepository>(AuthRepository(authClient: getIt.get()));
     getIt.registerSingleton<UserRepository>(UserRepository());
     getIt.registerSingleton<UIRepository>(UIRepository());
     getIt.registerSingleton<SpendingRepository>(SpendingRepository());
+
+    // workflow
+    getIt.registerSingleton<UpdateStatus>(
+      UpdateStatus(
+          statusClient: getIt.get(),
+          userRepository: getIt.get(),
+          accountBookRepository: getIt.get(),
+          accountBookHive: getIt.get(),
+          memberHive: getIt.get()),
+    );
   }
 }

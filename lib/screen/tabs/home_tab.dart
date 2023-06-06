@@ -6,7 +6,6 @@ import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../bloc/home/home_bloc.dart';
-import '../../repository/account_book_repository.dart';
 import '../../widgets/calendar_selected_day.dart';
 
 class Event {
@@ -36,7 +35,7 @@ class _HomeTabState extends State<HomeTab> {
   @override
   void initState() {
     super.initState();
-    context.read<HomeBloc>().startSyncAccountBook();
+    context.read<HomeBloc>().startPollingUpdateStatus();
   }
 
   @override
@@ -50,8 +49,6 @@ class _HomeTabState extends State<HomeTab> {
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         if (state is HomeInitial) {
-          context.watch<AccountBookRepository>().getAccountBook();
-
           return Scaffold(
             appBar: AppBar(
               title: InkWell(

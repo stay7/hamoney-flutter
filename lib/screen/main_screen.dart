@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:hamoney/bloc/budget/budget_bloc.dart';
 import 'package:hamoney/bloc/home/home_bloc.dart';
 import 'package:hamoney/bloc/saving/saving_bloc.dart';
@@ -24,6 +25,7 @@ class MainScreen extends StatelessWidget {
         create: (context) => HomeBloc(
           uiRepository: context.read<UIRepository>(),
           accountBookRepository: context.read<AccountBookRepository>(),
+          updateStatus: GetIt.instance.get()
         ),
         child: HomeTab(),
       ),

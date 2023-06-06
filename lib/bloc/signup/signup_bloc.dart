@@ -20,7 +20,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
 
   FutureOr<void> _onSignupRequested(SignupRequested event, Emitter<SignupState> emit) async {
     final user = await authRepository.signup(event.email, event.nickname);
-    userRepository.setUser = user;
+    userRepository.user = user;
   }
 
   FutureOr<void> _onOAuthTokenRequested(OAuthTokenRequested event, Emitter<SignupState> emit) async {

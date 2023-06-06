@@ -20,8 +20,11 @@ Member _$MemberFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Member {
+  @HiveField(0)
   String get id => throw _privateConstructorUsedError;
+  @HiveField(1)
   String get nickname => throw _privateConstructorUsedError;
+  @HiveField(2)
   List<MemberPay> get payments => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -34,7 +37,10 @@ abstract class $MemberCopyWith<$Res> {
   factory $MemberCopyWith(Member value, $Res Function(Member) then) =
       _$MemberCopyWithImpl<$Res, Member>;
   @useResult
-  $Res call({String id, String nickname, List<MemberPay> payments});
+  $Res call(
+      {@HiveField(0) String id,
+      @HiveField(1) String nickname,
+      @HiveField(2) List<MemberPay> payments});
 }
 
 /// @nodoc
@@ -77,7 +83,10 @@ abstract class _$$_MemberCopyWith<$Res> implements $MemberCopyWith<$Res> {
       __$$_MemberCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String nickname, List<MemberPay> payments});
+  $Res call(
+      {@HiveField(0) String id,
+      @HiveField(1) String nickname,
+      @HiveField(2) List<MemberPay> payments});
 }
 
 /// @nodoc
@@ -115,20 +124,23 @@ class __$$_MemberCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Member with DiagnosticableTreeMixin implements _Member {
   const _$_Member(
-      {required this.id,
-      required this.nickname,
-      required final List<MemberPay> payments})
+      {@HiveField(0) required this.id,
+      @HiveField(1) required this.nickname,
+      @HiveField(2) required final List<MemberPay> payments})
       : _payments = payments;
 
   factory _$_Member.fromJson(Map<String, dynamic> json) =>
       _$$_MemberFromJson(json);
 
   @override
+  @HiveField(0)
   final String id;
   @override
+  @HiveField(1)
   final String nickname;
   final List<MemberPay> _payments;
   @override
+  @HiveField(2)
   List<MemberPay> get payments {
     if (_payments is EqualUnmodifiableListView) return _payments;
     // ignore: implicit_dynamic_type
@@ -182,17 +194,20 @@ class _$_Member with DiagnosticableTreeMixin implements _Member {
 
 abstract class _Member implements Member {
   const factory _Member(
-      {required final String id,
-      required final String nickname,
-      required final List<MemberPay> payments}) = _$_Member;
+      {@HiveField(0) required final String id,
+      @HiveField(1) required final String nickname,
+      @HiveField(2) required final List<MemberPay> payments}) = _$_Member;
 
   factory _Member.fromJson(Map<String, dynamic> json) = _$_Member.fromJson;
 
   @override
+  @HiveField(0)
   String get id;
   @override
+  @HiveField(1)
   String get nickname;
   @override
+  @HiveField(2)
   List<MemberPay> get payments;
   @override
   @JsonKey(ignore: true)

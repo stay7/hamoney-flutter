@@ -22,10 +22,11 @@ Future main() async {
   // await dotenv.load(fileName: "config/.env.dev");
 
   KakaoSdk.init(nativeAppKey: dotenv.env['KAKAO_NATIVE_APP_KEY']);
+  await Hive.initFlutter();
+
   Logger.level = Level.info;
   await initializeDateFormatting();
-  await Hive.initFlutter();
-  DI(getIt: GetIt.instance).initialize();
+  await DI(getIt: GetIt.instance).initialize();
 
   Bloc.observer = Observer();
   runApp(const HamoneyApp());

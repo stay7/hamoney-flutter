@@ -5,10 +5,13 @@ import '../model/user.dart';
 class UserRepository {
   UserRepository();
 
-  late User _user;
   Logger logger = Logger();
 
-  set setUser(User value) => _user = value;
+  late User _user;
 
-  User get getUser => _user;
+  User get user => _user;
+
+  set user(User value) {
+    _user = value;
+  }
 }

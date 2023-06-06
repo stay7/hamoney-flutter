@@ -7,13 +7,14 @@ import 'package:meta/meta.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../repository/account_book_repository.dart';
+import '../../workflow/update_status.dart';
 
 part 'home_event.dart';
 
 part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  HomeBloc({required this.uiRepository, required this.accountBookRepository})
+  HomeBloc({required this.uiRepository, required this.accountBookRepository, required this.updateStatus})
       : super(
           HomeInitial(
             format: uiRepository.calendarFormat,
@@ -26,18 +27,17 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   final Logger logger = Logger();
+
+  final UpdateStatus updateStatus;
   final UIRepository uiRepository;
   final AccountBookRepository accountBookRepository;
   late Timer _timer;
 
-  void startSyncAccountBook() {
-    logger.i('startSyncAccountBook');
-    accountBookRepository.getAccountBook();
-    accountBookRepository.getMembers();
+  void startPollingUpdateStatus() {
+    updateStatus.fetch();
 
     _timer = Timer.periodic(const Duration(minutes: 5), (_) {
-      accountBookRepository.getAccountBook();
-      accountBookRepository.getMembers();
+      updateStatus.fetch();
     });
   }
 
