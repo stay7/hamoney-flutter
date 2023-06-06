@@ -20,8 +20,11 @@ Category _$CategoryFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Category {
+  @HiveField(0)
   int get id => throw _privateConstructorUsedError;
+  @HiveField(1)
   String get name => throw _privateConstructorUsedError;
+  @HiveField(2)
   List<SubCategory> get subCategories => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -35,7 +38,10 @@ abstract class $CategoryCopyWith<$Res> {
   factory $CategoryCopyWith(Category value, $Res Function(Category) then) =
       _$CategoryCopyWithImpl<$Res, Category>;
   @useResult
-  $Res call({int id, String name, List<SubCategory> subCategories});
+  $Res call(
+      {@HiveField(0) int id,
+      @HiveField(1) String name,
+      @HiveField(2) List<SubCategory> subCategories});
 }
 
 /// @nodoc
@@ -79,7 +85,10 @@ abstract class _$$_CategoryCopyWith<$Res> implements $CategoryCopyWith<$Res> {
       __$$_CategoryCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String name, List<SubCategory> subCategories});
+  $Res call(
+      {@HiveField(0) int id,
+      @HiveField(1) String name,
+      @HiveField(2) List<SubCategory> subCategories});
 }
 
 /// @nodoc
@@ -116,23 +125,27 @@ class __$$_CategoryCopyWithImpl<$Res>
 
 /// @nodoc
 
+@HiveType(typeId: HiveTypeId.category)
 @JsonSerializable(explicitToJson: true)
 class _$_Category with DiagnosticableTreeMixin implements _Category {
   const _$_Category(
-      {required this.id,
-      required this.name,
-      required final List<SubCategory> subCategories})
+      {@HiveField(0) required this.id,
+      @HiveField(1) required this.name,
+      @HiveField(2) required final List<SubCategory> subCategories})
       : _subCategories = subCategories;
 
   factory _$_Category.fromJson(Map<String, dynamic> json) =>
       _$$_CategoryFromJson(json);
 
   @override
+  @HiveField(0)
   final int id;
   @override
+  @HiveField(1)
   final String name;
   final List<SubCategory> _subCategories;
   @override
+  @HiveField(2)
   List<SubCategory> get subCategories {
     if (_subCategories is EqualUnmodifiableListView) return _subCategories;
     // ignore: implicit_dynamic_type
@@ -186,17 +199,21 @@ class _$_Category with DiagnosticableTreeMixin implements _Category {
 
 abstract class _Category implements Category {
   const factory _Category(
-      {required final int id,
-      required final String name,
-      required final List<SubCategory> subCategories}) = _$_Category;
+          {@HiveField(0) required final int id,
+          @HiveField(1) required final String name,
+          @HiveField(2) required final List<SubCategory> subCategories}) =
+      _$_Category;
 
   factory _Category.fromJson(Map<String, dynamic> json) = _$_Category.fromJson;
 
   @override
+  @HiveField(0)
   int get id;
   @override
+  @HiveField(1)
   String get name;
   @override
+  @HiveField(2)
   List<SubCategory> get subCategories;
   @override
   @JsonKey(ignore: true)

@@ -23,6 +23,7 @@ mixin _$User {
   String get id => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get nickname => throw _privateConstructorUsedError;
+  String? get profile => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +35,7 @@ abstract class $UserCopyWith<$Res> {
   factory $UserCopyWith(User value, $Res Function(User) then) =
       _$UserCopyWithImpl<$Res, User>;
   @useResult
-  $Res call({String id, String email, String nickname});
+  $Res call({String id, String email, String nickname, String? profile});
 }
 
 /// @nodoc
@@ -53,6 +54,7 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? id = null,
     Object? email = null,
     Object? nickname = null,
+    Object? profile = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -67,6 +69,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.nickname
           : nickname // ignore: cast_nullable_to_non_nullable
               as String,
+      profile: freezed == profile
+          ? _value.profile
+          : profile // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -77,7 +83,7 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       __$$_UserCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String email, String nickname});
+  $Res call({String id, String email, String nickname, String? profile});
 }
 
 /// @nodoc
@@ -92,6 +98,7 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
     Object? id = null,
     Object? email = null,
     Object? nickname = null,
+    Object? profile = freezed,
   }) {
     return _then(_$_User(
       id: null == id
@@ -106,6 +113,10 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
           ? _value.nickname
           : nickname // ignore: cast_nullable_to_non_nullable
               as String,
+      profile: freezed == profile
+          ? _value.profile
+          : profile // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -114,7 +125,10 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
 @JsonSerializable()
 class _$_User implements _User {
   const _$_User(
-      {required this.id, required this.email, required this.nickname});
+      {required this.id,
+      required this.email,
+      required this.nickname,
+      this.profile});
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
 
@@ -124,10 +138,12 @@ class _$_User implements _User {
   final String email;
   @override
   final String nickname;
+  @override
+  final String? profile;
 
   @override
   String toString() {
-    return 'User(id: $id, email: $email, nickname: $nickname)';
+    return 'User(id: $id, email: $email, nickname: $nickname, profile: $profile)';
   }
 
   @override
@@ -138,12 +154,13 @@ class _$_User implements _User {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.nickname, nickname) ||
-                other.nickname == nickname));
+                other.nickname == nickname) &&
+            (identical(other.profile, profile) || other.profile == profile));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, email, nickname);
+  int get hashCode => Object.hash(runtimeType, id, email, nickname, profile);
 
   @JsonKey(ignore: true)
   @override
@@ -163,7 +180,8 @@ abstract class _User implements User {
   const factory _User(
       {required final String id,
       required final String email,
-      required final String nickname}) = _$_User;
+      required final String nickname,
+      final String? profile}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
@@ -173,6 +191,8 @@ abstract class _User implements User {
   String get email;
   @override
   String get nickname;
+  @override
+  String? get profile;
   @override
   @JsonKey(ignore: true)
   _$$_UserCopyWith<_$_User> get copyWith => throw _privateConstructorUsedError;

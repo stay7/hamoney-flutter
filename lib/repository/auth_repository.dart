@@ -17,8 +17,6 @@ class AuthRepository {
   Logger logger = Logger();
 
   Future<User> signup(String email, String nickname) async {
-    logger.i('signup $email, $nickname');
-
     final request = SignupRequest(nickname: nickname, email: email, token: _signupToken!);
     final response = await authClient.signup(request);
 

@@ -20,8 +20,11 @@ SubCategory _$SubCategoryFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$SubCategory {
+  @HiveField(0)
   int get id => throw _privateConstructorUsedError;
+  @HiveField(1)
   int get iconId => throw _privateConstructorUsedError;
+  @HiveField(2)
   String get name => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -36,7 +39,10 @@ abstract class $SubCategoryCopyWith<$Res> {
           SubCategory value, $Res Function(SubCategory) then) =
       _$SubCategoryCopyWithImpl<$Res, SubCategory>;
   @useResult
-  $Res call({int id, int iconId, String name});
+  $Res call(
+      {@HiveField(0) int id,
+      @HiveField(1) int iconId,
+      @HiveField(2) String name});
 }
 
 /// @nodoc
@@ -81,7 +87,10 @@ abstract class _$$_SubCategoryCopyWith<$Res>
       __$$_SubCategoryCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, int iconId, String name});
+  $Res call(
+      {@HiveField(0) int id,
+      @HiveField(1) int iconId,
+      @HiveField(2) String name});
 }
 
 /// @nodoc
@@ -118,18 +127,24 @@ class __$$_SubCategoryCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
+@HiveType(typeId: HiveTypeId.subCategory)
 class _$_SubCategory with DiagnosticableTreeMixin implements _SubCategory {
   const _$_SubCategory(
-      {required this.id, required this.iconId, required this.name});
+      {@HiveField(0) required this.id,
+      @HiveField(1) required this.iconId,
+      @HiveField(2) required this.name});
 
   factory _$_SubCategory.fromJson(Map<String, dynamic> json) =>
       _$$_SubCategoryFromJson(json);
 
   @override
+  @HiveField(0)
   final int id;
   @override
+  @HiveField(1)
   final int iconId;
   @override
+  @HiveField(2)
   final String name;
 
   @override
@@ -177,18 +192,21 @@ class _$_SubCategory with DiagnosticableTreeMixin implements _SubCategory {
 
 abstract class _SubCategory implements SubCategory {
   const factory _SubCategory(
-      {required final int id,
-      required final int iconId,
-      required final String name}) = _$_SubCategory;
+      {@HiveField(0) required final int id,
+      @HiveField(1) required final int iconId,
+      @HiveField(2) required final String name}) = _$_SubCategory;
 
   factory _SubCategory.fromJson(Map<String, dynamic> json) =
       _$_SubCategory.fromJson;
 
   @override
+  @HiveField(0)
   int get id;
   @override
+  @HiveField(1)
   int get iconId;
   @override
+  @HiveField(2)
   String get name;
   @override
   @JsonKey(ignore: true)

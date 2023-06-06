@@ -20,8 +20,11 @@ AccountBookPay _$AccountBookPayFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AccountBookPay {
+  @HiveField(0)
   int get id => throw _privateConstructorUsedError;
+  @HiveField(1)
   String get name => throw _privateConstructorUsedError;
+  @HiveField(2)
   int get iconId => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -36,7 +39,10 @@ abstract class $AccountBookPayCopyWith<$Res> {
           AccountBookPay value, $Res Function(AccountBookPay) then) =
       _$AccountBookPayCopyWithImpl<$Res, AccountBookPay>;
   @useResult
-  $Res call({int id, String name, int iconId});
+  $Res call(
+      {@HiveField(0) int id,
+      @HiveField(1) String name,
+      @HiveField(2) int iconId});
 }
 
 /// @nodoc
@@ -81,7 +87,10 @@ abstract class _$$_AccountBookPayCopyWith<$Res>
       __$$_AccountBookPayCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String name, int iconId});
+  $Res call(
+      {@HiveField(0) int id,
+      @HiveField(1) String name,
+      @HiveField(2) int iconId});
 }
 
 /// @nodoc
@@ -118,20 +127,26 @@ class __$$_AccountBookPayCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
+@HiveType(typeId: HiveTypeId.accountBookPay)
 class _$_AccountBookPay
     with DiagnosticableTreeMixin
     implements _AccountBookPay {
   const _$_AccountBookPay(
-      {required this.id, required this.name, required this.iconId});
+      {@HiveField(0) required this.id,
+      @HiveField(1) required this.name,
+      @HiveField(2) required this.iconId});
 
   factory _$_AccountBookPay.fromJson(Map<String, dynamic> json) =>
       _$$_AccountBookPayFromJson(json);
 
   @override
+  @HiveField(0)
   final int id;
   @override
+  @HiveField(1)
   final String name;
   @override
+  @HiveField(2)
   final int iconId;
 
   @override
@@ -179,18 +194,21 @@ class _$_AccountBookPay
 
 abstract class _AccountBookPay implements AccountBookPay {
   const factory _AccountBookPay(
-      {required final int id,
-      required final String name,
-      required final int iconId}) = _$_AccountBookPay;
+      {@HiveField(0) required final int id,
+      @HiveField(1) required final String name,
+      @HiveField(2) required final int iconId}) = _$_AccountBookPay;
 
   factory _AccountBookPay.fromJson(Map<String, dynamic> json) =
       _$_AccountBookPay.fromJson;
 
   @override
+  @HiveField(0)
   int get id;
   @override
+  @HiveField(1)
   String get name;
   @override
+  @HiveField(2)
   int get iconId;
   @override
   @JsonKey(ignore: true)

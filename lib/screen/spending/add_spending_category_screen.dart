@@ -37,7 +37,7 @@ class _AddSpendingCategoryScreenState extends State<AddSpendingCategoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    SubCategory? selectedCategory = null;
+    SubCategory? selectedCategory;
 
     return BlocConsumer<AddSpendingCategoryBloc, AddSpendingCategoryState>(
       listener: (content, state) {
@@ -71,7 +71,10 @@ class _AddSpendingCategoryScreenState extends State<AddSpendingCategoryScreen> {
                 color: Colors.black,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed(AddSpendingPaymentScreen.routeName);
+                    Navigator.of(context).pushNamed(
+                      AddSpendingPaymentScreen.routeName,
+                      arguments: AddSpendingPaymentScreenArgument(selectedCategory!),
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 14),

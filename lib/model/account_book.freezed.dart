@@ -20,10 +20,15 @@ AccountBook _$AccountBookFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AccountBook {
+  @HiveField(0)
   int get id => throw _privateConstructorUsedError;
+  @HiveField(1)
   String get name => throw _privateConstructorUsedError;
+  @HiveField(2)
   List<Category> get categories => throw _privateConstructorUsedError;
+  @HiveField(3)
   List<AccountBookPay> get payments => throw _privateConstructorUsedError;
+  @HiveField(4)
   int get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -39,11 +44,11 @@ abstract class $AccountBookCopyWith<$Res> {
       _$AccountBookCopyWithImpl<$Res, AccountBook>;
   @useResult
   $Res call(
-      {int id,
-      String name,
-      List<Category> categories,
-      List<AccountBookPay> payments,
-      int createdAt});
+      {@HiveField(0) int id,
+      @HiveField(1) String name,
+      @HiveField(2) List<Category> categories,
+      @HiveField(3) List<AccountBookPay> payments,
+      @HiveField(4) int createdAt});
 }
 
 /// @nodoc
@@ -99,11 +104,11 @@ abstract class _$$_AccountBookCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
-      String name,
-      List<Category> categories,
-      List<AccountBookPay> payments,
-      int createdAt});
+      {@HiveField(0) int id,
+      @HiveField(1) String name,
+      @HiveField(2) List<Category> categories,
+      @HiveField(3) List<AccountBookPay> payments,
+      @HiveField(4) int createdAt});
 }
 
 /// @nodoc
@@ -150,14 +155,15 @@ class __$$_AccountBookCopyWithImpl<$Res>
 
 /// @nodoc
 
+@HiveType(typeId: HiveTypeId.accountBook)
 @JsonSerializable(explicitToJson: true)
 class _$_AccountBook implements _AccountBook {
   const _$_AccountBook(
-      {required this.id,
-      required this.name,
-      required final List<Category> categories,
-      required final List<AccountBookPay> payments,
-      required this.createdAt})
+      {@HiveField(0) required this.id,
+      @HiveField(1) required this.name,
+      @HiveField(2) required final List<Category> categories,
+      @HiveField(3) required final List<AccountBookPay> payments,
+      @HiveField(4) required this.createdAt})
       : _categories = categories,
         _payments = payments;
 
@@ -165,11 +171,14 @@ class _$_AccountBook implements _AccountBook {
       _$$_AccountBookFromJson(json);
 
   @override
+  @HiveField(0)
   final int id;
   @override
+  @HiveField(1)
   final String name;
   final List<Category> _categories;
   @override
+  @HiveField(2)
   List<Category> get categories {
     if (_categories is EqualUnmodifiableListView) return _categories;
     // ignore: implicit_dynamic_type
@@ -178,6 +187,7 @@ class _$_AccountBook implements _AccountBook {
 
   final List<AccountBookPay> _payments;
   @override
+  @HiveField(3)
   List<AccountBookPay> get payments {
     if (_payments is EqualUnmodifiableListView) return _payments;
     // ignore: implicit_dynamic_type
@@ -185,6 +195,7 @@ class _$_AccountBook implements _AccountBook {
   }
 
   @override
+  @HiveField(4)
   final int createdAt;
 
   @override
@@ -232,24 +243,29 @@ class _$_AccountBook implements _AccountBook {
 
 abstract class _AccountBook implements AccountBook {
   const factory _AccountBook(
-      {required final int id,
-      required final String name,
-      required final List<Category> categories,
-      required final List<AccountBookPay> payments,
-      required final int createdAt}) = _$_AccountBook;
+      {@HiveField(0) required final int id,
+      @HiveField(1) required final String name,
+      @HiveField(2) required final List<Category> categories,
+      @HiveField(3) required final List<AccountBookPay> payments,
+      @HiveField(4) required final int createdAt}) = _$_AccountBook;
 
   factory _AccountBook.fromJson(Map<String, dynamic> json) =
       _$_AccountBook.fromJson;
 
   @override
+  @HiveField(0)
   int get id;
   @override
+  @HiveField(1)
   String get name;
   @override
+  @HiveField(2)
   List<Category> get categories;
   @override
+  @HiveField(3)
   List<AccountBookPay> get payments;
   @override
+  @HiveField(4)
   int get createdAt;
   @override
   @JsonKey(ignore: true)

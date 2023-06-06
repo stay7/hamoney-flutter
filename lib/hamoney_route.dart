@@ -96,6 +96,7 @@ abstract class HamoneyRoute {
         screen = BlocProvider<AddSpendingPaymentBloc>(
           create: (context) => AddSpendingPaymentBloc(
             spendingRepository: context.read<SpendingRepository>(),
+            accountBookRepository: context.read<AccountBookRepository>(),
           ),
           child: AddSpendingPaymentScreen(),
         );
