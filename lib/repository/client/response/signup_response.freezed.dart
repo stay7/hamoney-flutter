@@ -22,7 +22,7 @@ SignupResponse _$SignupResponseFromJson(Map<String, dynamic> json) {
 mixin _$SignupResponse {
   String? get message => throw _privateConstructorUsedError;
   int get status => throw _privateConstructorUsedError;
-  String get id => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get nickname => throw _privateConstructorUsedError;
   String get accessToken => throw _privateConstructorUsedError;
@@ -43,7 +43,7 @@ abstract class $SignupResponseCopyWith<$Res> {
   $Res call(
       {String? message,
       int status,
-      String id,
+      int id,
       String email,
       String nickname,
       String accessToken,
@@ -83,7 +83,7 @@ class _$SignupResponseCopyWithImpl<$Res, $Val extends SignupResponse>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -115,7 +115,7 @@ abstract class _$$_SignupResponseCopyWith<$Res>
   $Res call(
       {String? message,
       int status,
-      String id,
+      int id,
       String email,
       String nickname,
       String accessToken,
@@ -153,7 +153,7 @@ class __$$_SignupResponseCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       email: null == email
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -196,7 +196,7 @@ class _$_SignupResponse
   @override
   final int status;
   @override
-  final String id;
+  final int id;
   @override
   final String email;
   @override
@@ -265,7 +265,7 @@ abstract class _SignupResponse implements SignupResponse {
   const factory _SignupResponse(
       {final String? message,
       required final int status,
-      required final String id,
+      required final int id,
       required final String email,
       required final String nickname,
       required final String accessToken,
@@ -279,7 +279,7 @@ abstract class _SignupResponse implements SignupResponse {
   @override
   int get status;
   @override
-  String get id;
+  int get id;
   @override
   String get email;
   @override

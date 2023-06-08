@@ -10,7 +10,7 @@ _$_SignupResponse _$$_SignupResponseFromJson(Map<String, dynamic> json) =>
     _$_SignupResponse(
       message: json['message'] as String?,
       status: json['status'] as int,
-      id: json['id'] as String,
+      id: json['id'] as int,
       email: json['email'] as String,
       nickname: json['nickname'] as String,
       accessToken: json['accessToken'] as String,

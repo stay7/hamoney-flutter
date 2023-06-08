@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hamoney/di.dart';
 import 'package:hamoney/repository/account_book_repository.dart';
@@ -8,11 +9,11 @@ import 'package:hamoney/repository/auth_repository.dart';
 import 'package:hamoney/repository/ui_repository.dart';
 import 'package:hamoney/repository/spending_repository.dart';
 import 'package:hamoney/repository/user_repository.dart';
+import 'package:hamoney/screen/splash_screen.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:logger/logger.dart';
-import './screen/login_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'bloc/bloc_observer.dart';
@@ -29,6 +30,8 @@ Future main() async {
   await DI(getIt: GetIt.instance).initialize();
 
   Bloc.observer = Observer();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(const HamoneyApp());
 }
 
@@ -68,7 +71,7 @@ class HamoneyApp extends StatelessWidget {
           ),
           child: child!,
         ),
-        initialRoute: LoginScreen.routeName,
+        initialRoute: SplashScreen.routeName,
         onGenerateRoute: (settings) => HamoneyRoute.onGenerateRoute(settings),
       ),
     );

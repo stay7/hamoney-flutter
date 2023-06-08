@@ -9,6 +9,8 @@ import 'package:hamoney/repository/client/status_client.dart';
 import 'package:hamoney/repository/spending_repository.dart';
 import 'package:hamoney/repository/ui_repository.dart';
 import 'package:hamoney/repository/user_repository.dart';
+import 'package:hamoney/secure_storage.dart';
+import 'package:hamoney/workflow/manage_auth_token.dart';
 import 'package:hamoney/workflow/update_status.dart';
 
 import 'dio/dioUtil.dart';
@@ -27,6 +29,8 @@ class DI {
     getIt.registerSingleton<AuthClient>(AuthClient(DioUtil().pureDio));
     getIt.registerSingleton<AccountBookClient>(AccountBookClient(DioUtil().authorizedDio));
     getIt.registerSingleton<StatusClient>(StatusClient(DioUtil().authorizedDio));
+
+    getIt.registerSingleton<SecureStorage>(SecureStorage());
 
     getIt.registerSingleton<AccountBookHive>(accountBookHive);
     getIt.registerSingleton<MemberHive>(memberHive);
@@ -51,5 +55,6 @@ class DI {
           accountBookHive: getIt.get(),
           memberHive: getIt.get()),
     );
+    getIt.registerSingleton<ManageAuthToken>(ManageAuthToken(getIt.get()));
   }
 }

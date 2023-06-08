@@ -10,7 +10,7 @@ class SignupResponse with _$SignupResponse {
   const factory SignupResponse({
     String? message,
     required int status,
-    required String id,
+    required int id,
     required String email,
     required String nickname,
     required String accessToken,

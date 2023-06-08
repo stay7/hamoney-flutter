@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:hamoney/bloc/login/login_bloc.dart';
 import 'package:hamoney/bloc/signup/signup_join_bloc.dart';
 import 'package:hamoney/repository/account_book_repository.dart';
@@ -18,6 +19,7 @@ import 'package:hamoney/screen/signup_first_screen.dart';
 import 'package:hamoney/screen/signup_second_screen.dart';
 import 'package:hamoney/screen/spending/bloc/add_spending_category_bloc.dart';
 import 'package:hamoney/screen/spending/bloc/add_spending_payment_bloc.dart';
+import 'package:hamoney/screen/splash_screen.dart';
 
 import 'bloc/signup/signup_bloc.dart';
 import 'bloc/signup/signup_done_bloc.dart';
@@ -28,6 +30,11 @@ abstract class HamoneyRoute {
     late Widget screen;
 
     switch (settings.name) {
+      case SplashScreen.routeName:
+        screen = SplashScreen(
+          manageAuthToken: GetIt.instance.get(),
+        );
+        break;
       case LoginScreen.routeName:
         screen = MultiBlocProvider(
           providers: [
