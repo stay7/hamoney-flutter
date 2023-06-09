@@ -9,6 +9,8 @@ import '../model/account_book.dart';
 
 class AccountBookHive {
   static const String accountBookKey = "account_book";
+  static const String currentAccountBookIdKey = "account_book_current_id";
+  static const String memberKey = "account_book_member";
   static const String accountBookRevisionKey = "account_book_revision";
 
   AccountBookHive();
@@ -24,15 +26,16 @@ class AccountBookHive {
     Hive.registerAdapter<AccountBookPay>(AccountBookPayAdapter());
 
     _accountBookBox = await Hive.openBox<AccountBook>(accountBookKey);
+    _membersBox = await Hive.openBox<List<int>>(memberKey);
     _revisionBox = await Hive.openBox<int>(accountBookRevisionKey);
-  }
-
-  void save(int accountBookId, AccountBook accountBook) {
-    _accountBookBox.put(accountBookId, accountBook);
   }
 
   AccountBook? find(int accountBookId) {
     return _accountBookBox.get(accountBookId);
+  }
+
+  void save(int accountBookId, AccountBook accountBook) {
+    _accountBookBox.put(accountBookId, accountBook);
   }
 
   int? findRevision(int accountBookId) {

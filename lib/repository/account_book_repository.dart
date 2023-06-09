@@ -25,20 +25,15 @@ class AccountBookRepository {
 
   late List<AccountBook> _accountBooks;
 
-  List<AccountBook> get accountBooks => _accountBooks;
-
   late AccountBook _accountBook;
-
-  AccountBook get accountBook => _accountBook;
 
   late List<Member> _members;
 
-  List<Member> get members => _members;
-
   // lastUsedAccountBook을 저장하면 되지 않을까?
   Future<void> initialize() async {
-    final lastUsedAccountBookId = await SecureStorage().storage.read(key: SecureStorageKey.lastUsedAccountBookId);
-    if (lastUsedAccountBookId != null) {
+    final savedAccountBookId = await SecureStorage().storage.read(key: SecureStorageKey.lastUsedAccountBookId);
+    if (savedAccountBookId != null) {
+      _accountBook = accountBookHive.find(int.parse(savedAccountBookId))!;
       logger.i(_accountBook);
     }
   }
@@ -73,4 +68,10 @@ class AccountBookRepository {
       payments: response.payments.map((e) => MemberPay(id: e.id, name: e.name, iconId: e.iconId)).toList(),
     );
   }
+
+  List<AccountBook> get accountBooks => _accountBooks;
+
+  List<Member> get members => _members;
+
+  AccountBook get accountBook => _accountBook;
 }

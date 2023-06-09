@@ -28,11 +28,13 @@ import 'bloc/tab/tab_bloc.dart';
 abstract class HamoneyRoute {
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     late Widget screen;
+    final getIt = GetIt.instance;
 
     switch (settings.name) {
       case SplashScreen.routeName:
         screen = SplashScreen(
-          manageAuthToken: GetIt.instance.get(),
+          manageAuthToken: getIt.get(),
+          accountBookRepository: getIt.get(),
         );
         break;
       case LoginScreen.routeName:

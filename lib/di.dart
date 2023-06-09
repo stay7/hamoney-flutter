@@ -36,7 +36,7 @@ class DI {
     getIt.registerSingleton<MemberHive>(memberHive);
 
     // repository
-    getIt.registerSingleton<AccountBookRepository>(AccountBookRepository(
+    getIt.registerSingleton(AccountBookRepository(
       accountBookClient: getIt.get(),
       accountBookHive: getIt.get(),
       memberHive: getIt.get(),
