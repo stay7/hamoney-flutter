@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:hamoney/model/oauth_token.dart';
 import 'package:hamoney/repository/client/auth_client.dart';
 import 'package:hamoney/repository/client/hamoeny_status.dart';
 import 'package:hamoney/secure_storage.dart';
@@ -29,14 +30,13 @@ class DioUtil {
     _pureDio.interceptors.add(CustomDioLogger('pureDio'));
   }
 
-  void initAuthorizedDio() {
+  void initAuthorizedDio(OAuthToken oAuthToken) {
     _authorizedDio.interceptors.clear();
     _authorizedDio.interceptors.add(CustomDioLogger('authorizedDio'));
     // interceptor에는 하나의 request만 들어온다
     _authorizedDio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) async {
-        final accessToken = await SecureStorage().storage.read(key: SecureStorageKey.accessToken);
-        options.headers['Authorization'] = accessToken;
+        options.headers['Authorization'] = oAuthToken.accessToken;
         handler.next(options);
       },
       onError: (error, handler) async {
@@ -45,10 +45,10 @@ class DioUtil {
 
         if (response.statusCode == HttpStatus.unauthorized &&
             response.data['status'] == HamoneyStatus.REQUIRED_REFRESH_TOKEN) {
-          final refreshToken = await SecureStorage().storage.read(key: SecureStorageKey.refreshToken);
-          await AuthClient(pureDio).refresh(refreshToken!).then((value) {
+          await AuthClient(pureDio).refresh(oAuthToken.refreshToken).then((value) {
             SecureStorage().saveOAuthToken(value.data);
-            DioUtil().initAuthorizedDio();
+            // TODO: 재귀로 호출하는게 이상하다
+            DioUtil().initAuthorizedDio(value.data);
           });
           options.headers['Authorization'] = await SecureStorage().storage.read(key: SecureStorageKey.accessToken);
           _authorizedDio.fetch(options).then((value) => handler.resolve(value));

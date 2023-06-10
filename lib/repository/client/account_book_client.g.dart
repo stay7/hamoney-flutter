@@ -71,13 +71,13 @@ class _AccountBookClient implements AccountBookClient {
   }
 
   @override
-  Future<HttpResponse<AccountBook>> getAccountBook(id) async {
+  Future<HttpResponse<FetchAccountBookResponse>> getAccountBook(id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'accountBookId': id};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<HttpResponse<AccountBook>>(Options(
+        _setStreamType<HttpResponse<FetchAccountBookResponse>>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
@@ -89,7 +89,7 @@ class _AccountBookClient implements AccountBookClient {
               data: _data,
             )
             .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = AccountBook.fromJson(_result.data!);
+    final value = FetchAccountBookResponse.fromJson(_result.data!);
     final httpResponse = HttpResponse(value, _result);
     return httpResponse;
   }

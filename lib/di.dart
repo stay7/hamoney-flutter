@@ -40,6 +40,7 @@ class DI {
       accountBookClient: getIt.get(),
       accountBookHive: getIt.get(),
       memberHive: getIt.get(),
+      secureStorage: getIt.get(),
     ));
     getIt.registerSingleton<AuthRepository>(AuthRepository(authClient: getIt.get()));
     getIt.registerSingleton<UserRepository>(UserRepository());
@@ -55,6 +56,6 @@ class DI {
           accountBookHive: getIt.get(),
           memberHive: getIt.get()),
     );
-    getIt.registerSingleton<ManageAuthToken>(ManageAuthToken(getIt.get()));
+    getIt.registerSingleton<ManageAuthToken>(ManageAuthToken(secureStorage: getIt.get()));
   }
 }

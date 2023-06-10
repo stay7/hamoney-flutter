@@ -27,16 +27,16 @@ class UpdateStatus {
     for (var element in response.data.accountBooks) {
       final accountBookId = element.accountBookId;
       final clientRevision = accountBookHive.findRevision(accountBookId);
-      final members = element.members;
+      final memberIds = element.members;
 
       // 리비전이 없거나 클라 리비전보다 서버 리비전이 크면 accountBook을 받아서 저장한다
       if (clientRevision == null || clientRevision < element.revision) {
         accountBookRepository.fetchAccountBook(accountBookId);
-        accountBookHive.saveRevision(accountBookId, element.revision);
       }
 
-      if (members != accountBookHive.findMembers(accountBookId)) {
-        accountBookHive.saveMembers(accountBookId, members);
+      if (memberIds != accountBookHive.findMemberIds(accountBookId)) {
+        final members = await accountBookRepository.fetchMembers(accountBookId);
+        accountBookHive.saveMemberIds(accountBookId, members.map((e) => e.id).toList());
       }
     }
   }

@@ -9,14 +9,14 @@ class LoginLoading extends LoginState {
   LoginLoading();
 }
 
-class LoginSuccess extends LoginState {
-  LoginSuccess(this.email);
+class LoginNewUser extends LoginState {
+  LoginNewUser(this.email);
 
   final String email;
 }
 
-class LoginExisted extends LoginState {
-  LoginExisted(this.email);
+class LoginExistedUser extends LoginState {
+  LoginExistedUser(this.email);
 
   final String email;
 }

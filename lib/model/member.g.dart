@@ -17,7 +17,7 @@ class MemberAdapter extends TypeAdapter<Member> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Member(
-      id: fields[0] as String,
+      id: fields[0] as int,
       nickname: fields[1] as String,
       payments: (fields[2] as List).cast<MemberPay>(),
     );
@@ -51,7 +51,7 @@ class MemberAdapter extends TypeAdapter<Member> {
 // **************************************************************************
 
 _$_Member _$$_MemberFromJson(Map<String, dynamic> json) => _$_Member(
-      id: json['id'] as String,
+      id: json['id'] as int,
       nickname: json['nickname'] as String,
       payments: (json['payments'] as List<dynamic>)
           .map((e) => MemberPay.fromJson(e as Map<String, dynamic>))

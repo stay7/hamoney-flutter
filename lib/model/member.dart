@@ -13,7 +13,7 @@ part 'member.g.dart';
 @HiveType(typeId: HiveTypeId.member)
 class Member with _$Member {
   const factory Member({
-    @HiveField(0) required String id,
+    @HiveField(0) required int id,
     @HiveField(1) required String nickname,
     @HiveField(2) required List<MemberPay> payments,
   }) = _Member;

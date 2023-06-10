@@ -5,20 +5,21 @@ import 'package:hamoney/secure_storage.dart';
 class ManageAuthToken {
   final SecureStorage secureStorage;
 
-  ManageAuthToken(this.secureStorage);
+  ManageAuthToken({required this.secureStorage});
+
+  Future<bool> checkOAuthTokenExist() async {
+    return secureStorage.containOAuthToken();
+  }
 
   void applyNewOAuthToken(OAuthToken oAuthToken) {
     secureStorage.saveOAuthToken(oAuthToken);
-    DioUtil().initAuthorizedDio();
+    DioUtil().initAuthorizedDio(oAuthToken);
   }
 
-  Future<bool> checkOAuthTokenExist() async {
-    return await SecureStorage().storage.containsKey(key: SecureStorageKey.accessToken) &&
-        await SecureStorage().storage.containsKey(key: SecureStorageKey.refreshToken);
-  }
-
-  // TODO: initAuthorizedDio가 parameter로 토큰 받도록하자
-  void initializeOAuthToken() {
-    DioUtil().initAuthorizedDio();
+  void initializeOAuthToken() async {
+    final oAuthToken = await secureStorage.loadOAuthToken();
+    if (oAuthToken != null) {
+      DioUtil().initAuthorizedDio(oAuthToken);
+    }
   }
 }

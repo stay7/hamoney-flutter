@@ -3,7 +3,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hamoney/bloc/login/login_bloc.dart';
 import 'package:hamoney/screen/main_screen.dart';
 import 'package:hamoney/screen/signup_first_screen.dart';
-import '../bloc/signup/signup_bloc.dart';
 import '../resource/resource.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,20 +16,18 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-
   @override
   Widget build(BuildContext context) {
     final navigator = Navigator.of(context);
 
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
-        if (state is LoginSuccess) {
+        if (state is LoginNewUser) {
           navigator.pushReplacementNamed(
             SignupScreen.routeName,
             arguments: SignupScreenArgument(state.email),
           );
-        } else if (state is LoginExisted) {
-          context.read<SignupBloc>().add(OAuthTokenRequested(email: state.email));
+        } else if (state is LoginExistedUser) {
           navigator.pushReplacementNamed(MainScreen.routeName);
         }
       },

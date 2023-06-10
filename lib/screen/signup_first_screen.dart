@@ -17,7 +17,11 @@ class SignupScreen extends StatelessWidget {
     final navigator = Navigator.of(context);
 
     return BlocListener<SignupBloc, SignupState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is SignupCompleted) {
+          navigator.pushNamed(SignupJoinScreen.routeName);
+        }
+      },
       child: Scaffold(
         appBar: AppBar(
           title: const Text(
@@ -73,7 +77,6 @@ class SignupScreen extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () {
                 context.read<SignupBloc>().add(SignupRequested(email: email, nickname: _nicknameController.text));
-                navigator.pushNamed(SignupJoinScreen.routeName);
               },
               style: ButtonStyle(
                 backgroundColor: const MaterialStatePropertyAll<Color>(Colors.black),

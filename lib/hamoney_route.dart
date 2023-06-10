@@ -41,12 +41,16 @@ abstract class HamoneyRoute {
         screen = MultiBlocProvider(
           providers: [
             BlocProvider<LoginBloc>(
-              create: (context) => LoginBloc(authRepository: context.read<AuthRepository>()),
+              create: (context) => LoginBloc(
+                authRepository: context.read<AuthRepository>(),
+                manageAuthToken: getIt.get(),
+              ),
             ),
             BlocProvider<SignupBloc>(
               create: (context) => SignupBloc(
                 authRepository: context.read<AuthRepository>(),
                 userRepository: context.read<UserRepository>(),
+                manageAuthToken: getIt.get(),
               ),
             ),
           ],
@@ -59,6 +63,7 @@ abstract class HamoneyRoute {
           create: (context) => SignupBloc(
             authRepository: context.read<AuthRepository>(),
             userRepository: context.read<UserRepository>(),
+            manageAuthToken: getIt.get(),
           ),
           child: SignupScreen(argument.email),
         );

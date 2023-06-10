@@ -5,73 +5,82 @@ import 'package:hamoney/model/member.dart';
 import 'package:hamoney/model/member_pay.dart';
 import 'package:hamoney/repository/client/account_book_client.dart';
 import 'package:hamoney/repository/client/request/use_together_request.dart';
+import 'package:hamoney/repository/client/response/use_together_response.dart';
 import 'package:logger/logger.dart';
 
 import '../secure_storage.dart';
 import 'client/response/member_response.dart';
+import 'client/response/use_alone_response.dart';
 
 class AccountBookRepository {
   AccountBookRepository({
-    required this.accountBookClient,
-    required this.accountBookHive,
-    required this.memberHive,
-  });
+    required AccountBookClient accountBookClient,
+    required AccountBookHive accountBookHive,
+    required MemberHive memberHive,
+    required SecureStorage secureStorage,
+  })  : _accountBookClient = accountBookClient,
+        _accountBookHive = accountBookHive,
+        _memberHive = memberHive,
+        _secureStorage = secureStorage;
 
-  final AccountBookClient accountBookClient;
-  final AccountBookHive accountBookHive;
-  final MemberHive memberHive;
+  final AccountBookClient _accountBookClient;
+  final AccountBookHive _accountBookHive;
+  final MemberHive _memberHive;
+  final SecureStorage _secureStorage;
 
   final Logger logger = Logger();
 
-  late List<AccountBook> _accountBooks;
+  late AccountBook _curAccountBook;
 
-  late AccountBook _accountBook;
+  late List<Member> _curMembers;
 
-  late List<Member> _members;
-
-  // lastUsedAccountBook을 저장하면 되지 않을까?
   Future<void> initialize() async {
-    final savedAccountBookId = await SecureStorage().storage.read(key: SecureStorageKey.lastUsedAccountBookId);
+    final savedAccountBookId = await _secureStorage.lastUsedAccountBookId();
+
     if (savedAccountBookId != null) {
-      _accountBook = accountBookHive.find(int.parse(savedAccountBookId))!;
-      logger.i(_accountBook);
+      selectAccountBook(savedAccountBookId);
     }
   }
 
-  Future<int> useAlone() async {
-    final response = await accountBookClient.useAlone();
-    await SecureStorage().saveLastUsedAccountBookId(response.data.accountBookId);
-    return response.data.invitationCode;
+  void selectAccountBook(int accountBookId) {
+    _curAccountBook = _accountBookHive.find(accountBookId)!;
+    final memberIds = _accountBookHive.findMemberIds(accountBookId);
+    _curMembers = memberIds.map((e) => _memberHive.find(e)!).toList();
+    _secureStorage.saveLastUsedAccountBookId(accountBookId);
   }
 
-  Future<void> useTogether(int invitationCode) async {
-    final response = await accountBookClient.useTogether(UseTogetherRequest(invitationCode: invitationCode));
-    await SecureStorage().saveLastUsedAccountBookId(response.data.accountBookId);
+  Future<UseAloneResponse> useAlone() async {
+    final response = await _accountBookClient.useAlone();
+    return response.data;
+  }
+
+  Future<UseTogetherResponse> useTogether(int invitationCode) async {
+    final response = await _accountBookClient.useTogether(UseTogetherRequest(invitationCode: invitationCode));
+    return response.data;
   }
 
   Future<void> fetchAccountBook(int accountBookId) async {
-    final response = await accountBookClient.getAccountBook(accountBookId);
-    _accountBook = response.data;
-    accountBookHive.save(_accountBook.id, accountBook);
+    final response = await _accountBookClient.getAccountBook(accountBookId);
+    _accountBookHive.save(response.data.accountBook.id, response.data.accountBook);
+    _accountBookHive.saveRevision(accountBookId, response.data.revision);
   }
 
-  Future<void> fetchMembers(int accountBookId) async {
-    final response = await accountBookClient.getMembers(accountBookId);
+  Future<List<Member>> fetchMembers(int accountBookId) async {
+    final response = await _accountBookClient.getMembers(accountBookId);
     final members = response.data.members.map((e) => _fromMemberResponse(e)).toList();
-    memberHive.saveAll(members);
+    _memberHive.saveAll(members);
+    return members;
   }
 
   Member _fromMemberResponse(MemberResponse response) {
     return Member(
-      id: response.userId,
+      id: response.id,
       nickname: response.nickname,
       payments: response.payments.map((e) => MemberPay(id: e.id, name: e.name, iconId: e.iconId)).toList(),
     );
   }
 
-  List<AccountBook> get accountBooks => _accountBooks;
+  List<Member> get members => _curMembers;
 
-  List<Member> get members => _members;
-
-  AccountBook get accountBook => _accountBook;
+  AccountBook get accountBook => _curAccountBook;
 }

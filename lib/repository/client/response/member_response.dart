@@ -10,7 +10,7 @@ part 'member_response.g.dart';
 @freezed
 class MemberResponse with _$MemberResponse {
   const factory MemberResponse({
-    required String userId,
+    required int id,
     required String nickname,
     required List<MemberPay> payments,
   }) = _MemberResponse;

@@ -20,7 +20,7 @@ MemberResponse _$MemberResponseFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$MemberResponse {
-  String get userId => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
   String get nickname => throw _privateConstructorUsedError;
   List<MemberPay> get payments => throw _privateConstructorUsedError;
 
@@ -36,7 +36,7 @@ abstract class $MemberResponseCopyWith<$Res> {
           MemberResponse value, $Res Function(MemberResponse) then) =
       _$MemberResponseCopyWithImpl<$Res, MemberResponse>;
   @useResult
-  $Res call({String userId, String nickname, List<MemberPay> payments});
+  $Res call({int id, String nickname, List<MemberPay> payments});
 }
 
 /// @nodoc
@@ -52,15 +52,15 @@ class _$MemberResponseCopyWithImpl<$Res, $Val extends MemberResponse>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userId = null,
+    Object? id = null,
     Object? nickname = null,
     Object? payments = null,
   }) {
     return _then(_value.copyWith(
-      userId: null == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       nickname: null == nickname
           ? _value.nickname
           : nickname // ignore: cast_nullable_to_non_nullable
@@ -81,7 +81,7 @@ abstract class _$$_MemberResponseCopyWith<$Res>
       __$$_MemberResponseCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String userId, String nickname, List<MemberPay> payments});
+  $Res call({int id, String nickname, List<MemberPay> payments});
 }
 
 /// @nodoc
@@ -95,15 +95,15 @@ class __$$_MemberResponseCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userId = null,
+    Object? id = null,
     Object? nickname = null,
     Object? payments = null,
   }) {
     return _then(_$_MemberResponse(
-      userId: null == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       nickname: null == nickname
           ? _value.nickname
           : nickname // ignore: cast_nullable_to_non_nullable
@@ -122,7 +122,7 @@ class _$_MemberResponse
     with DiagnosticableTreeMixin
     implements _MemberResponse {
   const _$_MemberResponse(
-      {required this.userId,
+      {required this.id,
       required this.nickname,
       required final List<MemberPay> payments})
       : _payments = payments;
@@ -131,7 +131,7 @@ class _$_MemberResponse
       _$$_MemberResponseFromJson(json);
 
   @override
-  final String userId;
+  final int id;
   @override
   final String nickname;
   final List<MemberPay> _payments;
@@ -144,7 +144,7 @@ class _$_MemberResponse
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'MemberResponse(userId: $userId, nickname: $nickname, payments: $payments)';
+    return 'MemberResponse(id: $id, nickname: $nickname, payments: $payments)';
   }
 
   @override
@@ -152,7 +152,7 @@ class _$_MemberResponse
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'MemberResponse'))
-      ..add(DiagnosticsProperty('userId', userId))
+      ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('nickname', nickname))
       ..add(DiagnosticsProperty('payments', payments));
   }
@@ -162,7 +162,7 @@ class _$_MemberResponse
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_MemberResponse &&
-            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.id, id) || other.id == id) &&
             (identical(other.nickname, nickname) ||
                 other.nickname == nickname) &&
             const DeepCollectionEquality().equals(other._payments, _payments));
@@ -170,7 +170,7 @@ class _$_MemberResponse
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, userId, nickname,
+  int get hashCode => Object.hash(runtimeType, id, nickname,
       const DeepCollectionEquality().hash(_payments));
 
   @JsonKey(ignore: true)
@@ -189,7 +189,7 @@ class _$_MemberResponse
 
 abstract class _MemberResponse implements MemberResponse {
   const factory _MemberResponse(
-      {required final String userId,
+      {required final int id,
       required final String nickname,
       required final List<MemberPay> payments}) = _$_MemberResponse;
 
@@ -197,7 +197,7 @@ abstract class _MemberResponse implements MemberResponse {
       _$_MemberResponse.fromJson;
 
   @override
-  String get userId;
+  int get id;
   @override
   String get nickname;
   @override

@@ -8,7 +8,7 @@ class SignupInitial extends SignupState {}
 class SignupCompleted extends SignupState {
   SignupCompleted({required this.email, required this.nickname, required this.id});
 
+  final int id;
   final String email;
   final String nickname;
-  final String id;
 }

@@ -46,11 +46,11 @@ class AccountBookHive {
     _revisionBox.put(accountBookId, revision);
   }
 
-  void saveMembers(int accountBookId, List<int> members) {
+  void saveMemberIds(int accountBookId, List<int> members) {
     _membersBox.put(accountBookId, members);
   }
 
-  List<int> findMembers(int accountBookId) {
+  List<int> findMemberIds(int accountBookId) {
     return _membersBox.get(accountBookId) ?? List.empty();
   }
 }

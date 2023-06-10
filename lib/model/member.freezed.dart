@@ -21,7 +21,7 @@ Member _$MemberFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Member {
   @HiveField(0)
-  String get id => throw _privateConstructorUsedError;
+  int get id => throw _privateConstructorUsedError;
   @HiveField(1)
   String get nickname => throw _privateConstructorUsedError;
   @HiveField(2)
@@ -38,7 +38,7 @@ abstract class $MemberCopyWith<$Res> {
       _$MemberCopyWithImpl<$Res, Member>;
   @useResult
   $Res call(
-      {@HiveField(0) String id,
+      {@HiveField(0) int id,
       @HiveField(1) String nickname,
       @HiveField(2) List<MemberPay> payments});
 }
@@ -64,7 +64,7 @@ class _$MemberCopyWithImpl<$Res, $Val extends Member>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       nickname: null == nickname
           ? _value.nickname
           : nickname // ignore: cast_nullable_to_non_nullable
@@ -84,7 +84,7 @@ abstract class _$$_MemberCopyWith<$Res> implements $MemberCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@HiveField(0) String id,
+      {@HiveField(0) int id,
       @HiveField(1) String nickname,
       @HiveField(2) List<MemberPay> payments});
 }
@@ -107,7 +107,7 @@ class __$$_MemberCopyWithImpl<$Res>
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       nickname: null == nickname
           ? _value.nickname
           : nickname // ignore: cast_nullable_to_non_nullable
@@ -134,7 +134,7 @@ class _$_Member with DiagnosticableTreeMixin implements _Member {
 
   @override
   @HiveField(0)
-  final String id;
+  final int id;
   @override
   @HiveField(1)
   final String nickname;
@@ -194,7 +194,7 @@ class _$_Member with DiagnosticableTreeMixin implements _Member {
 
 abstract class _Member implements Member {
   const factory _Member(
-      {@HiveField(0) required final String id,
+      {@HiveField(0) required final int id,
       @HiveField(1) required final String nickname,
       @HiveField(2) required final List<MemberPay> payments}) = _$_Member;
 
@@ -202,7 +202,7 @@ abstract class _Member implements Member {
 
   @override
   @HiveField(0)
-  String get id;
+  int get id;
   @override
   @HiveField(1)
   String get nickname;
