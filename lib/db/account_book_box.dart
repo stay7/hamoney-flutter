@@ -4,6 +4,7 @@ import 'package:hamoney/model/account_book_pay.dart';
 import 'package:hamoney/model/category.dart';
 import 'package:hamoney/model/sub_category.dart';
 import 'package:hive/hive.dart';
+import 'package:logger/logger.dart';
 
 import '../model/account_book.dart';
 
@@ -19,6 +20,8 @@ class AccountBookHive {
   late Box<int> _revisionBox;
   late Box<DateTime> _fetchedAtBox;
   late Box<List<int>> _membersBox;
+
+  final Logger logger = Logger();
 
   Future<void> initialize() async {
     Hive.registerAdapter<AccountBook>(AccountBookAdapter());

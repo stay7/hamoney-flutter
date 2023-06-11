@@ -32,7 +32,12 @@ class DioUtil {
 
   void initAuthorizedDio(OAuthToken oAuthToken) {
     _authorizedDio.interceptors.clear();
-    _authorizedDio.interceptors.add(CustomDioLogger('authorizedDio'));
+    _authorizedDio.interceptors.add(CustomDioLogger(
+      "authenticated",
+      requestBody: false,
+      requestHeader: false,
+      responseBody: false,
+    ));
     // interceptor에는 하나의 request만 들어온다
     _authorizedDio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) async {

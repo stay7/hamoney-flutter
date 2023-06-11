@@ -46,6 +46,7 @@ abstract class HamoneyRoute {
               create: (context) => LoginBloc(
                 authRepository: context.read<AuthRepository>(),
                 manageAuthToken: getIt.get(),
+                secureStorage: getIt.get()
               ),
             ),
             BlocProvider<SignupBloc>(

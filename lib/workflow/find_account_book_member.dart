@@ -1,6 +1,7 @@
 import 'package:hamoney/db/account_book_box.dart';
 import 'package:hamoney/db/member_box.dart';
 import 'package:hamoney/model/account_book_member.dart';
+import 'package:logger/logger.dart';
 
 class FindAccountBookMember {
   FindAccountBookMember({
@@ -11,6 +12,7 @@ class FindAccountBookMember {
 
   final AccountBookHive _accountBookHive;
   final MemberHive _memberHive;
+  final Logger logger = Logger();
 
   AccountBookMember? current() {
     final curAccountBook = _accountBookHive.currentAccountBook();

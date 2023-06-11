@@ -40,13 +40,15 @@ class AccountBookRepository {
   }
 
   Future<void> fetchAccountBook(int accountBookId) async {
+    logger.i('fetchAccountBook start');
     final response = await _accountBookClient.getAccountBook(accountBookId);
 
-    Future.wait(<Future<void>>[
+    await Future.wait(<Future<void>>[
       _accountBookHive.saveAccountBook(response.data.accountBook.id, response.data.accountBook),
       _accountBookHive.saveRevision(accountBookId, response.data.revision),
       _accountBookHive.saveFetchedAt(accountBookId, DateTime.now())
     ]);
+    logger.i('fetchAccountBook end');
   }
 
   Future<List<Member>> fetchMembers(int accountBookId) async {

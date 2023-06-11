@@ -32,7 +32,12 @@ class _SettingTabState extends State<SettingTab> {
             text: TextSpan(
               text: '웰-컴! ',
               style: TextStyle(color: Color(0xFF2C2D3A), fontSize: 19),
-              children: const <TextSpan>[TextSpan(text: "Bella", style: TextStyle(fontWeight: FontWeight.bold))],
+              children: const <TextSpan>[
+                TextSpan(
+                  text: "Bella",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                )
+              ],
             ),
           ),
           elevation: 0,

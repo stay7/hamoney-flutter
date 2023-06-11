@@ -17,8 +17,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc({
     required AuthRepository authRepository,
     required ManageAuthToken manageAuthToken,
+    required SecureStorage secureStorage,
   })  : _authRepository = authRepository,
         _manageAuthToken = manageAuthToken,
+        _secureStorage = secureStorage,
         super(LoginInitial()) {
     on<KakaoTokenRequested>(_onKakaoTokenRequested);
     on<GoogleTokenRequested>(_onGoogleTokenRequested);
@@ -27,6 +29,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   final AuthRepository _authRepository;
   final ManageAuthToken _manageAuthToken;
+  final SecureStorage _secureStorage;
 
   FutureOr<void> _onKakaoTokenRequested(LoginEvent event, Emitter<LoginState> emit) async {
     emit(LoginLoading());
@@ -34,11 +37,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     final result = await FlutterWebAuth2.authenticate(url: dotenv.env['KAKAO_AUTH_URL']!, callbackUrlScheme: "hamoney")
         .then((value) => value.split("://")[1]);
 
-    final storage = SecureStorage().storage;
+    final storage = _secureStorage.storage;
     final methodAndParams = result.split("?");
     final email = methodAndParams[1].split("=")[1];
     final signupToken = methodAndParams[2].split("=")[1];
     _authRepository.setSignupToken = signupToken;
+
     storage.write(key: SecureStorageKey.email, value: email);
     storage.write(key: SecureStorageKey.token, value: signupToken);
 
