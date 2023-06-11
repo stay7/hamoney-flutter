@@ -37,6 +37,7 @@ abstract class HamoneyRoute {
           accountBookRepository: getIt.get(),
           findAccountBookMember: getIt.get(),
           selectAccountBookMember: getIt.get(),
+          userRepository: getIt.get(),
         );
         break;
       case LoginScreen.routeName:

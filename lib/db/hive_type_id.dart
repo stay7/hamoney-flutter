@@ -5,4 +5,5 @@ abstract class HiveTypeId {
   static const int member = 4;
   static const int memberPay = 5;
   static const int accountBookPay = 6;
+  static const int user = 7;
 }

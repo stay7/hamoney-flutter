@@ -4,6 +4,7 @@ import 'package:hamoney/repository/client/status_client.dart';
 import 'package:hamoney/repository/user_repository.dart';
 
 import '../db/member_box.dart';
+import '../db/user_hive.dart';
 
 class UpdateStatus {
   final StatusClient statusClient;
@@ -11,6 +12,7 @@ class UpdateStatus {
   final AccountBookRepository accountBookRepository;
   final AccountBookHive accountBookHive;
   final MemberHive memberHive;
+  final UserHive userHive;
 
   UpdateStatus({
     required this.statusClient,
@@ -18,12 +20,17 @@ class UpdateStatus {
     required this.accountBookRepository,
     required this.accountBookHive,
     required this.memberHive,
+    required this.userHive,
   });
 
   void fetch() async {
     final response = await statusClient.status();
 
-    userRepository.user = response.data.me;
+    if (userHive.findMe() != response.data.me) {
+      userHive.save(response.data.me);
+      userRepository.user = response.data.me;
+    }
+
     for (var element in response.data.accountBooks) {
       final accountBookId = element.accountBookId;
       final clientRevision = accountBookHive.findRevision(accountBookId);

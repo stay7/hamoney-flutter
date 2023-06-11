@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:hamoney/repository/account_book_repository.dart';
+import 'package:hamoney/repository/user_repository.dart';
 import 'package:hamoney/screen/login_screen.dart';
 import 'package:hamoney/screen/main_screen.dart';
 import 'package:hamoney/workflow/find_account_book_member.dart';
@@ -17,12 +18,14 @@ class SplashScreen extends StatefulWidget {
     required this.accountBookRepository,
     required this.findAccountBookMember,
     required this.selectAccountBookMember,
+    required this.userRepository,
   }) : super(key: key);
 
   static const String routeName = "splash";
 
   final ManageAuthToken manageAuthToken;
   final AccountBookRepository accountBookRepository;
+  final UserRepository userRepository;
   final SelectAccountBookMember selectAccountBookMember;
   final FindAccountBookMember findAccountBookMember;
   final Logger logger = Logger();
@@ -48,6 +51,7 @@ class _SplashScreenState extends State<SplashScreen> {
     final existedAccountBook = widget.findAccountBookMember.current();
     widget.logger.i({existedAccountBook});
     if (existedAccountBook != null) {
+      await widget.userRepository.load();
       await widget.selectAccountBookMember.invoke(existedAccountBook.accountBook.id);
     }
     widget.manageAuthToken.initializeOAuthToken();

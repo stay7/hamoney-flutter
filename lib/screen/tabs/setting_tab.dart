@@ -30,11 +30,11 @@ class _SettingTabState extends State<SettingTab> {
           backgroundColor: Colors.white,
           title: RichText(
             text: TextSpan(
-              text: '웰-컴! ',
+              text: '안녕하세요 ',
               style: TextStyle(color: Color(0xFF2C2D3A), fontSize: 19),
-              children: const <TextSpan>[
+              children: <TextSpan>[
                 TextSpan(
-                  text: "Bella",
+                  text: bloc.me().nickname,
                   style: TextStyle(fontWeight: FontWeight.bold),
                 )
               ],
@@ -49,6 +49,7 @@ class _SettingTabState extends State<SettingTab> {
           ],
         ),
         body: Container(
+          padding: EdgeInsets.symmetric(horizontal: 16),
           child: Column(
             children: [
               CardAccountBook(accountBookMember: bloc.currentAccountBookMember()),

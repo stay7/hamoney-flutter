@@ -15,6 +15,7 @@ import 'package:hamoney/workflow/manage_auth_token.dart';
 import 'package:hamoney/workflow/select_account_book_member.dart';
 import 'package:hamoney/workflow/update_status.dart';
 
+import 'db/user_hive.dart';
 import 'dio/dioUtil.dart';
 
 class DI {
@@ -27,6 +28,8 @@ class DI {
     await accountBookHive.initialize();
     final memberHive = MemberHive();
     await memberHive.initialize();
+    final userHive = UserHive();
+    await userHive.initialize();
 
     getIt.registerSingleton<AuthClient>(AuthClient(DioUtil().pureDio));
     getIt.registerSingleton<AccountBookClient>(AccountBookClient(DioUtil().authorizedDio));
@@ -36,6 +39,7 @@ class DI {
 
     getIt.registerSingleton<AccountBookHive>(accountBookHive);
     getIt.registerSingleton<MemberHive>(memberHive);
+    getIt.registerSingleton<UserHive>(userHive);
 
     // repository
     getIt.registerSingleton(AccountBookRepository(
@@ -44,18 +48,20 @@ class DI {
       memberHive: getIt.get(),
     ));
     getIt.registerSingleton<AuthRepository>(AuthRepository(authClient: getIt.get()));
-    getIt.registerSingleton<UserRepository>(UserRepository());
+    getIt.registerSingleton<UserRepository>(UserRepository(userHive: getIt.get()));
     getIt.registerSingleton<UIRepository>(UIRepository());
     getIt.registerSingleton<SpendingRepository>(SpendingRepository());
 
     // workflow
     getIt.registerSingleton<UpdateStatus>(
       UpdateStatus(
-          statusClient: getIt.get(),
-          userRepository: getIt.get(),
-          accountBookRepository: getIt.get(),
-          accountBookHive: getIt.get(),
-          memberHive: getIt.get()),
+        statusClient: getIt.get(),
+        userRepository: getIt.get(),
+        accountBookRepository: getIt.get(),
+        accountBookHive: getIt.get(),
+        memberHive: getIt.get(),
+        userHive: getIt.get(),
+      ),
     );
     getIt.registerSingleton<ManageAuthToken>(
       ManageAuthToken(secureStorage: getIt.get()),
