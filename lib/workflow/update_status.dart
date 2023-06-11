@@ -31,12 +31,12 @@ class UpdateStatus {
 
       // 리비전이 없거나 클라 리비전보다 서버 리비전이 크면 accountBook을 받아서 저장한다
       if (clientRevision == null || clientRevision < element.revision) {
-        accountBookRepository.fetchAccountBook(accountBookId);
+        await accountBookRepository.fetchAccountBook(accountBookId);
       }
 
       if (memberIds != accountBookHive.findMemberIds(accountBookId)) {
         final members = await accountBookRepository.fetchMembers(accountBookId);
-        accountBookHive.saveMemberIds(accountBookId, members.map((e) => e.id).toList());
+        await accountBookHive.saveMemberIds(accountBookId, members.map((e) => e.id).toList());
       }
     }
   }

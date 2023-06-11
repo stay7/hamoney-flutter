@@ -20,12 +20,14 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final getIt = GetIt.instance;
+
     final pages = [
       BlocProvider<HomeBloc>(
         create: (context) => HomeBloc(
           uiRepository: context.read<UIRepository>(),
           accountBookRepository: context.read<AccountBookRepository>(),
-          updateStatus: GetIt.instance.get()
+          updateStatus: getIt.get(),
         ),
         child: HomeTab(),
       ),
@@ -38,7 +40,12 @@ class MainScreen extends StatelessWidget {
         child: SavingTab(),
       ),
       BlocProvider<SettingBloc>(
-        create: (context) => SettingBloc(),
+        create: (context) => SettingBloc(
+          accountBookRepository: context.read<AccountBookRepository>(),
+          accountBookHive: getIt.get(),
+          memberHive: getIt.get(),
+          findAccountBookMember: getIt.get(),
+        ),
         child: SettingTab(),
       ),
     ];

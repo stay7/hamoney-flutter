@@ -15,7 +15,7 @@ class AddSpendingCategoryBloc extends Bloc<AddSpendingCategoryEvent, AddSpending
     required this.accountBookRepository,
     required this.spendingRepository,
   }) : super(AddSpendingCategoryInitial(
-          categories: accountBookRepository.accountBook.categories,
+          categories: accountBookRepository.curAccountBookMember.accountBook.categories,
           amount: spendingRepository.amount,
         )) {
     on<CategorySelect>(_onCategorySelect);

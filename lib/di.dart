@@ -10,7 +10,9 @@ import 'package:hamoney/repository/spending_repository.dart';
 import 'package:hamoney/repository/ui_repository.dart';
 import 'package:hamoney/repository/user_repository.dart';
 import 'package:hamoney/secure_storage.dart';
+import 'package:hamoney/workflow/find_account_book_member.dart';
 import 'package:hamoney/workflow/manage_auth_token.dart';
+import 'package:hamoney/workflow/select_account_book_member.dart';
 import 'package:hamoney/workflow/update_status.dart';
 
 import 'dio/dioUtil.dart';
@@ -40,7 +42,6 @@ class DI {
       accountBookClient: getIt.get(),
       accountBookHive: getIt.get(),
       memberHive: getIt.get(),
-      secureStorage: getIt.get(),
     ));
     getIt.registerSingleton<AuthRepository>(AuthRepository(authClient: getIt.get()));
     getIt.registerSingleton<UserRepository>(UserRepository());
@@ -56,6 +57,19 @@ class DI {
           accountBookHive: getIt.get(),
           memberHive: getIt.get()),
     );
-    getIt.registerSingleton<ManageAuthToken>(ManageAuthToken(secureStorage: getIt.get()));
+    getIt.registerSingleton<ManageAuthToken>(
+      ManageAuthToken(secureStorage: getIt.get()),
+    );
+    getIt.registerSingleton<FindAccountBookMember>(
+      FindAccountBookMember(
+        accountBookHive: getIt.get(),
+        memberHive: getIt.get(),
+      ),
+    );
+    getIt.registerSingleton<SelectAccountBookMember>(SelectAccountBookMember(
+      accountBookRepository: getIt.get(),
+      findAccountBookMember: getIt.get(),
+      accountBookHive: getIt.get(),
+    ));
   }
 }

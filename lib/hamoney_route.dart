@@ -35,6 +35,8 @@ abstract class HamoneyRoute {
         screen = SplashScreen(
           manageAuthToken: getIt.get(),
           accountBookRepository: getIt.get(),
+          findAccountBookMember: getIt.get(),
+          selectAccountBookMember: getIt.get(),
         );
         break;
       case LoginScreen.routeName:
@@ -72,6 +74,7 @@ abstract class HamoneyRoute {
         screen = BlocProvider(
           create: (context) => SignupJoinBloc(
             accountBookRepository: context.read<AccountBookRepository>(),
+            selectAccountBookMember: getIt.get(),
           ),
           child: SignupJoinScreen(),
         );

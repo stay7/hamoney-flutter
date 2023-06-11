@@ -1,6 +1,7 @@
 import 'package:hamoney/model/member.dart';
 import 'package:hamoney/model/member_pay.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:collection/collection.dart';
 
 class MemberHive {
   static const String memberKey = "member";
@@ -24,6 +25,10 @@ class MemberHive {
 
   void save(Member member) {
     memberBox.put(member.id, member);
+  }
+
+  List<Member> findAll(List<int> memberIds) {
+    return memberIds.map((e) => find(e)).whereNotNull().toList();
   }
 
   Member? find(int memberId) {
