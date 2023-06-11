@@ -61,6 +61,7 @@ class HamoneyApp extends StatelessWidget {
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
           hoverColor: Colors.transparent,
+          fontFamily: 'SpoqaHanSans'
         ),
         builder: (context, child) => MediaQuery(
           data: MediaQueryData.fromWindow(
