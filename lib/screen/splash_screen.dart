@@ -49,8 +49,10 @@ class _SplashScreenState extends State<SplashScreen> {
 
   loading() async {
     final existedAccountBook = widget.findAccountBookMember.current();
-    widget.logger.i({existedAccountBook});
+    widget.logger.i('data not exist');
+
     if (existedAccountBook != null) {
+      widget.logger.i('data exist');
       await widget.userRepository.load();
       await widget.selectAccountBookMember.invoke(existedAccountBook.accountBook.id);
     }

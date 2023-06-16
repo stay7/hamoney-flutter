@@ -6,6 +6,7 @@ import 'package:flutter_web_auth_2/flutter_web_auth_2.dart';
 import 'package:hamoney/repository/auth_repository.dart';
 import 'package:hamoney/secure_storage.dart';
 import 'package:hamoney/workflow/manage_auth_token.dart';
+import 'package:logger/logger.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:meta/meta.dart';
 
@@ -30,10 +31,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final AuthRepository _authRepository;
   final ManageAuthToken _manageAuthToken;
   final SecureStorage _secureStorage;
+  final Logger logger = Logger();
 
   FutureOr<void> _onKakaoTokenRequested(LoginEvent event, Emitter<LoginState> emit) async {
     emit(LoginLoading());
 
+    logger.i('url: ${dotenv.env['KAKAO_AUTH_URL']}');
     final result = await FlutterWebAuth2.authenticate(url: dotenv.env['KAKAO_AUTH_URL']!, callbackUrlScheme: "hamoney")
         .then((value) => value.split("://")[1]);
 

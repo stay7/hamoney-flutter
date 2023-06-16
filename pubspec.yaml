@@ -16,9 +16,8 @@ dependencies:
   flutter_bloc: ^8.1.2
   url_launcher: '>=6.1.10 <7.0.0'
   dio: ^4.0.6 # kakao_flutter_sdk이 이 버전을 의존하고 있다
-  flutter_inappwebview: ^5.7.2+3
   fk_user_agent: ^2.1.0
-  flutter_web_auth_2: ^2.1.2
+  flutter_web_auth_2: ^2.1.4
   sign_in_with_apple: ^4.3.0
   freezed_annotation: ^2.2.0
   json_annotation: ^4.8.1

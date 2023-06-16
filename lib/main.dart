@@ -19,6 +19,9 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'bloc/bloc_observer.dart';
 
 Future main() async {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
   await dotenv.load(fileName: "config/.env.local");
   // await dotenv.load(fileName: "config/.env.dev");
 
@@ -30,8 +33,6 @@ Future main() async {
   await DI(getIt: GetIt.instance).initialize();
 
   Bloc.observer = Observer();
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   runApp(const HamoneyApp());
 }
 
