@@ -29,6 +29,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   final UserRepository _userRepository;
   final ManageAuthToken _manageAuthToken;
 
+  // TODO: authRepository.signup를 client.signup으로 바꾸자
   FutureOr<void> _onSignupRequested(SignupRequested event, Emitter<SignupState> emit) async {
     final signupResult = await _authRepository.signup(event.email, event.nickname);
     final oauthToken = OAuthToken(
@@ -37,12 +38,14 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     );
 
     _manageAuthToken.applyNewOAuthToken(oauthToken);
-    _userRepository.user = User(
+    final me = User(
       id: signupResult.id,
       email: signupResult.email,
       nickname: signupResult.nickname,
       profile: "",
     );
+    await _userRepository.saveUser(me);
+    _userRepository.loadUser();
 
     emit(SignupCompleted(
       email: _userRepository.user.email,

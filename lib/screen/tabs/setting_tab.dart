@@ -5,6 +5,7 @@ import 'package:hamoney/widgets/card_account_book.dart';
 
 import '../../bloc/setting/setting_bloc.dart';
 import '../../widgets/hamoney_navigation_bar.dart';
+import '../../widgets/sync_account_book_widget.dart';
 
 class SettingTab extends StatefulWidget {
   const SettingTab({Key? key}) : super(key: key);
@@ -34,7 +35,7 @@ class _SettingTabState extends State<SettingTab> {
               style: TextStyle(color: Color(0xFF2C2D3A), fontSize: 19),
               children: <TextSpan>[
                 TextSpan(
-                  text: bloc.me().nickname,
+                  text: 'nickname',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 )
               ],
@@ -53,6 +54,7 @@ class _SettingTabState extends State<SettingTab> {
           child: Column(
             children: [
               CardAccountBook(accountBookMember: bloc.currentAccountBookMember()),
+              // SyncAccountBookLabel(),
             ],
           ),
         ),

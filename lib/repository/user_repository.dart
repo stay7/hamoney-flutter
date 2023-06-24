@@ -4,26 +4,26 @@ import '../db/user_hive.dart';
 import '../model/user.dart';
 
 class UserRepository {
+  final UserHive _userHive;
+
   UserRepository({
     required UserHive userHive,
   }) : _userHive = userHive;
 
-  final UserHive _userHive;
-
   Logger logger = Logger();
 
-  late User _user;
+  late User user;
 
-  Future<void> load() async {
-    final me = _userHive.findMe();
-    if (me != null) {
-      _user = me;
-    }
+  User? loadUser() {
+    user = _userHive.findMe()!;
+    return user;
   }
 
-  User get user => _user;
+  Future<void> saveUser(User user) async {
+    await _userHive.save(user);
+  }
 
-  set user(User value) {
-    _user = value;
+  User? findUser() {
+    return _userHive.findMe();
   }
 }

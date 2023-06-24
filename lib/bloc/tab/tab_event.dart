@@ -8,3 +8,5 @@ class TabClicked extends TabEvent {
 
   final int index;
 }
+
+class TabLoading extends TabEvent {}

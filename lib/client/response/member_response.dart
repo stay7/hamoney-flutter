@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../model/member_pay.dart';
+import '../../model/member_pay.dart';
 
 part 'member_response.freezed.dart';
 

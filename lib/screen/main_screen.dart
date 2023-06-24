@@ -6,18 +6,35 @@ import 'package:hamoney/bloc/home/home_bloc.dart';
 import 'package:hamoney/bloc/saving/saving_bloc.dart';
 import 'package:hamoney/bloc/setting/setting_bloc.dart';
 import 'package:hamoney/bloc/tab/tab_bloc.dart';
-import 'package:hamoney/repository/account_book_repository.dart';
-import 'package:hamoney/repository/ui_repository.dart';
-import 'package:hamoney/repository/user_repository.dart';
 import 'package:hamoney/screen/tabs/budget_tab.dart';
 import 'package:hamoney/screen/tabs/home_tab.dart';
 import 'package:hamoney/screen/tabs/saving_tab.dart';
 import 'package:hamoney/screen/tabs/setting_tab.dart';
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends StatefulWidget {
   static const routeName = 'main';
 
-  const MainScreen({Key? key}) : super(key: key);
+  const MainScreen({super.key});
+
+  @override
+  State<MainScreen> createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  late TabBloc bloc;
+
+  @override
+  void initState() {
+    super.initState();
+    bloc = context.read<TabBloc>();
+    bloc.add(TabLoading());
+  }
+
+  @override
+  void dispose() {
+    bloc.endSyncAccountBook();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +43,8 @@ class MainScreen extends StatelessWidget {
     final pages = [
       BlocProvider<HomeBloc>(
         create: (context) => HomeBloc(
-          uiRepository: context.read<UIRepository>(),
-          accountBookRepository: context.read<AccountBookRepository>(),
+          uiRepository: getIt.get(),
+          accountBookRepository: getIt.get(),
           updateStatus: getIt.get(),
         ),
         child: HomeTab(),
@@ -42,11 +59,10 @@ class MainScreen extends StatelessWidget {
       ),
       BlocProvider<SettingBloc>(
         create: (context) => SettingBloc(
-          accountBookRepository: context.read<AccountBookRepository>(),
-          accountBookHive: getIt.get(),
-          memberHive: getIt.get(),
-          findAccountBookMember: getIt.get(),
-          userRepository: context.read<UserRepository>(),
+          accountBookRepository: getIt.get(),
+          userRepository: getIt.get(),
+          manualSyncAccountBook: getIt.get(),
+          memberRepository: getIt.get(),
         ),
         child: SettingTab(),
       ),
@@ -54,6 +70,10 @@ class MainScreen extends StatelessWidget {
 
     return BlocBuilder<TabBloc, TabState>(
       builder: (context, state) {
+        if (state is TabLoading) {
+          return Text('loading');
+        }
+
         if (state is TabSelected) {
           return WillPopScope(
             onWillPop: () async {
@@ -65,7 +85,7 @@ class MainScreen extends StatelessWidget {
             ),
           );
         }
-        return const SizedBox.shrink();
+        return SizedBox.shrink();
       },
     );
   }

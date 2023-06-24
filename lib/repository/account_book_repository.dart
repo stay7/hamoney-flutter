@@ -1,68 +1,65 @@
+import 'dart:async';
+
 import 'package:hamoney/db/account_book_box.dart';
-import 'package:hamoney/db/member_box.dart';
-import 'package:hamoney/model/account_book_member.dart';
-import 'package:hamoney/model/member.dart';
-import 'package:hamoney/model/member_pay.dart';
-import 'package:hamoney/repository/client/account_book_client.dart';
-import 'package:hamoney/repository/client/request/use_together_request.dart';
-import 'package:hamoney/repository/client/response/use_together_response.dart';
+import 'package:hamoney/model/account_book.dart';
+import 'package:hamoney/client/account_book_client.dart';
 import 'package:logger/logger.dart';
 
-import 'client/response/member_response.dart';
-import 'client/response/use_alone_response.dart';
-
 class AccountBookRepository {
+  final AccountBookClient _accountBookClient;
+  final AccountBookHive _accountBookHive;
+
   AccountBookRepository({
     required AccountBookClient accountBookClient,
     required AccountBookHive accountBookHive,
-    required MemberHive memberHive,
   })  : _accountBookClient = accountBookClient,
-        _accountBookHive = accountBookHive,
-        _memberHive = memberHive;
-
-  final AccountBookClient _accountBookClient;
-  final AccountBookHive _accountBookHive;
-  final MemberHive _memberHive;
+        _accountBookHive = accountBookHive;
 
   final Logger logger = Logger();
 
-  late AccountBookMember curAccountBookMember;
-  late DateTime fetchedAt;
+  late AccountBook accountBook;
 
-  Future<UseAloneResponse> useAlone() async {
-    final response = await _accountBookClient.useAlone();
-    return response.data;
+  int? findCurrentAccountBook() {
+    return _accountBookHive.currentAccountBookId();
   }
 
-  Future<UseTogetherResponse> useTogether(int invitationCode) async {
-    final response = await _accountBookClient.useTogether(UseTogetherRequest(invitationCode: invitationCode));
-    return response.data;
+  AccountBook loadCurrentAccountBook() {
+    final accountBookId = findCurrentAccountBook()!;
+
+    accountBook = findAccountBook(accountBookId)!;
+    return accountBook;
   }
 
-  Future<void> fetchAccountBook(int accountBookId) async {
-    logger.i('fetchAccountBook start');
+  Future<void> saveCurrentAccountBookId(int accountBookId) async {
+    return await _accountBookHive.saveCurrentAccountBookId(accountBookId);
+  }
+
+  Future<AccountBook> fetchAccountBook(int accountBookId) async {
     final response = await _accountBookClient.getAccountBook(accountBookId);
-
-    await Future.wait(<Future<void>>[
-      _accountBookHive.saveAccountBook(response.data.accountBook.id, response.data.accountBook),
-      _accountBookHive.saveRevision(accountBookId, response.data.revision),
-      _accountBookHive.saveFetchedAt(accountBookId, DateTime.now())
-    ]);
-    logger.i('fetchAccountBook end');
+    return response.data.accountBook;
   }
 
-  Future<List<Member>> fetchMembers(int accountBookId) async {
-    final response = await _accountBookClient.getMembers(accountBookId);
-    final members = response.data.members.map((e) => _fromMemberResponse(e)).toList();
-    _memberHive.saveAll(members);
-    return members;
+  AccountBook? findAccountBook(int accountBookId) {
+    return _accountBookHive.findAccountBook(accountBookId);
   }
 
-  Member _fromMemberResponse(MemberResponse response) {
-    return Member(
-      id: response.id,
-      nickname: response.nickname,
-      payments: response.payments.map((e) => MemberPay(id: e.id, name: e.name, iconId: e.iconId)).toList(),
-    );
+  Future<void> saveAccountBook(AccountBook accountBook) async {
+    _accountBookHive.saveAccountBook(accountBook.id, accountBook);
+  }
+
+  Future<void> saveRevision(int accountBookId, int revision) async {
+    await _accountBookHive.saveRevision(accountBookId, revision);
+  }
+
+  int findRevision(int accountBookId) {
+    return _accountBookHive.findRevision(accountBookId) ?? 0;
+  }
+
+  Future<void> saveFetchedAt(int accountBookId, DateTime fetchedAt) async {
+    await _accountBookHive.saveFetchedAt(accountBookId, DateTime.now());
+  }
+
+  DateTime findFetchedAt(int accountBookId) {
+    return _accountBookHive.findFetchedAt(accountBookId)!;
   }
 }

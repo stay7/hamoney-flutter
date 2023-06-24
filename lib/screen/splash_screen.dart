@@ -3,22 +3,23 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:hamoney/repository/account_book_repository.dart';
+import 'package:hamoney/repository/member_repository.dart';
 import 'package:hamoney/repository/user_repository.dart';
 import 'package:hamoney/screen/login_screen.dart';
 import 'package:hamoney/screen/main_screen.dart';
-import 'package:hamoney/workflow/find_account_book_member.dart';
 import 'package:hamoney/workflow/manage_auth_token.dart';
-import 'package:hamoney/workflow/select_account_book_member.dart';
 import 'package:logger/logger.dart';
+
+import '../workflow/loadForReinstalled.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen({
     Key? key,
     required this.manageAuthToken,
     required this.accountBookRepository,
-    required this.findAccountBookMember,
-    required this.selectAccountBookMember,
+    required this.memberRepository,
     required this.userRepository,
+    required this.loadRequiredData,
   }) : super(key: key);
 
   static const String routeName = "splash";
@@ -26,8 +27,9 @@ class SplashScreen extends StatefulWidget {
   final ManageAuthToken manageAuthToken;
   final AccountBookRepository accountBookRepository;
   final UserRepository userRepository;
-  final SelectAccountBookMember selectAccountBookMember;
-  final FindAccountBookMember findAccountBookMember;
+  final MemberRepository memberRepository;
+  final LoadRequiredData loadRequiredData;
+
   final Logger logger = Logger();
 
   @override
@@ -48,13 +50,9 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   loading() async {
-    final existedAccountBook = widget.findAccountBookMember.current();
-    widget.logger.i('data not exist');
-
-    if (existedAccountBook != null) {
+    if (widget.accountBookRepository.findCurrentAccountBook() != null) {
       widget.logger.i('data exist');
-      await widget.userRepository.load();
-      await widget.selectAccountBookMember.invoke(existedAccountBook.accountBook.id);
+      widget.loadRequiredData.invoke();
     }
     widget.manageAuthToken.initializeOAuthToken();
   }

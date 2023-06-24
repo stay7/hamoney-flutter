@@ -2,7 +2,7 @@ import 'package:hamoney/model/user.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class UserHive {
-  static const String userKey = "user";
+  static const String userKey = "box_user";
   static const String meKey = "me";
 
   UserHive();

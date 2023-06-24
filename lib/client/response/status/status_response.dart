@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../../model/user.dart';
+import '../../../model/user.dart';
 import 'account_book_status.dart';
 
 part 'status_response.freezed.dart';

@@ -31,19 +31,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final UpdateStatus updateStatus;
   final UIRepository uiRepository;
   final AccountBookRepository accountBookRepository;
-  late Timer _timer;
-
-  void startPollingUpdateStatus() {
-    updateStatus.fetch();
-
-    _timer = Timer.periodic(const Duration(minutes: 5), (_) {
-      updateStatus.fetch();
-    });
-  }
-
-  void endSyncAccountBook() {
-    _timer.cancel();
-  }
 
   void _onAppBarDateClicked(AppBarDateClicked event, Emitter<HomeState> emit) {
     uiRepository.calendarFormat =

@@ -5,6 +5,7 @@ import 'package:hamoney/bloc/login/login_bloc.dart';
 import 'package:hamoney/bloc/signup/signup_join_bloc.dart';
 import 'package:hamoney/repository/account_book_repository.dart';
 import 'package:hamoney/repository/auth_repository.dart';
+import 'package:hamoney/repository/member_repository.dart';
 import 'package:hamoney/repository/ui_repository.dart';
 import 'package:hamoney/repository/spending_repository.dart';
 import 'package:hamoney/repository/user_repository.dart';
@@ -35,9 +36,9 @@ abstract class HamoneyRoute {
         screen = SplashScreen(
           manageAuthToken: getIt.get(),
           accountBookRepository: getIt.get(),
-          findAccountBookMember: getIt.get(),
-          selectAccountBookMember: getIt.get(),
           userRepository: getIt.get(),
+          memberRepository: getIt.get(),
+          loadRequiredData: getIt.get(),
         );
         break;
       case LoginScreen.routeName:
@@ -45,10 +46,9 @@ abstract class HamoneyRoute {
           providers: [
             BlocProvider<LoginBloc>(
               create: (context) => LoginBloc(
-                authRepository: context.read<AuthRepository>(),
-                manageAuthToken: getIt.get(),
-                secureStorage: getIt.get()
-              ),
+                  authRepository: context.read<AuthRepository>(),
+                  manageAuthToken: getIt.get(),
+                  secureStorage: getIt.get()),
             ),
             BlocProvider<SignupBloc>(
               create: (context) => SignupBloc(
@@ -74,10 +74,8 @@ abstract class HamoneyRoute {
         break;
       case SignupJoinScreen.routeName:
         screen = BlocProvider(
-          create: (context) => SignupJoinBloc(
-            accountBookRepository: context.read<AccountBookRepository>(),
-            selectAccountBookMember: getIt.get(),
-          ),
+          create: (context) =>
+              SignupJoinBloc(accountBookRepository: context.read<AccountBookRepository>(), signupClient: getIt.get()),
           child: SignupJoinScreen(),
         );
         break;
@@ -89,7 +87,7 @@ abstract class HamoneyRoute {
         break;
       case MainScreen.routeName:
         screen = BlocProvider<TabBloc>(
-          create: (context) => TabBloc(),
+          create: (context) => TabBloc(updateStatus: getIt.get()),
           child: const MainScreen(),
         );
         break;
@@ -116,6 +114,7 @@ abstract class HamoneyRoute {
           create: (context) => AddSpendingPaymentBloc(
             spendingRepository: context.read<SpendingRepository>(),
             accountBookRepository: context.read<AccountBookRepository>(),
+            memberRepository: context.read<MemberRepository>(),
           ),
           child: AddSpendingPaymentScreen(),
         );

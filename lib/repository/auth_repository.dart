@@ -1,10 +1,10 @@
-import 'package:hamoney/repository/client/auth_client.dart';
-import 'package:hamoney/repository/client/response/signup_response.dart';
+import 'package:hamoney/client/auth_client.dart';
+import 'package:hamoney/client/response/signup_response.dart';
 import 'package:logger/logger.dart';
 
 import '../model/oauth_token.dart';
-import 'client/request/oauth_request.dart';
-import 'client/request/signup_request.dart';
+import '../client/request/oauth_request.dart';
+import '../client/request/signup_request.dart';
 
 class AuthRepository {
   AuthRepository({required this.authClient});

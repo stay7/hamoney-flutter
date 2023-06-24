@@ -9,19 +9,12 @@ import 'package:logger/logger.dart';
 import '../model/account_book.dart';
 
 class AccountBookHive {
-  static const String accountBookKey = "account_book";
-  static const String memberKey = "account_book_member";
-  static const String accountBookRevisionKey = "account_book_revision";
-  static const String fetchedAtKey = "account_book_fetched_at";
-
+  static const String accountBookKey = "box_account_book";
   static const String currentAccountBookKey = "current";
 
-  late Box<AccountBook> _accountBookBox;
-  late Box<int> _revisionBox;
-  late Box<DateTime> _fetchedAtBox;
-  late Box<List<int>> _membersBox;
-
-  final Logger logger = Logger();
+  static const String prefixAccountBook = "account_book";
+  static const String prefixRevision = "revision";
+  static const String prefixFetchedAt = "fetched_at";
 
   Future<void> initialize() async {
     Hive.registerAdapter<AccountBook>(AccountBookAdapter());
@@ -29,49 +22,48 @@ class AccountBookHive {
     Hive.registerAdapter<SubCategory>(SubCategoryAdapter());
     Hive.registerAdapter<AccountBookPay>(AccountBookPayAdapter());
 
-    _accountBookBox = await Hive.openBox<AccountBook>(accountBookKey);
-    _membersBox = await Hive.openBox<List<int>>(memberKey);
-    _revisionBox = await Hive.openBox<int>(accountBookRevisionKey);
-    _fetchedAtBox = await Hive.openBox<DateTime>(fetchedAtKey);
+    _accountBookBox = await Hive.openBox(accountBookKey);
   }
 
-  AccountBook? currentAccountBook() {
+  late Box _accountBookBox;
+
+  final Logger logger = Logger();
+
+  int? currentAccountBookId() {
     return _accountBookBox.get(currentAccountBookKey);
   }
 
-  Future<void> saveCurrentAccountBook(AccountBook accountBook) async {
-    await _accountBookBox.put(currentAccountBookKey, accountBook);
+  Future<void> saveCurrentAccountBookId(int accountBookId) async {
+    await _accountBookBox.put(currentAccountBookKey, accountBookId);
   }
 
   AccountBook? findAccountBook(int accountBookId) {
-    return _accountBookBox.get(accountBookId);
+    return _accountBookBox.get(_keyAccountBook(accountBookId));
   }
 
   Future<void> saveAccountBook(int accountBookId, AccountBook accountBook) async {
-    await _accountBookBox.put(accountBookId, accountBook);
+    await _accountBookBox.put(_keyAccountBook(accountBookId), accountBook);
   }
 
   int? findRevision(int accountBookId) {
-    return _revisionBox.get(accountBookId);
-  }
-
-  DateTime? findFetchedAt(int accountBookId) {
-    return _fetchedAtBox.get(accountBookId);
+    return _accountBookBox.get(_keyRevision(accountBookId));
   }
 
   Future<void> saveRevision(int accountBookId, int revision) async {
-    await _revisionBox.put(accountBookId, revision);
+    await _accountBookBox.put(_keyRevision(accountBookId), revision);
+  }
+
+  DateTime? findFetchedAt(int accountBookId) {
+    return _accountBookBox.get(_keyFetchedAt(accountBookId));
   }
 
   Future<void> saveFetchedAt(int accountBookId, DateTime fetchedAt) async {
-    await _fetchedAtBox.put(accountBookId, fetchedAt);
+    await _accountBookBox.put(_keyFetchedAt(accountBookId), fetchedAt);
   }
 
-  Future<void> saveMemberIds(int accountBookId, List<int> members) async {
-    await _membersBox.put(accountBookId, members);
-  }
+  String _keyAccountBook(int accountBookId) => "${prefixAccountBook}_$accountBookId";
 
-  List<int> findMemberIds(int accountBookId) {
-    return _membersBox.get(accountBookId) ?? List.empty();
-  }
+  String _keyRevision(int accountBookId) => "${prefixRevision}_$accountBookId";
+
+  String _keyFetchedAt(int accountBookId) => "${prefixFetchedAt}_$accountBookId";
 }

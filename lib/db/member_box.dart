@@ -4,34 +4,25 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:collection/collection.dart';
 
 class MemberHive {
-  static const String memberKey = "member";
+  static const String memberKey = "box_member";
 
   MemberHive();
 
-  late Box<Member> memberBox;
+  late Box memberBox;
 
   Future<void> initialize() async {
     Hive.registerAdapter<Member>(MemberAdapter());
     Hive.registerAdapter<MemberPay>(MemberPayAdapter());
 
-    memberBox = await Hive.openBox<Member>(memberKey);
+    // hive는 dart 문제로 List<> 타입의 box를 지원하지 않는다
+    memberBox = await Hive.openBox(memberKey);
   }
 
-  void saveAll(List<Member> members) {
-    for (var element in members) {
-      memberBox.put(element.id, element);
-    }
+  Future<void> saveAll(int accountBookId, List<Member> members) async {
+    await memberBox.put(accountBookId, members);
   }
 
-  void save(Member member) {
-    memberBox.put(member.id, member);
-  }
-
-  List<Member> findAll(List<int> memberIds) {
-    return memberIds.map((e) => find(e)).whereNotNull().toList();
-  }
-
-  Member? find(int memberId) {
-    return memberBox.get(memberId);
+  List<Member> findAll(int accountBookId) {
+    return memberBox.get(accountBookId)?.cast<Member>() ?? List.empty();
   }
 }

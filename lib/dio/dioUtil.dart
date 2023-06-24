@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:hamoney/model/oauth_token.dart';
-import 'package:hamoney/repository/client/auth_client.dart';
-import 'package:hamoney/repository/client/hamoeny_status.dart';
+import 'package:hamoney/client/auth_client.dart';
+import 'package:hamoney/client/hamoeny_status.dart';
 import 'package:hamoney/secure_storage.dart';
 import 'package:logger/logger.dart';
 

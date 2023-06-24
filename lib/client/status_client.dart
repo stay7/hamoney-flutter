@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:hamoney/repository/client/response/status/status_response.dart';
+import 'package:hamoney/client/response/status/status_response.dart';
 import 'package:retrofit/retrofit.dart';
 
-import '../../hamoney_config.dart';
+import '../hamoney_config.dart';
 
 part 'status_client.g.dart';
 

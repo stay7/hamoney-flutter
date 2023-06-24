@@ -35,13 +35,11 @@ class _HomeTabState extends State<HomeTab> {
   @override
   void initState() {
     super.initState();
-    context.read<HomeBloc>().startPollingUpdateStatus();
   }
 
   @override
   void dispose() {
     super.dispose();
-    context.read<HomeBloc>().endSyncAccountBook();
   }
 
   @override
