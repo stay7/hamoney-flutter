@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:hamoney/workflow/loadForReinstalled.dart';
+import 'package:hamoney/workflow/load_required.dart';
 import 'package:meta/meta.dart';
 
 import '../../workflow/update_status.dart';

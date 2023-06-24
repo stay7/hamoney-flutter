@@ -10,7 +10,7 @@ import 'package:hamoney/screen/main_screen.dart';
 import 'package:hamoney/workflow/manage_auth_token.dart';
 import 'package:logger/logger.dart';
 
-import '../workflow/loadForReinstalled.dart';
+import '../workflow/load_required.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen({

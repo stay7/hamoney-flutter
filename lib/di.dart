@@ -12,7 +12,7 @@ import 'package:hamoney/repository/spending_repository.dart';
 import 'package:hamoney/repository/ui_repository.dart';
 import 'package:hamoney/repository/user_repository.dart';
 import 'package:hamoney/secure_storage.dart';
-import 'package:hamoney/workflow/loadForReinstalled.dart';
+import 'package:hamoney/workflow/load_required.dart';
 import 'package:hamoney/workflow/manage_auth_token.dart';
 import 'package:hamoney/workflow/sync_account_book.dart';
 import 'package:hamoney/workflow/update_status.dart';

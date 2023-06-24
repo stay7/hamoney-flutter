@@ -6,7 +6,7 @@ import 'package:hamoney/repository/user_repository.dart';
 
 import '../db/member_box.dart';
 import '../db/user_hive.dart';
-import 'loadForReinstalled.dart';
+import 'load_required.dart';
 
 class UpdateStatus {
   final StatusClient _statusClient;

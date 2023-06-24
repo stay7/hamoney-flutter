@@ -63,6 +63,7 @@ class _MainScreenState extends State<MainScreen> {
           userRepository: getIt.get(),
           manualSyncAccountBook: getIt.get(),
           memberRepository: getIt.get(),
+          loadRequiredData: getIt.get()
         ),
         child: SettingTab(),
       ),
