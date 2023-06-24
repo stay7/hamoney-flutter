@@ -53,18 +53,13 @@ class _MainScreenState extends State<MainScreen> {
         create: (context) => BudgetBloc(),
         child: BudgetTab(),
       ),
-      BlocProvider<SavingBloc>(
-        create: (context) => SavingBloc(),
-        child: SavingTab(),
-      ),
       BlocProvider<SettingBloc>(
         create: (context) => SettingBloc(
-          accountBookRepository: getIt.get(),
-          userRepository: getIt.get(),
-          manualSyncAccountBook: getIt.get(),
-          memberRepository: getIt.get(),
-          loadRequiredData: getIt.get()
-        ),
+            accountBookRepository: getIt.get(),
+            userRepository: getIt.get(),
+            manualSyncAccountBook: getIt.get(),
+            memberRepository: getIt.get(),
+            loadRequiredData: getIt.get()),
         child: SettingTab(),
       ),
     ];

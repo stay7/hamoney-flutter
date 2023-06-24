@@ -21,30 +21,20 @@ class HamoneyNavigationBar extends StatelessWidget {
         children: const [
           _BottomTab(
             currentIndex: 0,
-            name: '달력',
             offIcon: AppImage.tabIconCalendarOff,
             onIcon: AppImage.tabIconCalendarOn,
           ),
           _BottomTab(
             currentIndex: 1,
-            name: '예산',
             offIcon: AppImage.tabIconPlanOff,
             onIcon: AppImage.tabIconPlanOn,
           ),
           _BottomButton(
-            name: '추가',
             offIcon: AppImage.tabIconPlusOff,
             onIcon: AppImage.tabIconPlusOn,
           ),
           _BottomTab(
             currentIndex: 2,
-            name: '모으기',
-            offIcon: AppImage.tabIconSavingOff,
-            onIcon: AppImage.tabIconSavingOn,
-          ),
-          _BottomTab(
-            currentIndex: 3,
-            name: '관리',
             offIcon: AppImage.tabIconSettingOff,
             onIcon: AppImage.tabIconSettingOn,
           ),
@@ -59,12 +49,10 @@ class _BottomButton extends StatefulWidget {
     Key? key,
     required this.offIcon,
     required this.onIcon,
-    required this.name,
   }) : super(key: key);
 
   final String onIcon;
   final String offIcon;
-  final String name;
 
   @override
   State<_BottomButton> createState() => _BottomButtonState();
@@ -87,12 +75,7 @@ class _BottomButtonState extends State<_BottomButton> {
             });
           });
         },
-        child: Column(
-          children: [
-            Image.asset(selected ? widget.onIcon : widget.offIcon),
-            Text(widget.name),
-          ],
-        ),
+        child: Column(children: [Image.asset(selected ? widget.onIcon : widget.offIcon)],),
       ),
     );
   }
@@ -104,13 +87,11 @@ class _BottomTab extends StatelessWidget {
     required this.currentIndex,
     required this.offIcon,
     required this.onIcon,
-    required this.name,
   }) : super(key: key);
 
   final String onIcon;
   final String offIcon;
   final int currentIndex;
-  final String name;
 
   @override
   Widget build(BuildContext context) {
@@ -123,7 +104,6 @@ class _BottomTab extends StatelessWidget {
                 child: Column(
                   children: [
                     Image.asset(currentIndex == state.index ? onIcon : offIcon),
-                    Text(name),
                   ],
                 )),
           );
