@@ -33,11 +33,27 @@ Future main() async {
   await DI(getIt: GetIt.instance).initialize();
 
   Bloc.observer = Observer();
-  runApp(const HamoneyApp());
+  runApp(HamoneyApp());
 }
 
 class HamoneyApp extends StatelessWidget {
-  const HamoneyApp({super.key});
+  HamoneyApp({super.key});
+
+  final MaterialColor materialBlack = MaterialColor(
+    0xFF000000,
+    <int, Color>{
+      50: Color(0xFF000000),
+      100: Color(0xFF000000),
+      200: Color(0xFF000000),
+      300: Color(0xFF000000),
+      400: Color(0xFF000000),
+      500: Color(0xFF000000),
+      600: Color(0xFF000000),
+      700: Color(0xFF000000),
+      800: Color(0xFF000000),
+      900: Color(0xFF000000),
+    },
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -58,11 +74,13 @@ class HamoneyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'HAMONEY',
         theme: ThemeData(
-          primarySwatch: Colors.grey,
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-          hoverColor: Colors.transparent,
-          fontFamily: 'SpoqaHanSans'
+          fontFamily: 'SpoqaHanSans',
+          primaryColor: Colors.white,
+          primarySwatch: materialBlack,
+          appBarTheme: AppBarTheme(
+            color: Colors.transparent,
+            shadowColor: Colors.transparent,
+          ),
         ),
         builder: (context, child) => MediaQuery(
           data: MediaQueryData.fromWindow(

@@ -75,7 +75,9 @@ class _BottomButtonState extends State<_BottomButton> {
             });
           });
         },
-        child: Column(children: [Image.asset(selected ? widget.onIcon : widget.offIcon)],),
+        child: Column(
+          children: [Image.asset(selected ? widget.onIcon : widget.offIcon)],
+        ),
       ),
     );
   }

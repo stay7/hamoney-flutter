@@ -67,8 +67,6 @@ class _HomeTabState extends State<HomeTab> {
                 ),
               ),
               titleTextStyle: TextStyle(color: Colors.black),
-              backgroundColor: Colors.white,
-              elevation: 0,
             ),
             body: Column(
               children: [
