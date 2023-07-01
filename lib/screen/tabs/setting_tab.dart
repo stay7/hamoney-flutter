@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hamoney/screen/spending/add_spending_amount_screen.dart';
 import 'package:hamoney/widgets/card_account_book.dart';
+import 'package:hamoney/widgets/setting_menu_group.dart';
 
 import '../../bloc/setting/setting_bloc.dart';
 import '../../widgets/hamoney_navigation_bar.dart';
@@ -55,6 +57,23 @@ class _SettingTabState extends State<SettingTab> {
             children: [
               CardAccountBook(accountBookMember: bloc.currentAccountBookMember()),
               SyncStatusBar(),
+              Container(
+                width: double.infinity,
+                margin: EdgeInsets.only(bottom: 12),
+                child: Text(
+                  "자산관리",
+                  style: TextStyle(fontSize: 12, color: Color(0xFF191919)),
+                ),
+              ),
+              SettingMenuGroup(
+                menuList: [
+                  MenuForm(name: '예산 수정', screenName: AddSpendingAmountScreen.routeName),
+                  MenuForm(name: '월 시작일자', screenName: AddSpendingAmountScreen.routeName),
+                  MenuForm(name: '카드 설정', screenName: AddSpendingAmountScreen.routeName),
+                  MenuForm(name: '카테고리 수정', screenName: AddSpendingAmountScreen.routeName),
+                  MenuForm(name: '반복데이터', screenName: AddSpendingAmountScreen.routeName),
+                ],
+              ),
             ],
           ),
         ),
