@@ -54,7 +54,7 @@ class _SplashScreenState extends State<SplashScreen> {
       widget.logger.i('data exist');
       widget.loadRequiredData.invoke();
     }
-    widget.manageAuthToken.initializeOAuthToken();
+    widget.manageAuthToken.loadOAuthToken();
   }
 
   route() async {

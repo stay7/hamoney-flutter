@@ -29,8 +29,6 @@ class SignupScreen extends StatelessWidget {
             style: TextStyle(color: Colors.black, fontSize: 16),
           ),
           centerTitle: true,
-          elevation: 0,
-          backgroundColor: Colors.transparent,
         ),
         resizeToAvoidBottomInset: false,
         body: Container(

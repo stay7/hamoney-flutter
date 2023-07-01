@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:hamoney/hamoney_config.dart';
 import 'package:hamoney/model/oauth_token.dart';
 import 'package:hamoney/client/request/oauth_request.dart';
 import 'package:retrofit/retrofit.dart';
@@ -9,7 +8,7 @@ import 'response/signup_response.dart';
 
 part 'auth_client.g.dart';
 
-@RestApi(baseUrl: HamoneyConfig.baseUrl)
+@RestApi()
 abstract class AuthClient {
   factory AuthClient(Dio dio, {String? baseUrl}) = _AuthClient;
 

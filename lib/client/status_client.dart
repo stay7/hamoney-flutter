@@ -2,11 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:hamoney/client/response/status/status_response.dart';
 import 'package:retrofit/retrofit.dart';
 
-import '../hamoney_config.dart';
-
 part 'status_client.g.dart';
 
-@RestApi(baseUrl: HamoneyConfig.baseUrl)
+@RestApi()
 abstract class StatusClient {
   factory StatusClient(Dio dio, {String? baseUrl}) = _StatusClient;
 

@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hamoney/client/signup_client.dart';
 import 'package:hamoney/db/account_book_box.dart';
@@ -18,25 +19,29 @@ import 'package:hamoney/workflow/sync_account_book.dart';
 import 'package:hamoney/workflow/update_status.dart';
 
 import 'db/user_hive.dart';
-import 'dio/dioUtil.dart';
+import 'dio/auth_dio.dart';
 
 class DI {
   DI({required this.getIt});
 
   final GetIt getIt;
 
-  Future<void> initialize() async {
+  Future<void> initialize(String baseUrl) async {
     final accountBookHive = AccountBookHive();
     await accountBookHive.initialize();
     final memberHive = MemberHive();
     await memberHive.initialize();
     final userHive = UserHive();
     await userHive.initialize();
+    final pureDio = Dio(BaseOptions(baseUrl: baseUrl, connectTimeout: 5000));
 
-    getIt.registerSingleton<AuthClient>(AuthClient(DioUtil().pureDio));
-    getIt.registerSingleton<AccountBookClient>(AccountBookClient(DioUtil().authorizedDio));
-    getIt.registerSingleton<StatusClient>(StatusClient(DioUtil().authorizedDio));
-    getIt.registerSingleton<SignupClient>(SignupClient(DioUtil().authorizedDio));
+    getIt.registerSingleton<AuthClient>(AuthClient(pureDio));
+    final AuthDio authDio = AuthDio(baseUrl: baseUrl, authClient: getIt.get());
+    getIt.registerSingleton<AuthDio>(authDio);
+
+    getIt.registerSingleton<AccountBookClient>(AccountBookClient(authDio.dio));
+    getIt.registerSingleton<StatusClient>(StatusClient(authDio.dio));
+    getIt.registerSingleton<SignupClient>(SignupClient(authDio.dio));
 
     getIt.registerSingleton<SecureStorage>(SecureStorage());
 
@@ -76,7 +81,7 @@ class DI {
       ),
     );
     getIt.registerSingleton<ManageAuthToken>(
-      ManageAuthToken(secureStorage: getIt.get()),
+      ManageAuthToken(secureStorage: getIt.get(), authDio: authDio),
     );
     getIt.registerSingleton<ManualSyncAccountBook>(
       ManualSyncAccountBook(

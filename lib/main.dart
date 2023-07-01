@@ -22,15 +22,15 @@ Future main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
-  await dotenv.load(fileName: "config/.env.local");
-  // await dotenv.load(fileName: "config/.env.dev");
+  // await dotenv.load(fileName: "config/.env.local");
+  await dotenv.load(fileName: "config/.env.dev");
 
   KakaoSdk.init(nativeAppKey: dotenv.env['KAKAO_NATIVE_APP_KEY']);
   await Hive.initFlutter();
 
   Logger.level = Level.info;
   await initializeDateFormatting();
-  await DI(getIt: GetIt.instance).initialize();
+  await DI(getIt: GetIt.instance).initialize(dotenv.env['BASE_URL']!);
 
   Bloc.observer = Observer();
   runApp(HamoneyApp());

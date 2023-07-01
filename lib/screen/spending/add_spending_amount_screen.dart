@@ -46,69 +46,97 @@ class _AddSpendingAmountScreenState extends State<AddSpendingAmountScreen> {
 
         return Scaffold(
           appBar: AppBar(
-            title: InkWell(
-              child: Row(
-                children: [
-                  Text(
-                    DateFormat('yyyy.MM.dd').format(date),
-                    style: const TextStyle(color: Colors.black, fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  const Icon(
-                    Icons.arrow_drop_down,
-                    color: Colors.black,
-                  ),
-                ],
-              ),
+            title: Text(
+              '지출 입력',
+              style: TextStyle(color: Colors.black, fontSize: 16),
+            ),
+            centerTitle: true,
+            leading: IconButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              icon: const Icon(Icons.close, color: Colors.black),
             ),
           ),
           body: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            padding: const EdgeInsets.symmetric(horizontal: 17.0),
             child: Column(
               children: [
-                Container(
-                  width: double.infinity,
-                  child: Text('지출 금액'),
-                ),
-                TextFormField(
-                  controller: _amountController,
-                  keyboardType: TextInputType.number,
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                  inputFormatters: [
-                    CurrencyTextInputFormatter(
-                      locale: 'ko',
-                      decimalDigits: 0,
-                      symbol: '',
-                    )
-                  ],
-                  decoration: InputDecoration(
-                    prefixIcon: Icon(Icons.attach_money),
-                    suffixIcon: IconButton(
-                      icon: Icon(Icons.close),
-                      onPressed: _amountController.clear,
+                InkWell(
+                  child: Container(
+                    height: 51,
+                    child: Row(
+                      children: [
+                        Text(
+                          DateFormat('yyyy년 MM월 dd일').format(date.toLocal()),
+                          style: const TextStyle(color: Color(0xff191919), fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        const Icon(
+                          Icons.arrow_drop_down,
+                          color: Color(0xff191919),
+                        ),
+                      ],
                     ),
-                    border: OutlineInputBorder(),
                   ),
-                  showCursor: false,
+                ),
+                Container(
+                  width: 341,
+                  height: 62,
+                  child: TextFormField(
+                    controller: _amountController,
+                    keyboardType: TextInputType.number,
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    inputFormatters: [
+                      CurrencyTextInputFormatter(
+                        locale: 'ko',
+                        decimalDigits: 0,
+                        symbol: '',
+                      )
+                    ],
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.attach_money),
+                      suffixIcon: IconButton(
+                        icon: Icon(Icons.close),
+                        onPressed: _amountController.clear,
+                      ),
+                      labelText: '지출 금액',
+                      labelStyle: TextStyle(fontSize: 12, color: Color(0xff191919)),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black, width: 2.0),
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xffeaeaea), width: 2.0),
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                    ),
+                    showCursor: false,
+                  ),
                 ),
               ],
             ),
           ),
           bottomSheet: SafeArea(
-              child: Container(
-            width: double.infinity,
-            color: Colors.black,
-            child: ElevatedButton(
-              onPressed: () {
-                context
-                    .read<AddSpendingAmountBloc>()
-                    .add(AmountEntered(int.parse(_amountController.text.replaceAll(',', ''))));
-              },
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 14),
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.only(left: 17, right: 17, bottom: 14),
+              child: ElevatedButton(
+                onPressed: () {
+                  context
+                      .read<AddSpendingAmountBloc>()
+                      .add(AmountEntered(int.parse(_amountController.text.replaceAll(',', ''))));
+                },
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  backgroundColor: Colors.black,
+                ),
+                child: const Text(
+                  '다음',
+                  style: TextStyle(fontSize: 15),
+                ),
               ),
-              child: const Text('다음'),
             ),
-          )),
+          ),
         );
       },
     );
