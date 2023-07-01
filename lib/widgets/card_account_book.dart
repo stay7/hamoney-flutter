@@ -36,7 +36,7 @@ class CardAccountBook extends StatelessWidget {
                           children: [
                             Text(
                               accountBookMember.accountBook.name,
-                              style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
+                              style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
                             ),
                             Icon(Icons.keyboard_arrow_right, color: Colors.white)
                           ],
