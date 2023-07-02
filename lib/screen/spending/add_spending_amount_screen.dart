@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hamoney/screen/spending/bloc/add_spending_amount_bloc.dart';
 import 'package:hamoney/screen/spending/add_spending_category_screen.dart';
+import 'package:hamoney/widgets/hamoney_color_button.dart';
 import 'package:intl/intl.dart';
 
 class AddSpendingAmountScreen extends StatefulWidget {
@@ -120,20 +121,13 @@ class _AddSpendingAmountScreenState extends State<AddSpendingAmountScreen> {
             child: Container(
               width: double.infinity,
               padding: const EdgeInsets.only(left: 17, right: 17, bottom: 14),
-              child: ElevatedButton(
+              child: HamoneyColorButton(
+                text: '다음',
                 onPressed: () {
                   context
                       .read<AddSpendingAmountBloc>()
                       .add(AmountEntered(int.parse(_amountController.text.replaceAll(',', ''))));
                 },
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  backgroundColor: Colors.black,
-                ),
-                child: const Text(
-                  '다음',
-                  style: TextStyle(fontSize: 15),
-                ),
               ),
             ),
           ),

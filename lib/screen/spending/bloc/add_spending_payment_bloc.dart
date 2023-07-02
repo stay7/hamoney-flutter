@@ -5,6 +5,7 @@ import 'package:meta/meta.dart';
 
 import '../../../model/account_book_pay.dart';
 import '../../../model/member.dart';
+import '../../../model/sub_category.dart';
 import '../../../repository/member_repository.dart';
 
 part 'add_spending_payment_event.dart';
@@ -24,9 +25,9 @@ class AddSpendingPaymentBloc extends Bloc<AddSpendingPaymentEvent, AddSpendingPa
         _accountBookRepository = accountBookRepository,
         _memberRepository = memberRepository,
         super(AddSpendingPaymentInitial(
-          members: memberRepository.members,
-          sharedPayments: accountBookRepository.accountBook.payments,
-        )) {
+            members: memberRepository.members,
+            sharedPayments: accountBookRepository.accountBook.payments,
+            selectedCategory: spendingRepository.selectedSubCategory)) {
     on<AddSpendingPaymentEvent>((event, emit) {});
   }
 }

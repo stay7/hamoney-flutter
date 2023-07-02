@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hamoney/model/member.dart';
 import 'package:hamoney/model/sub_category.dart';
+import 'package:hamoney/resource/resource.dart';
 import 'package:hamoney/screen/spending/bloc/add_spending_payment_bloc.dart';
+import 'package:hamoney/widgets/label_title.dart';
 
 import '../../model/account_book_pay.dart';
-import '../../model/member_pay.dart';
 
 class AddSpendingPaymentScreen extends StatefulWidget {
   static const routeName = 'add_spending_payment';
@@ -20,32 +22,68 @@ class _AddSpendingPaymentScreenState extends State<AddSpendingPaymentScreen> {
   PaymentType? _selectedPaymentType = PaymentType.SHARED;
   List<AccountBookPay> sharedPayments = List.empty();
   List<Member> members = List.empty();
+  late SubCategory selectedCategory;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    AddSpendingPaymentState state = context
-        .read<AddSpendingPaymentBloc>()
-        .state;
+    AddSpendingPaymentState state = context.read<AddSpendingPaymentBloc>().state;
     if (state is AddSpendingPaymentInitial) {
       sharedPayments = state.sharedPayments;
       members = state.members;
+      selectedCategory = state.selectedCategory;
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Column(
-        children: [
-          Container(
-            child: Column(
+      appBar: AppBar(
+        leading: InkWell(
+          onTap: () {
+            Navigator.of(context).popUntil((route) => false);
+          },
+          child: SvgPicture.asset(
+            AppImage.iconLeftArrow,
+            width: 24,
+            height: 24,
+          ),
+        ),
+        actions: [
+          InkWell(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: SvgPicture.asset(
+              AppImage.iconClose,
+              width: 24,
+              height: 24,
+            ),
+          )
+        ],
+        title: Row(
+          children: [
+            SvgPicture.asset(AppImage.emoji),
+            Text(
+              selectedCategory.name,
+              style: TextStyle(
+                color: Color(0xff191919).withOpacity(0.87),
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            )
+          ],
+        ),
+      ),
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 22),
+        child: Column(
+          children: [
+            Column(
               children: [
-                Text('결제수단'),
+                LabelTitle(title: '결제수단'),
                 ListTile(
-                  title: Text("공동지출"),
+                  title: Row(children: [SvgPicture.asset(AppImage.iconGroup), Text("공동지출")]),
                   trailing: Radio<PaymentType>(
                     value: PaymentType.SHARED,
                     groupValue: _selectedPaymentType,
@@ -62,7 +100,7 @@ class _AddSpendingPaymentScreenState extends State<AddSpendingPaymentScreen> {
                   },
                 ),
                 ListTile(
-                  title: Text("개인지출"),
+                  title: Row(children: [SvgPicture.asset(AppImage.iconPrivate), Text("개인지출")]),
                   trailing: Radio<PaymentType>(
                     value: PaymentType.PRIVATE,
                     groupValue: _selectedPaymentType,
@@ -80,32 +118,32 @@ class _AddSpendingPaymentScreenState extends State<AddSpendingPaymentScreen> {
                 )
               ],
             ),
-          ),
-          Text('결제수단'),
-          Container(
-            child: Column(
-              children: sharedPayments.map((payment) => _PaymentView(name: payment.name, iconId: payment.iconId))
-                  .toList(),
+            LabelTitle(title: '결제수단'),
+            Container(
+              child: Column(
+                children:
+                    sharedPayments.map((payment) => _PaymentView(name: payment.name, iconId: payment.iconId)).toList(),
+              ),
             ),
-          ),
-          Container(
-            child: Column(
-              children: members.map((member) =>
-                  Row(
-                    children: member.payments.map(
-                            (payment) => _PaymentView(name: payment.name, iconId: payment.iconId)
-                    ).toList(),
-                  )).toList(),
-            ),
-          )
-        ],
+            Container(
+              child: Column(
+                children: members
+                    .map((member) => Row(
+                          children: member.payments
+                              .map((payment) => _PaymentView(name: payment.name, iconId: payment.iconId))
+                              .toList(),
+                        ))
+                    .toList(),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
 }
 
 class _PaymentView extends StatelessWidget {
-
   final int iconId;
   final String name;
 

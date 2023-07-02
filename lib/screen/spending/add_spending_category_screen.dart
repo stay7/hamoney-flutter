@@ -43,7 +43,6 @@ class _AddSpendingCategoryScreenState extends State<AddSpendingCategoryScreen> {
       listener: (content, state) {
         if (state is SelectingCategory) {
           selectedCategory = state.selectedCategory;
-          print(selectedCategory);
         }
       },
       builder: (context, state) {
@@ -83,59 +82,74 @@ class _AddSpendingCategoryScreenState extends State<AddSpendingCategoryScreen> {
                 ),
               ),
             ),
-            body: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  width: double.infinity,
-                  child: Text('소비한 내역'),
-                ),
-                Container(
-                  decoration: const BoxDecoration(color: Color(0xFFE5E8EC)),
-                  child: TabBar(
-                    labelColor: Colors.black,
-                    labelStyle: TextStyle(fontWeight: FontWeight.bold),
-                    unselectedLabelColor: Colors.black,
-                    unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
-                    indicatorPadding: EdgeInsets.all(3),
-                    indicator: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(9)),
-                    tabs: categories.map((category) => Tab(text: category.name)).toList(),
-                    // indicator: BoxDecoration(borderRadius: BorderRadius.circular(20), color: Colors.white),
+            body: Container(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: double.infinity,
+                    child: Text('소비한 내역'),
                   ),
-                ),
-                Container(
-                  height: 180,
-                  child: TabBarView(
-                    children: categories
-                        .map((category) => Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: category.subCategories
-                                  .map(
-                                    (e) => _SubCategoryView(
-                                      subCategory: e,
-                                      selected: selectedCategory != null && selectedCategory == e,
-                                    ),
-                                  )
-                                  .toList(),
-                            ))
-                        .toList(),
-                  ),
-                ),
-                Text('메모'),
-                TextFormField(
-                  keyboardType: TextInputType.text,
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                  decoration: InputDecoration(
-                    suffixIcon: IconButton(
-                      icon: Icon(Icons.close),
-                      onPressed: _controller.clear,
+                  Container(
+                    decoration: ShapeDecoration(
+                      color: Color(0xFFE5E8EC),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
-                    border: OutlineInputBorder(),
+                    child: TabBar(
+                      labelColor: Colors.black,
+                      labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                      unselectedLabelColor: Colors.black,
+                      unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal, fontSize: 12),
+                      indicatorPadding: EdgeInsets.all(3),
+                      indicator: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(9)),
+                      tabs: categories
+                          .map((category) => Container(height: 32, width: 50, child: Tab(text: category.name)))
+                          .toList(),
+                    ),
                   ),
-                  showCursor: false,
-                ),
-              ],
+                  Container(
+                    height: 180,
+                    child: TabBarView(
+                      children: categories
+                          .map((category) => Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: category.subCategories
+                                    .map(
+                                      (e) => _SubCategoryView(
+                                        subCategory: e,
+                                        selected: selectedCategory != null && selectedCategory == e,
+                                      ),
+                                    )
+                                    .toList(),
+                              ))
+                          .toList(),
+                    ),
+                  ),
+                  Text(
+                    '메모',
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Colors.black.withOpacity(0.5),
+                    ),
+                  ),
+                  TextFormField(
+                    keyboardType: TextInputType.text,
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w400),
+                    decoration: InputDecoration(
+                      suffixIcon: IconButton(
+                        icon: Icon(Icons.close),
+                        onPressed: _controller.clear,
+                      ),
+                      border: OutlineInputBorder(),
+                    ),
+                    showCursor: false,
+                  ),
+                ],
+              ),
             ),
           ),
         );

@@ -5,7 +5,6 @@ import 'package:hamoney/bloc/login/login_bloc.dart';
 import 'package:hamoney/bloc/signup/signup_join_bloc.dart';
 import 'package:hamoney/repository/account_book_repository.dart';
 import 'package:hamoney/repository/auth_repository.dart';
-import 'package:hamoney/repository/member_repository.dart';
 import 'package:hamoney/repository/ui_repository.dart';
 import 'package:hamoney/repository/spending_repository.dart';
 import 'package:hamoney/repository/user_repository.dart';
@@ -114,7 +113,7 @@ abstract class HamoneyRoute {
           create: (context) => AddSpendingPaymentBloc(
             spendingRepository: context.read<SpendingRepository>(),
             accountBookRepository: context.read<AccountBookRepository>(),
-            memberRepository: context.read<MemberRepository>(),
+            memberRepository: getIt.get(),
           ),
           child: AddSpendingPaymentScreen(),
         );
