@@ -6,6 +6,7 @@ import 'package:hamoney/screen/spending/bloc/add_spending_amount_bloc.dart';
 import 'package:hamoney/screen/spending/add_spending_category_screen.dart';
 import 'package:hamoney/widgets/hamoney_color_button.dart';
 import 'package:intl/intl.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class AddSpendingAmountScreen extends StatefulWidget {
   static const routeName = 'add_spending_amount';
@@ -18,10 +19,12 @@ class AddSpendingAmountScreen extends StatefulWidget {
 
 class _AddSpendingAmountScreenState extends State<AddSpendingAmountScreen> {
   final TextEditingController _amountController = TextEditingController();
+  AddSpendingAmountBloc? bloc;
 
   @override
   void initState() {
     super.initState();
+    bloc = context.read<AddSpendingAmountBloc>();
   }
 
   @override
@@ -32,8 +35,6 @@ class _AddSpendingAmountScreenState extends State<AddSpendingAmountScreen> {
 
   @override
   Widget build(BuildContext context) {
-    DateTime date = DateTime.now();
-
     return BlocConsumer<AddSpendingAmountBloc, AddSpendingAmountState>(
       listener: (context, state) {
         if (state is SpendingAmountEntered) {
@@ -41,10 +42,6 @@ class _AddSpendingAmountScreenState extends State<AddSpendingAmountScreen> {
         }
       },
       builder: (context, state) {
-        if (state is AddSpendingAmountInitial) {
-          date = state.selectedDate;
-        }
-
         return Scaffold(
           appBar: AppBar(
             title: Text(
@@ -69,7 +66,7 @@ class _AddSpendingAmountScreenState extends State<AddSpendingAmountScreen> {
                     child: Row(
                       children: [
                         Text(
-                          DateFormat('yyyy년 MM월 dd일').format(date.toLocal()),
+                          DateFormat('yyyy년 MM월 dd일').format(bloc!.selectedDate.toLocal()),
                           style: const TextStyle(color: Color(0xff191919), fontSize: 20, fontWeight: FontWeight.bold),
                         ),
                         const Icon(
@@ -79,6 +76,17 @@ class _AddSpendingAmountScreenState extends State<AddSpendingAmountScreen> {
                       ],
                     ),
                   ),
+                  onTap: () async {
+                    final DateTime? pickedDateTime = await showDatePicker(
+                      context: context,
+                      initialDate: bloc!.selectedDate,
+                      firstDate: DateTime(2022),
+                      lastDate: DateTime(2100),
+                    );
+                    if (pickedDateTime != null && !isSameDay(pickedDateTime, bloc!.selectedDate)) {
+                      bloc!.add(DateChanging(pickedDateTime));
+                    }
+                  },
                 ),
                 Container(
                   width: 341,

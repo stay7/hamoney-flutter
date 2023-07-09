@@ -4,9 +4,9 @@ part of 'add_spending_amount_bloc.dart';
 abstract class AddSpendingAmountState {}
 
 class AddSpendingAmountInitial extends AddSpendingAmountState {
-  AddSpendingAmountInitial({required this.selectedDate});
-
-  final DateTime selectedDate;
+  AddSpendingAmountInitial();
 }
 
 class SpendingAmountEntered extends AddSpendingAmountState {}
+
+class DateChanged extends AddSpendingAmountState {}

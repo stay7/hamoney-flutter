@@ -93,7 +93,7 @@ abstract class HamoneyRoute {
       case AddSpendingAmountScreen.routeName:
         screen = BlocProvider<AddSpendingAmountBloc>(
           create: (context) => AddSpendingAmountBloc(
-            dateRepository: context.read<UIRepository>(),
+            uiRepository: context.read<UIRepository>(),
             spendingRepository: context.read<SpendingRepository>(),
           ),
           child: AddSpendingAmountScreen(),

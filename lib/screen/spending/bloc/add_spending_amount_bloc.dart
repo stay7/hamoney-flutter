@@ -9,17 +9,30 @@ part 'add_spending_amount_state.dart';
 
 class AddSpendingAmountBloc extends Bloc<AddSpendingAmountEvent, AddSpendingAmountState> {
   AddSpendingAmountBloc({
-    required this.dateRepository,
+    required this.uiRepository,
     required this.spendingRepository,
-  }) : super(AddSpendingAmountInitial(selectedDate: dateRepository.selectedDate)) {
+  }) : super(AddSpendingAmountInitial()) {
+    spendingRepository.selectedDateTime = uiRepository.selectedDate;
+
     on<AmountEntered>(_onAmountEntered);
+    on<DateChanging>(_onDateChanged);
   }
 
-  final UIRepository dateRepository;
+  final UIRepository uiRepository;
   final SpendingRepository spendingRepository;
 
   void _onAmountEntered(AmountEntered event, Emitter<AddSpendingAmountState> emit) {
     spendingRepository.amount = event.amount;
     emit(SpendingAmountEntered());
+  }
+
+  void _onDateChanged(DateChanging event, Emitter<AddSpendingAmountState> emit) {
+    spendingRepository.selectedDateTime = event.selectedDateTime;
+    emit(DateChanged());
+  }
+
+  DateTime get selectedDate {
+    spendingRepository.selectedDateTime ??= uiRepository.selectedDate;
+    return spendingRepository.selectedDateTime!;
   }
 }

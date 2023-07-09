@@ -19,10 +19,10 @@ class CustomDioLogger extends Interceptor {
   CustomDioLogger(
       this.dioName, {
         this.request = true,
-        this.requestHeader = true,
-        this.requestBody = true,
+        this.requestHeader = false,
+        this.requestBody = false,
         this.responseHeader = false,
-        this.responseBody = true,
+        this.responseBody = false,
         this.error = true,
         this.maxWidth = 90,
         this.compact = true,

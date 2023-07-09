@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:hamoney/client/auth_client.dart';
+import 'package:hamoney/dio/CustomDioLogger.dart';
 import 'package:hamoney/model/oauth_token.dart';
 
 class AuthDio {
@@ -16,6 +17,7 @@ class AuthDio {
     this.oAuthToken = oAuthToken;
 
     dio.interceptors.clear();
+    dio.interceptors.add(CustomDioLogger('authDio'));
     dio.interceptors.add(InterceptorsWrapper(
       onRequest: _onRequest,
       onError: _onError,
@@ -29,8 +31,10 @@ class AuthDio {
   }
 
   void _onError(DioError error, ErrorInterceptorHandler handler) async {
-    final response = error.response!;
-    final failedOptions = error.response!.requestOptions;
+    final response = error.response;
+    if (response == null) return;
+
+    final failedOptions = response.requestOptions;
 
     if (response.data['status'] == 1000) {
       final refreshResponse = await _authClient.refresh(oAuthToken.refreshToken);

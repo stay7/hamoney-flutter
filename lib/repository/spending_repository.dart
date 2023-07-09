@@ -8,6 +8,7 @@ class SpendingRepository {
 
   SpendingRepository({required SpendingDataSource dataSource}) : _dataSource = dataSource;
 
+  DateTime? selectedDateTime;
   SubCategory? selectedSubCategory;
   int amount = 0;
 

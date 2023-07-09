@@ -8,3 +8,9 @@ class AmountEntered extends AddSpendingAmountEvent {
 
   AmountEntered(this.amount);
 }
+
+class DateChanging extends AddSpendingAmountEvent {
+  final DateTime selectedDateTime;
+
+  DateChanging(this.selectedDateTime);
+}
