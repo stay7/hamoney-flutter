@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hamoney/widgets/calendar_today.dart';
+import 'package:hamoney/widgets/day_circle.dart';
 import 'package:hamoney/widgets/hamoney_navigation_bar.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../bloc/home/home_bloc.dart';
-import '../../widgets/calendar_selected_day.dart';
 
 class Event {
   final String title;
@@ -93,26 +92,40 @@ class _HomeTabState extends State<HomeTab> {
                   ),
                   calendarBuilders: CalendarBuilders(
                     defaultBuilder: (context, day, focusedDay) {
-                      return Center(
-                        child: Text(
-                          DateFormat('d').format(day),
-                          style: TextStyle(color: Color(0xFF6A6A6A)),
-                        ),
+                      return DayCircle(
+                        date: day,
+                        type: DayCircleType.EMPTY,
                       );
                     },
                     dowBuilder: (context, day) {
-                      return Center(
-                        child: Text(
-                          DateFormat.E('ko_KR').format(day),
-                          style: const TextStyle(color: Color(0xFF0D0D0D), fontSize: 12),
-                        ),
-                      );
+                      String dayText = DateFormat.E('ko_KR').format(day);
+                      bool isToday = isSameDay(DateTime.now(), day);
+                      return isToday
+                          ? Center(
+                              child: Text(
+                                '오늘',
+                                style: const TextStyle(
+                                  color: Color(0xFF191919),
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            )
+                          : Center(
+                              child: Text(
+                                dayText,
+                                style: const TextStyle(
+                                  color: Color(0x99191919),
+                                  fontSize: 10,
+                                ),
+                              ),
+                            );
                     },
                     selectedBuilder: (context, date, _) {
-                      return state.isToday ? CalendarToday(date: date) : CalendarSelectedDay(date: date);
+                      return DayCircle(date: date, type: DayCircleType.SELECTED);
                     },
                     todayBuilder: (context, date, _) {
-                      return CalendarToday(date: date);
+                      return DayCircle(date: date, type: DayCircleType.TODAY);
                     },
                   ),
                 ),
