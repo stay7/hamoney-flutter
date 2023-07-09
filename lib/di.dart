@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hamoney/client/signup_client.dart';
-import 'package:hamoney/db/account_book_box.dart';
-import 'package:hamoney/db/member_box.dart';
+import 'package:hamoney/db/account_book_hive.dart';
+import 'package:hamoney/db/member_hive.dart';
+import 'package:hamoney/db/spending_datasource.dart';
 import 'package:hamoney/repository/account_book_repository.dart';
 import 'package:hamoney/repository/auth_repository.dart';
 import 'package:hamoney/client/account_book_client.dart';
@@ -57,7 +58,11 @@ class DI {
     getIt.registerSingleton<AuthRepository>(AuthRepository(authClient: getIt.get()));
     getIt.registerSingleton<UserRepository>(UserRepository(userHive: getIt.get()));
     getIt.registerSingleton<UIRepository>(UIRepository());
-    getIt.registerSingleton<SpendingRepository>(SpendingRepository());
+
+    final spendingDataSource = SpendingDataSource();
+    await spendingDataSource.initDB();
+    getIt.registerSingleton(spendingDataSource);
+    getIt.registerSingleton<SpendingRepository>(SpendingRepository(dataSource: getIt.get()));
     getIt.registerSingleton<MemberRepository>(MemberRepository(
       memberHive: getIt.get(),
       accountBookClient: getIt.get(),

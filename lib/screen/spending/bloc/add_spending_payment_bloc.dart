@@ -27,7 +27,7 @@ class AddSpendingPaymentBloc extends Bloc<AddSpendingPaymentEvent, AddSpendingPa
         super(AddSpendingPaymentInitial(
             members: memberRepository.members,
             sharedPayments: accountBookRepository.accountBook.payments,
-            selectedCategory: spendingRepository.selectedSubCategory)) {
+            selectedCategory: spendingRepository.selectedSubCategory!)) {
     on<AddSpendingPaymentEvent>((event, emit) {});
   }
 }

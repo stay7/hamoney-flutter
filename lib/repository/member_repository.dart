@@ -1,7 +1,7 @@
 import 'package:hamoney/client/account_book_client.dart';
 
 import '../client/response/member_response.dart';
-import '../db/member_box.dart';
+import '../db/member_hive.dart';
 import '../model/member.dart';
 import '../model/member_pay.dart';
 

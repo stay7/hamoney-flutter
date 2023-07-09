@@ -115,28 +115,74 @@ class _AddSpendingPaymentScreenState extends State<AddSpendingPaymentScreen> {
                       _selectedPaymentType = PaymentType.PRIVATE;
                     });
                   },
-                )
+                ),
+                if (_selectedPaymentType == PaymentType.PRIVATE)
+                  Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: members.map((e) => _MembersView(member: e)).toList(),
+                    ),
+                  )
               ],
             ),
             LabelTitle(title: '결제수단'),
-            Container(
-              child: Column(
-                children:
-                    sharedPayments.map((payment) => _PaymentView(name: payment.name, iconId: payment.iconId)).toList(),
-              ),
-            ),
-            Container(
-              child: Column(
-                children: members
-                    .map((member) => Row(
-                          children: member.payments
-                              .map((payment) => _PaymentView(name: payment.name, iconId: payment.iconId))
-                              .toList(),
-                        ))
-                    .toList(),
-              ),
-            )
+            _selectedPaymentType == PaymentType.SHARED
+                ? Container(
+                    child: Column(
+                      children: sharedPayments
+                          .map((payment) => _PaymentView(name: payment.name, iconId: payment.iconId))
+                          .toList(),
+                    ),
+                  )
+                : Container(
+                    child: Column(
+                        children: members
+                            .map(
+                              (member) => Row(
+                                children: member.payments
+                                    .map((payment) => _PaymentView(name: payment.name, iconId: payment.iconId))
+                                    .toList(),
+                              ),
+                            )
+                            .toList()),
+                  ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class _MembersView extends StatefulWidget {
+  final Member member;
+
+  const _MembersView({required this.member});
+
+  @override
+  State<_MembersView> createState() => _MembersViewState();
+}
+
+class _MembersViewState extends State<_MembersView> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 120,
+      height: 48,
+      decoration: ShapeDecoration(
+        color: Colors.white,
+        shape: RoundedRectangleBorder(
+          side: BorderSide(
+            width: 0.50,
+            color: Colors.black.withOpacity(0.5),
+          ),
+          borderRadius: BorderRadius.circular(12),
+        ),
+      ),
+      child: Center(
+        child: Text(
+          widget.member.nickname,
+          style: TextStyle(fontSize: 14, color: Color(0xff191919), fontWeight: FontWeight.w500),
         ),
       ),
     );

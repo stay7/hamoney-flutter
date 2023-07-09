@@ -1,11 +1,8 @@
-import 'package:hamoney/db/account_book_box.dart';
 import 'package:hamoney/repository/account_book_repository.dart';
 import 'package:hamoney/client/status_client.dart';
 import 'package:hamoney/repository/member_repository.dart';
 import 'package:hamoney/repository/user_repository.dart';
 
-import '../db/member_box.dart';
-import '../db/user_hive.dart';
 import 'load_required.dart';
 
 class UpdateStatus {

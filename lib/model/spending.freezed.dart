@@ -20,21 +20,13 @@ Spending _$SpendingFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Spending {
-  @HiveField(0)
   int get id => throw _privateConstructorUsedError;
-  @HiveField(1)
   String get spendAt => throw _privateConstructorUsedError;
-  @HiveField(2)
   int get amount => throw _privateConstructorUsedError;
-  @HiveField(3)
   int get categoryId => throw _privateConstructorUsedError;
-  @HiveField(4)
   int get subCategoryId => throw _privateConstructorUsedError;
-  @HiveField(5)
   int get paymentId => throw _privateConstructorUsedError;
-  @HiveField(6)
   bool get skipSum => throw _privateConstructorUsedError;
-  @HiveField(7)
   String? get memo => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -49,14 +41,14 @@ abstract class $SpendingCopyWith<$Res> {
       _$SpendingCopyWithImpl<$Res, Spending>;
   @useResult
   $Res call(
-      {@HiveField(0) int id,
-      @HiveField(1) String spendAt,
-      @HiveField(2) int amount,
-      @HiveField(3) int categoryId,
-      @HiveField(4) int subCategoryId,
-      @HiveField(5) int paymentId,
-      @HiveField(6) bool skipSum,
-      @HiveField(7) String? memo});
+      {int id,
+      String spendAt,
+      int amount,
+      int categoryId,
+      int subCategoryId,
+      int paymentId,
+      bool skipSum,
+      String? memo});
 }
 
 /// @nodoc
@@ -126,14 +118,14 @@ abstract class _$$_SpendingCopyWith<$Res> implements $SpendingCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@HiveField(0) int id,
-      @HiveField(1) String spendAt,
-      @HiveField(2) int amount,
-      @HiveField(3) int categoryId,
-      @HiveField(4) int subCategoryId,
-      @HiveField(5) int paymentId,
-      @HiveField(6) bool skipSum,
-      @HiveField(7) String? memo});
+      {int id,
+      String spendAt,
+      int amount,
+      int categoryId,
+      int subCategoryId,
+      int paymentId,
+      bool skipSum,
+      String? memo});
 }
 
 /// @nodoc
@@ -197,41 +189,33 @@ class __$$_SpendingCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_Spending with DiagnosticableTreeMixin implements _Spending {
   const _$_Spending(
-      {@HiveField(0) required this.id,
-      @HiveField(1) required this.spendAt,
-      @HiveField(2) required this.amount,
-      @HiveField(3) required this.categoryId,
-      @HiveField(4) required this.subCategoryId,
-      @HiveField(5) required this.paymentId,
-      @HiveField(6) required this.skipSum,
-      @HiveField(7) this.memo});
+      {required this.id,
+      required this.spendAt,
+      required this.amount,
+      required this.categoryId,
+      required this.subCategoryId,
+      required this.paymentId,
+      required this.skipSum,
+      this.memo});
 
   factory _$_Spending.fromJson(Map<String, dynamic> json) =>
       _$$_SpendingFromJson(json);
 
   @override
-  @HiveField(0)
   final int id;
   @override
-  @HiveField(1)
   final String spendAt;
   @override
-  @HiveField(2)
   final int amount;
   @override
-  @HiveField(3)
   final int categoryId;
   @override
-  @HiveField(4)
   final int subCategoryId;
   @override
-  @HiveField(5)
   final int paymentId;
   @override
-  @HiveField(6)
   final bool skipSum;
   @override
-  @HiveField(7)
   final String? memo;
 
   @override
@@ -293,40 +277,32 @@ class _$_Spending with DiagnosticableTreeMixin implements _Spending {
 
 abstract class _Spending implements Spending {
   const factory _Spending(
-      {@HiveField(0) required final int id,
-      @HiveField(1) required final String spendAt,
-      @HiveField(2) required final int amount,
-      @HiveField(3) required final int categoryId,
-      @HiveField(4) required final int subCategoryId,
-      @HiveField(5) required final int paymentId,
-      @HiveField(6) required final bool skipSum,
-      @HiveField(7) final String? memo}) = _$_Spending;
+      {required final int id,
+      required final String spendAt,
+      required final int amount,
+      required final int categoryId,
+      required final int subCategoryId,
+      required final int paymentId,
+      required final bool skipSum,
+      final String? memo}) = _$_Spending;
 
   factory _Spending.fromJson(Map<String, dynamic> json) = _$_Spending.fromJson;
 
   @override
-  @HiveField(0)
   int get id;
   @override
-  @HiveField(1)
   String get spendAt;
   @override
-  @HiveField(2)
   int get amount;
   @override
-  @HiveField(3)
   int get categoryId;
   @override
-  @HiveField(4)
   int get subCategoryId;
   @override
-  @HiveField(5)
   int get paymentId;
   @override
-  @HiveField(6)
   bool get skipSum;
   @override
-  @HiveField(7)
   String? get memo;
   @override
   @JsonKey(ignore: true)

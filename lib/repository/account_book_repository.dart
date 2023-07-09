@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:hamoney/db/account_book_box.dart';
+import 'package:hamoney/db/account_book_hive.dart';
 import 'package:hamoney/model/account_book.dart';
 import 'package:hamoney/client/account_book_client.dart';
 import 'package:logger/logger.dart';

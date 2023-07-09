@@ -12,8 +12,11 @@ class BudgetTab extends StatelessWidget {
     return BlocListener<BudgetBloc, BudgetState>(
       listener: (context, state) {},
       child: Scaffold(
-        body: Center(
-          child: Text('Budget'),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Budget'),
+          ],
         ),
         bottomNavigationBar: HamoneyNavigationBar(),
       ),

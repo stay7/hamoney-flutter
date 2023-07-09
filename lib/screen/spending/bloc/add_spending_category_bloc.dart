@@ -15,7 +15,7 @@ class AddSpendingCategoryBloc extends Bloc<AddSpendingCategoryEvent, AddSpending
     required this.accountBookRepository,
     required this.spendingRepository,
   }) : super(AddSpendingCategoryInitial(
-          categories: accountBookRepository.accountBook!.categories,
+          categories: accountBookRepository.accountBook.categories,
           amount: spendingRepository.amount,
         )) {
     on<CategorySelect>(_onCategorySelect);
@@ -26,6 +26,6 @@ class AddSpendingCategoryBloc extends Bloc<AddSpendingCategoryEvent, AddSpending
 
   void _onCategorySelect(CategorySelect event, Emitter<AddSpendingCategoryState> emit) {
     spendingRepository.selectedSubCategory = event.category;
-    emit(SelectingCategory(spendingRepository.selectedSubCategory));
+    emit(SelectingCategory(spendingRepository.selectedSubCategory!));
   }
 }

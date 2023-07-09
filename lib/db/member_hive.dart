@@ -1,7 +1,6 @@
 import 'package:hamoney/model/member.dart';
 import 'package:hamoney/model/member_pay.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:collection/collection.dart';
 
 class MemberHive {
   static const String memberKey = "box_member";
